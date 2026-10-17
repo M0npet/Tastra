@@ -210,6 +210,7 @@ add_library(tastra-app STATIC
     src/app/voicecontroller.cpp
     src/app/uitranslator.cpp
     src/app/qtsystemclipboard.cpp
+    src/app/clipboardimageprovider.cpp
     src/app/terminationsaver.cpp
 )
 
@@ -226,6 +227,7 @@ target_link_libraries(tastra-app
         Qt6::DBus
         Qt6::Gui
         Qt6::Qml
+        Qt6::Quick
 )
 
 qt_add_executable(tastra

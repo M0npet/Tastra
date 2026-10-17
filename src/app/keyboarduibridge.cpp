@@ -4,6 +4,7 @@
 #include "core/voicecommands.h"
 #include "uitranslator.h"
 #include "qtsystemclipboard.h"
+#include "clipboardimageprovider.h"
 #include "core/keychords.h"
 
 #include <QQmlEngine>
@@ -169,8 +170,14 @@ void KeyboardUiBridge::setSystemClipboard(SystemClipboard *clipboard)
     captureClipboard();
     connect(m_clipboard, &SystemClipboard::changed, this, [this]() {
         captureClipboard();
+        ++m_clipboardRevision;
         // A password manager's secret is pasted on request only.
         m_freshClipboard = m_clipboard->isSensitive() ? QString() : clipboardText().trimmed();
+        m_freshClipboardImage.clear();
+        if (m_freshClipboard.isEmpty() && !m_clipboard->image().isEmpty() && !m_clipboard->isSensitive()) {
+            const QString key = ClipboardHistory::imageKey(m_clipboard->image(), m_clipboard->imageMime());
+            if (key != m_pastedImage) m_freshClipboardImage = key;      // not the one just pasted from here
+        }
         m_freshClipboardMs = QDateTime::currentMSecsSinceEpoch();
         Q_EMIT clipboardChanged();
         Q_EMIT suggestionsChanged();
@@ -940,7 +947,16 @@ void KeyboardUiBridge::setUiLanguage(const QString &setting)
     applyUiLanguage();
 }
 
-void KeyboardUiBridge::setQmlEngine(QQmlEngine *engine) { m_qmlEngine = engine; }
+void KeyboardUiBridge::setQmlEngine(QQmlEngine *engine)
+{
+    m_qmlEngine = engine;
+    if (engine && !engine->imageProvider(QStringLiteral("tastraclipboard"))) {
+        QPointer<KeyboardUiBridge> self(this);
+        engine->addImageProvider(QStringLiteral("tastraclipboard"), new ClipboardImageProvider([self](const QString &id) {
+            return self ? self->clipboardImageBytes(id) : QByteArray();
+        }));
+    }
+}
 
 void KeyboardUiBridge::cycleUiLanguage()
 {
@@ -1714,7 +1730,79 @@ QString KeyboardUiBridge::endGlidePath(const QVariantList &points, const QVarian
 void KeyboardUiBridge::captureClipboard()
 {
     if (m_clipboard && m_clipboard->isSensitive()) return;   // never kept
-    m_clipboardHistory.capture(clipboardText());
+    const QString text = clipboardText();
+    if (text.isEmpty() && m_clipboard && !m_clipboard->image().isEmpty()) {
+        m_clipboardHistory.captureImage(m_clipboard->image(), m_clipboard->imageMime());
+        return;
+    }
+    m_clipboardHistory.capture(text);
+}
+
+namespace
+{
+const QString ImageSourcePrefix = QStringLiteral("image://tastraclipboard/");
+}
+
+QString KeyboardUiBridge::clipboardImage() const
+{
+    if (!m_clipboard || m_clipboard->image().isEmpty() || !m_clipboard->text().isEmpty()) return {};
+    return ImageSourcePrefix + QStringLiteral("current/") + QString::number(m_clipboardRevision);
+}
+
+QString KeyboardUiBridge::clipboardImageSuggestion() const
+{
+    if (m_secureInput || m_freshClipboardImage.isEmpty() || !m_typingEngine.currentWord().isEmpty()) return {};
+    if (QDateTime::currentMSecsSinceEpoch() - m_freshClipboardMs > 60 * 1000) return {};
+    return clipboardItemImage(m_freshClipboardImage);
+}
+
+QString KeyboardUiBridge::clipboardItemImage(const QString &item) const
+{
+    if (!ClipboardHistory::isImage(item)) return {};
+    return ImageSourcePrefix + item.section(QLatin1Char(':'), 1);        // "<sha1>.<ext>"
+}
+
+QByteArray KeyboardUiBridge::clipboardImageBytes(const QString &id) const
+{
+    if (id.startsWith(QLatin1String("current/"))) return m_clipboard ? m_clipboard->image() : QByteArray();
+    for (const QString &item : m_clipboardHistory.items()) {
+        if (ClipboardHistory::isImage(item) && item.section(QLatin1Char(':'), 1) == id) return m_clipboardHistory.imageData(item);
+    }
+    return {};
+}
+
+void KeyboardUiBridge::sendPasteChord()
+{
+    if (!m_chords || m_secureInput) return;
+    m_typingEngine.commitComposition();
+    m_typingEngine.resetComposition();
+    m_chords->send({EvdevKey::LeftCtrl}, EvdevKey::V);
+}
+
+void KeyboardUiBridge::pasteImage(const QString &key)
+{
+    const QByteArray data = m_clipboardHistory.imageData(key);
+    if (data.isEmpty() || !m_clipboard || m_secureInput) return;
+    // The image goes on the clipboard, then the application pastes it
+    // itself (Ctrl+V): an input method can only send text. Where Ctrl+V
+    // does nothing (a plain text field), it stays on the clipboard.
+    m_pastedImage = key;
+    m_freshClipboardImage.clear();
+    m_clipboard->setImage(data, ClipboardHistory::imageMimeForKey(key));
+    sendPasteChord();
+    Q_EMIT suggestionsChanged();
+}
+
+void KeyboardUiBridge::pasteClipboardImageSuggestion()
+{
+    cancelInlineFields();
+    const QString key = m_freshClipboardImage;
+    if (clipboardImageSuggestion().isEmpty()) return;
+    m_freshClipboardImage.clear();
+    // It is on the clipboard already.
+    m_pastedImage = key;
+    sendPasteChord();
+    Q_EMIT suggestionsChanged();
 }
 
 void KeyboardUiBridge::pasteClipboard()
@@ -1726,6 +1814,8 @@ void KeyboardUiBridge::pasteClipboard()
         m_typingEngine.resetComposition();
         m_controller.tapText(text);
         Q_EMIT suggestionsChanged();
+    } else if (!clipboardImage().isEmpty()) {
+        sendPasteChord();
     }
 }
 
@@ -1734,6 +1824,10 @@ void KeyboardUiBridge::pasteClipboardHistory(int index)
     cancelInlineFields();
     const auto items = m_clipboardHistory.items();
     if (index < 0 || index >= items.size()) return;
+    if (ClipboardHistory::isImage(items.at(index))) {
+        pasteImage(items.at(index));
+        return;
+    }
     m_typingEngine.commitComposition();
     m_typingEngine.resetComposition();
     m_controller.tapText(items.at(index));

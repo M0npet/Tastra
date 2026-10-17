@@ -5,6 +5,8 @@
 // behaviour that unit tests of the bridge alone cannot observe.
 
 #include <QtTest/QTest>
+#include <QMimeData>
+#include <QBuffer>
 #include <QFile>
 #include <QImage>
 #include <QTemporaryDir>
@@ -1207,6 +1209,74 @@ private Q_SLOTS:
         other.rootContext()->setContextProperty(QStringLiteral("keyboardBridge"), &plain);
         other.setSource(QUrl::fromLocalFile(QStringLiteral(TASTRA_MAIN_QML)));
         QVERIFY(!findNamed(other.rootObject(), QStringLiteral("hideKeyboardButton")));
+    }
+
+    void copiedImagesShowInTheStripAndThePanel()
+    {
+        FakeBackend backend;
+        Tastra::KeyboardController controller(backend);
+        Tastra::KeyboardModel model;
+        Tastra::KeyboardUiBridge bridge(controller, model);
+        FakeChords chords;
+        bridge.setKeyChordSender(&chords);
+        bridge.clearClipboardHistory();
+        QQuickView view;
+        view.setResizeMode(QQuickView::SizeRootObjectToView);
+        bridge.setQmlEngine(view.engine());                       // the image provider
+        view.rootContext()->setContextProperty(QStringLiteral("keyboardBridge"), &bridge);
+        view.setSource(QUrl::fromLocalFile(QStringLiteral(TASTRA_MAIN_QML)));
+        view.resize(1280, 420);
+        view.show();
+        QVERIFY(QTest::qWaitForWindowExposed(&view));
+
+        // A screenshot is copied in another application.
+        QImage shot(160, 90, QImage::Format_RGB32);
+        shot.fill(QColor(30, 120, 220));
+        QByteArray png;
+        QBuffer buffer(&png);
+        buffer.open(QIODevice::WriteOnly);
+        shot.save(&buffer, "PNG");
+        auto *mime = new QMimeData;
+        mime->setData(QStringLiteral("image/png"), png);
+        QGuiApplication::clipboard()->setMimeData(mime);
+        QTRY_VERIFY(!bridge.clipboardImageSuggestion().isEmpty());
+        QQuickItem *chip = findNamed(view.rootObject(), QStringLiteral("clipboardImageChip"));
+        QTRY_VERIFY(chip && chip->isVisible());
+        QQuickItem *thumb = nullptr;
+        for (QQuickItem *child : chip->childItems()) {
+            if (child->property("status").isValid() && child->property("source").toString().startsWith(QStringLiteral("image://")))
+                thumb = child;
+        }
+        QVERIFY(thumb);
+        QTRY_COMPARE(thumb->property("status").toInt(), 1);         // Image.Ready: decoded by the provider
+        QTest::qWait(100);
+        if (qEnvironmentVariableIsSet("TASTRA_SCREENSHOT")) view.grabWindow().save(qEnvironmentVariable("TASTRA_SCREENSHOT"));
+        QTest::mouseClick(&view, Qt::LeftButton, {}, chip->mapToScene(QPointF(chip->width() / 2, chip->height() / 2)).toPoint());
+        QTRY_COMPARE(chords.sent.size(), 1);                        // the application pastes it
+        QTRY_VERIFY(!chip->isVisible());
+
+        // In the panel: the picture, tap pastes it again.
+        QGuiApplication::clipboard()->setText(QStringLiteral("later text"));
+        bridge.activateToolbarAction(QStringLiteral("clipboard"));
+        QTRY_VERIFY(findNamed(view.rootObject(), QStringLiteral("clipboardImageItem")));
+        QQuickItem *item = nullptr;
+        QTRY_VERIFY((item = [&]() -> QQuickItem * {
+            QList<QQuickItem *> stack{view.rootObject()};
+            while (!stack.isEmpty()) {
+                QQuickItem *it = stack.takeLast();
+                if (it->objectName() == QLatin1String("clipboardImageItem") && it->isVisible()) return it;
+                stack += it->childItems();
+            }
+            return nullptr;
+        }()));
+        QTRY_COMPARE(item->property("status").toInt(), 1);
+        if (qEnvironmentVariableIsSet("TASTRA_SCREENSHOT2")) view.grabWindow().save(qEnvironmentVariable("TASTRA_SCREENSHOT2"));
+        QTest::mouseClick(&view, Qt::LeftButton, {}, item->mapToScene(QPointF(item->width() / 4, 6)).toPoint());   // its visible top
+        QTRY_COMPARE(chords.sent.size(), 2);
+        QCOMPARE(QGuiApplication::clipboard()->mimeData()->data(QStringLiteral("image/png")), png);   // back on the clipboard
+        QVERIFY(backend.commits.isEmpty());
+        bridge.setKeyChordSender(nullptr);
+        bridge.clearClipboardHistory();
     }
 
     void clipboardItemsArePinnedWithALongPress()

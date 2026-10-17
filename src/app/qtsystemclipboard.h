@@ -20,6 +20,9 @@ public:
     QString text() const override;
     void setText(const QString &text) override;
     void clear() override;
+    QByteArray image() const override;
+    QString imageMime() const override;
+    void setImage(const QByteArray &data, const QString &mime) override;
 
 private:
     QClipboard *m_clipboard = nullptr;

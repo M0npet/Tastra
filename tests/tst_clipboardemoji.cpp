@@ -1,6 +1,9 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 
 #include <QtTest/QTest>
+#include <QFileInfo>
+#include <QFile>
+#include <QDir>
 
 #include <QCoreApplication>
 #include <QStandardPaths>
@@ -133,6 +136,77 @@ private Q_SLOTS:
         reloaded.setPinned(QStringLiteral("address"), false);
         Tastra::ClipboardHistory again;
         QVERIFY(again.items().isEmpty());
+    }
+
+    void copiedImagesAreKeptAndPinnedOnesGoToDisk()
+    {
+        // Gboard keeps images and screenshots in the clipboard too. Unpinned
+        // ones only in memory (at most five), a pinned one as a file.
+        using Tastra::ClipboardHistory;
+        qint64 now = 5'000'000;
+        const QByteArray png = QByteArray("\x89PNG\r\n\x1a\n", 8) + QByteArray(100, 'a');
+        const QByteArray jpeg = QByteArray("\xff\xd8\xff", 3) + QByteArray(100, 'b');
+        const QString pngKey = ClipboardHistory::imageKey(png, QStringLiteral("image/png"));
+        const QString jpegKey = ClipboardHistory::imageKey(jpeg, QStringLiteral("image/jpeg"));
+        QVERIFY(ClipboardHistory::isImage(pngKey));
+        QVERIFY(!ClipboardHistory::isImage(QStringLiteral("image:abc")));
+        QVERIFY(pngKey.endsWith(QStringLiteral(".png")) && jpegKey.endsWith(QStringLiteral(".jpg")));
+        QCOMPARE(ClipboardHistory::imageMimeForKey(jpegKey), QStringLiteral("image/jpeg"));
+        QString pinnedFile;
+        {
+            ClipboardHistory history;
+            history.setClockForTesting([&now] { return now; });
+            history.clear();
+            history.setEnabled(true);
+            history.capture(QStringLiteral("text"));
+            history.captureImage(png, QStringLiteral("image/png"));
+            history.captureImage(jpeg, QStringLiteral("image/jpeg"));
+            history.captureImage(png, QStringLiteral("image/png"));                 // again: to the top
+            QCOMPARE(history.items(), (QStringList{pngKey, jpegKey, QStringLiteral("text")}));
+            QCOMPARE(history.imageData(pngKey), png);
+            QVERIFY(history.imageData(QStringLiteral("text")).isEmpty());
+            // At most five unpinned images: the oldest goes.
+            for (int i = 0; i < ClipboardHistory::MaxImages; ++i)
+                history.captureImage(QByteArray(50, char('0' + i)), QStringLiteral("image/png"));
+            QVERIFY(!history.items().contains(jpegKey));
+            QVERIFY(!history.items().contains(pngKey));
+            QVERIFY(history.items().contains(QStringLiteral("text")));
+            // Too large: not kept.
+            history.captureImage(QByteArray(ClipboardHistory::MaxImageBytes + 1, 'x'), QStringLiteral("image/png"));
+            QCOMPARE(history.items().size(), ClipboardHistory::MaxImages + 1);
+            // Pinned: a file, which survives a restart.
+            history.captureImage(png, QStringLiteral("image/png"));
+            history.setPinned(pngKey, true);
+            pinnedFile = QStandardPaths::writableLocation(QStandardPaths::AppLocalDataLocation)
+                + QStringLiteral("/clipboard-images/") + pngKey.section(QLatin1Char(':'), 1);
+            QVERIFY(QFile::exists(pinnedFile));
+        }
+        {
+            ClipboardHistory reloaded;
+            reloaded.setClockForTesting([&now] { return now; });
+            QCOMPARE(reloaded.items(), QStringList{pngKey});
+            QCOMPARE(reloaded.imageData(pngKey), png);
+            reloaded.setPinned(pngKey, false);                                      // the file goes
+            QVERIFY(!QFile::exists(pinnedFile));
+            QCOMPARE(reloaded.imageData(pngKey), png);                             // still in memory
+            reloaded.setPinned(pngKey, true);
+            QVERIFY(QFile::exists(pinnedFile));
+            reloaded.removeAt(0);
+            QVERIFY(!QFile::exists(pinnedFile));
+            reloaded.captureImage(jpeg, QStringLiteral("image/jpeg"));
+            reloaded.setPinned(jpegKey, true);
+            reloaded.clear();                                                       // pins too
+            QVERIFY(QDir(QFileInfo(pinnedFile).path()).entryList(QDir::Files).isEmpty());
+        }
+        // A pin whose file is gone is dropped.
+        {
+            ClipboardHistory history;
+            history.captureImage(png, QStringLiteral("image/png"));
+            history.setPinned(pngKey, true);
+        }
+        QVERIFY(QFile::remove(pinnedFile));
+        ClipboardHistory missing;
+        QVERIFY(missing.items().isEmpty());
     }
 
     void skinTonesHideBehindTheBaseEmoji()

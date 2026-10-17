@@ -1,7 +1,12 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 #include "clipboardhistory.h"
 
+#include <QCryptographicHash>
 #include <QDateTime>
+#include <QDir>
+#include <QFile>
+#include <QSaveFile>
+#include <QStandardPaths>
 #include <algorithm>
 #include <QRegularExpression>
 #include <QSettings>
@@ -68,6 +73,116 @@ qint64 ClipboardHistory::now() const
 
 void ClipboardHistory::setClockForTesting(std::function<qint64()> clock) { m_clock = std::move(clock); }
 
+namespace
+{
+const QString ImageMark = QStringLiteral("\uE000image:");
+
+struct ImageType {
+    const char *mime;
+    const char *extension;
+};
+constexpr ImageType ImageTypes[] = {{"image/png", "png"}, {"image/jpeg", "jpg"}, {"image/webp", "webp"},
+                                    {"image/gif", "gif"}, {"image/bmp", "bmp"}};
+}
+
+bool ClipboardHistory::isImage(const QString &item) { return item.startsWith(ImageMark); }
+
+QString ClipboardHistory::imageKey(const QByteArray &data, const QString &mime)
+{
+    QString extension = QStringLiteral("png");
+    for (const ImageType &type : ImageTypes) {
+        if (mime == QLatin1String(type.mime)) extension = QString::fromLatin1(type.extension);
+    }
+    return ImageMark + QString::fromLatin1(QCryptographicHash::hash(data, QCryptographicHash::Sha1).toHex())
+        + QLatin1Char('.') + extension;
+}
+
+QString ClipboardHistory::imageMimeForKey(const QString &key)
+{
+    const QString extension = key.section(QLatin1Char('.'), -1);
+    for (const ImageType &type : ImageTypes) {
+        if (extension == QLatin1String(type.extension)) return QString::fromLatin1(type.mime);
+    }
+    return QStringLiteral("image/png");
+}
+
+QString ClipboardHistory::imageFolder()
+{
+    return QStandardPaths::writableLocation(QStandardPaths::AppLocalDataLocation) + QStringLiteral("/clipboard-images");
+}
+
+QString ClipboardHistory::imageFile(const QString &key)
+{
+    // Only "<hex>.<ext>" reaches the file system.
+    const QString name = key.mid(ImageMark.size());
+    static const QRegularExpression safe(QStringLiteral("^[0-9a-f]{40}\\.[a-z]{3,4}$"));
+    return safe.match(name).hasMatch() ? imageFolder() + QLatin1Char('/') + name : QString();
+}
+
+void ClipboardHistory::writePinnedImage(const Item &item) const
+{
+    const QString path = imageFile(item.text);
+    if (path.isEmpty() || item.image.isEmpty() || QFile::exists(path)) return;
+    QDir().mkpath(imageFolder());
+    QSaveFile file(path);
+    if (file.open(QIODevice::WriteOnly)) {
+        file.write(item.image);
+        file.commit();
+    }
+}
+
+void ClipboardHistory::removePinnedImage(const QString &key)
+{
+    const QString path = imageFile(key);
+    if (!path.isEmpty()) QFile::remove(path);
+}
+
+QByteArray ClipboardHistory::imageData(const QString &item) const
+{
+    if (!isImage(item)) return {};
+    for (const Item &kept : m_items) {
+        if (kept.text != item) continue;
+        if (kept.image.isEmpty() && kept.pinned) {
+            QFile file(imageFile(item));
+            if (file.open(QIODevice::ReadOnly)) kept.image = file.read(MaxImageBytes + 1);
+        }
+        return kept.image;
+    }
+    return {};
+}
+
+void ClipboardHistory::captureImage(const QByteArray &data, const QString &mime)
+{
+    if (!m_enabled || data.isEmpty() || data.size() > MaxImageBytes) return;
+    const QString key = imageKey(data, mime);
+    bool pinned = false;
+    for (qsizetype i = 0; i < m_items.size(); ++i) {
+        if (m_items.at(i).text == key) {
+            pinned = m_items.at(i).pinned;
+            m_items.removeAt(i);
+            break;
+        }
+    }
+    m_items.prepend({key, now(), pinned, data});
+    expire();
+    dropExtraImages();
+    int unpinned = 0;
+    for (qsizetype i = 0; i < m_items.size();) {
+        if (!m_items.at(i).pinned && ++unpinned > m_limit) m_items.removeAt(i);
+        else ++i;
+    }
+}
+
+void ClipboardHistory::dropExtraImages()
+{
+    int images = 0;
+    for (qsizetype i = 0; i < m_items.size();) {
+        const Item &item = m_items.at(i);
+        if (!item.pinned && isImage(item.text) && ++images > MaxImages) m_items.removeAt(i);
+        else ++i;
+    }
+}
+
 void ClipboardHistory::load()
 {
     QSettings settings;
@@ -76,7 +191,9 @@ void ClipboardHistory::load()
     settings.remove(QStringLiteral("clipboardHistory"));
     m_items.clear();
     for (const QString &text : settings.value(QStringLiteral("clipboardPinned")).toStringList()) {
-        if (!text.isEmpty()) m_items.append({text, 0, true});
+        if (text.isEmpty()) continue;
+        if (isImage(text) && !QFile::exists(imageFile(text))) continue;     // its file is gone
+        m_items.append({text, 0, true});
     }
 }
 
@@ -165,12 +282,18 @@ void ClipboardHistory::removeAt(int index)
             break;
         }
     }
-    if (wasPinned) persist();
+    if (wasPinned) {
+        if (isImage(text)) removePinnedImage(text);
+        persist();
+    }
 }
 
 void ClipboardHistory::clear()
 {
     if (m_items.isEmpty()) return;
+    for (const Item &item : std::as_const(m_items)) {
+        if (item.pinned && isImage(item.text)) removePinnedImage(item.text);
+    }
     m_items.clear();
     persist();
 }
@@ -187,6 +310,14 @@ void ClipboardHistory::setPinned(const QString &text, bool pinned)
 {
     for (Item &item : m_items) {
         if (item.text == text && item.pinned != pinned) {
+            if (isImage(text)) {
+                if (pinned) {
+                    writePinnedImage(item);
+                } else {
+                    imageData(text);                // read it before the file goes
+                    removePinnedImage(text);
+                }
+            }
             item.pinned = pinned;
             item.capturedMs = now();               // unpinning restarts the hour
             persist();

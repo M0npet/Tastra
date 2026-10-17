@@ -4,6 +4,7 @@
 
 #include <QClipboard>
 #include <QGuiApplication>
+#include <QMimeData>
 
 namespace Tastra
 {
@@ -26,6 +27,30 @@ void QtSystemClipboard::setText(const QString &text)
 void QtSystemClipboard::clear()
 {
     if (m_clipboard) m_clipboard->clear();
+}
+
+QString QtSystemClipboard::imageMime() const
+{
+    const QMimeData *data = m_clipboard ? m_clipboard->mimeData() : nullptr;
+    if (!data || data->hasText()) return {};
+    for (const QString &mime : imageMimes()) {
+        if (data->hasFormat(mime)) return mime;
+    }
+    return {};
+}
+
+QByteArray QtSystemClipboard::image() const
+{
+    const QString mime = imageMime();
+    return mime.isEmpty() ? QByteArray() : m_clipboard->mimeData()->data(mime);
+}
+
+void QtSystemClipboard::setImage(const QByteArray &data, const QString &mime)
+{
+    if (!m_clipboard || data.isEmpty()) return;
+    auto *mimeData = new QMimeData;
+    mimeData->setData(mime, data);
+    m_clipboard->setMimeData(mimeData);
 }
 
 }

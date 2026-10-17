@@ -30,11 +30,54 @@ namespace
 const char *const TextMimes[] = {"text/plain;charset=utf-8", "UTF8_STRING", "text/plain", "TEXT", "STRING"};
 const char *const PasswordManagerHint = "x-kde-passwordManagerHint";
 constexpr qsizetype MaxClipboardBytes = 4 * 1024 * 1024;
+constexpr qsizetype MaxImageBytes = 24 * 1024 * 1024;        // a screenshot of a large screen
 constexpr int ReadTimeoutMs = 3000;
+constexpr int ImageTimeoutMs = 8000;
 
 void seatCapabilities(void *, wl_seat *, uint32_t) {}
 void seatName(void *, wl_seat *, const char *) {}
 const wl_seat_listener seatListener = {seatCapabilities, seatName};
+
+// Writes a large answer (an image) to the reader's pipe as the reader takes
+// it, without holding the keyboard; gives up after ImageTimeoutMs.
+class PipeWriter final : public QObject
+{
+public:
+    PipeWriter(int fd, const QByteArray &data, QObject *parent)
+        : QObject(parent), m_fd(fd), m_data(data)
+    {
+        fcntl(m_fd, F_SETFL, fcntl(m_fd, F_GETFL) | O_NONBLOCK);
+        m_notifier = new QSocketNotifier(m_fd, QSocketNotifier::Write, this);
+        connect(m_notifier, &QSocketNotifier::activated, this, [this] { writeSome(); });
+        QTimer::singleShot(ImageTimeoutMs, this, [this] { finish(); });
+    }
+    ~PipeWriter() override { if (m_fd >= 0) ::close(m_fd); }
+
+private:
+    void writeSome()
+    {
+        while (m_done < m_data.size()) {
+            const ssize_t n = ::write(m_fd, m_data.constData() + m_done, size_t(m_data.size() - m_done));
+            if (n > 0) { m_done += n; continue; }
+            if (n < 0 && errno == EINTR) continue;
+            if (n < 0 && (errno == EAGAIN || errno == EWOULDBLOCK)) return;      // later
+            break;                                                                  // reader gone
+        }
+        finish();
+    }
+    void finish()
+    {
+        if (m_notifier) m_notifier->setEnabled(false);
+        if (m_fd >= 0) ::close(m_fd);
+        m_fd = -1;
+        deleteLater();
+    }
+
+    int m_fd;
+    QByteArray m_data;
+    qsizetype m_done = 0;
+    QSocketNotifier *m_notifier = nullptr;
+};
 
 // Writes all of `data` to the reader's pipe; a stuck reader cannot hold the
 // keyboard for more than half a second in all (the pipe is made
@@ -187,7 +230,8 @@ void DataControlClipboard::takeSelection(ext_data_control_offer_v1 *offer)
     }
     const QStringList mimes = m_offers.value(offer);
     if (mimes.contains(QString::fromLatin1(m_ownMime))) {
-        setTextFromOffer(QString::fromUtf8(m_sourceData));
+        if (m_sourceImageMime.isEmpty()) setTextFromOffer(QString::fromUtf8(m_sourceData));
+        else setImageFromOffer(m_sourceData, m_sourceImageMime);
         return;
     }
     m_sensitive = mimes.contains(QLatin1String(PasswordManagerHint));
@@ -198,13 +242,27 @@ void DataControlClipboard::takeSelection(ext_data_control_offer_v1 *offer)
             break;
         }
     }
-    if (!chosen) {                                       // an image, files, ...
+    // No text: an image or screenshot (Gboard keeps those too); files and
+    // anything else are not read.
+    QByteArray chosenImage;
+    m_readingImageMime.clear();
+    if (!chosen) {
+        for (const QString &mime : imageMimes()) {
+            if (mimes.contains(mime)) {
+                m_readingImageMime = mime;
+                chosenImage = mime.toLatin1();
+                chosen = chosenImage.constData();
+                break;
+            }
+        }
+    }
+    if (!chosen) {
         setTextFromOffer(QString());
         return;
     }
     // Until the new text has arrived the old one is gone: Paste must not
     // insert what was copied before (nor after a failed read).
-    if (!m_text.isEmpty()) setTextFromOffer(QString());
+    if (!m_text.isEmpty() || !m_image.isEmpty()) setTextFromOffer(QString());
     int fds[2];
     if (pipe2(fds, O_CLOEXEC) != 0) return;
     // Only our end is non-blocking: the writer gets its own end as it is.
@@ -221,7 +279,8 @@ void DataControlClipboard::takeSelection(ext_data_control_offer_v1 *offer)
             const ssize_t n = ::read(m_readFd, buffer, sizeof buffer);
             if (n > 0) {
                 m_readBuffer.append(buffer, n);
-                if (m_readBuffer.size() > MaxClipboardBytes) return finishReading(false);
+                if (m_readBuffer.size() > (m_readingImageMime.isEmpty() ? MaxClipboardBytes : MaxImageBytes))
+                    return finishReading(false);
                 continue;
             }
             if (n == 0) return finishReading(true);
@@ -233,7 +292,7 @@ void DataControlClipboard::takeSelection(ext_data_control_offer_v1 *offer)
     m_readTimeout = new QTimer(this);
     m_readTimeout->setSingleShot(true);
     connect(m_readTimeout, &QTimer::timeout, this, [this]() { finishReading(false); });
-    m_readTimeout->start(ReadTimeoutMs);
+    m_readTimeout->start(m_readingImageMime.isEmpty() ? ReadTimeoutMs : ImageTimeoutMs);
 }
 
 void DataControlClipboard::stopReading()
@@ -263,31 +322,62 @@ void DataControlClipboard::finishReading(bool complete)
         qCInfo(lcDataControl) << "clipboard read failed or timed out";
         return;
     }
-    setTextFromOffer(QString::fromUtf8(data));
+    if (!m_readingImageMime.isEmpty()) setImageFromOffer(data, m_readingImageMime);
+    else setTextFromOffer(QString::fromUtf8(data));
 }
 
 void DataControlClipboard::setTextFromOffer(const QString &text)
 {
     m_text = text;
+    m_image.clear();
+    m_imageMime.clear();
     Q_EMIT changed();
+}
+
+void DataControlClipboard::setImageFromOffer(const QByteArray &data, const QString &mime)
+{
+    m_text.clear();
+    m_image = data;
+    m_imageMime = data.isEmpty() ? QString() : mime;
+    Q_EMIT changed();
+}
+
+void DataControlClipboard::offerSource(const QByteArray &data, const QStringList &mimes)
+{
+    // The new source replaces the old one in one step: destroying the old
+    // one first would empty the clipboard for everyone in between.
+    ext_data_control_source_v1 *previous = m_source;
+    m_sourceData = data;
+    m_source = ext_data_control_manager_v1_create_data_source(m_manager);
+    ext_data_control_source_v1_add_listener(m_source, &sourceListener, this);
+    ext_data_control_source_v1_offer(m_source, m_ownMime.constData());
+    for (const QString &mime : mimes) ext_data_control_source_v1_offer(m_source, mime.toLatin1().constData());
+    ext_data_control_device_v1_set_selection(m_device, m_source);
+    if (previous) ext_data_control_source_v1_destroy(previous);
+    wl_display_flush(m_display);
+    m_sensitive = false;
 }
 
 void DataControlClipboard::setText(const QString &text)
 {
     if (!m_manager || !m_device) return;
-    // The new source replaces the old one in one step: destroying the old
-    // one first would empty the clipboard for everyone in between.
-    ext_data_control_source_v1 *previous = m_source;
-    m_sourceData = text.toUtf8();
-    m_source = ext_data_control_manager_v1_create_data_source(m_manager);
-    ext_data_control_source_v1_add_listener(m_source, &sourceListener, this);
-    ext_data_control_source_v1_offer(m_source, m_ownMime.constData());
-    for (const char *mime : TextMimes) ext_data_control_source_v1_offer(m_source, mime);
-    ext_data_control_device_v1_set_selection(m_device, m_source);
-    if (previous) ext_data_control_source_v1_destroy(previous);
-    wl_display_flush(m_display);
-    m_sensitive = false;
+    QStringList mimes;
+    for (const char *mime : TextMimes) mimes.append(QString::fromLatin1(mime));
+    m_sourceImageMime.clear();
+    offerSource(text.toUtf8(), mimes);
     m_text = text;                         // the selection event confirms it
+    m_image.clear();
+    m_imageMime.clear();
+}
+
+void DataControlClipboard::setImage(const QByteArray &data, const QString &mime)
+{
+    if (!m_manager || !m_device || data.isEmpty() || mime.isEmpty()) return;
+    m_sourceImageMime = mime;
+    offerSource(data, {mime});
+    m_text.clear();
+    m_image = data;
+    m_imageMime = mime;
 }
 
 void DataControlClipboard::clear()
@@ -300,8 +390,14 @@ void DataControlClipboard::clear()
 void DataControlClipboard::sourceSend(void *data, ext_data_control_source_v1 *source, const char *, int32_t fd)
 {
     auto *self = static_cast<DataControlClipboard *>(data);
-    if (source == self->m_source) writeAll(fd, self->m_sourceData);
-    ::close(fd);
+    if (source != self->m_source) {
+        ::close(fd);
+    } else if (!self->m_sourceImageMime.isEmpty()) {
+        new PipeWriter(fd, self->m_sourceData, self);         // closes fd when done
+    } else {
+        writeAll(fd, self->m_sourceData);
+        ::close(fd);
+    }
 }
 
 void DataControlClipboard::sourceCancelled(void *data, ext_data_control_source_v1 *source)

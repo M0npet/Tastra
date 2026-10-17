@@ -17,7 +17,21 @@ Column {
         border.width: keyboardBridge.keyBorders ? 1 : 0
         border.color: root.borderColor
 
+        Image {
+            // A copied image or screenshot.
+            objectName: "currentClipboardImage"
+            visible: keyboardBridge.clipboardImage.length > 0
+            anchors.fill: parent
+            anchors.margins: 6
+            source: keyboardBridge.clipboardImage
+            sourceSize.height: height
+            fillMode: Image.PreserveAspectFit
+            horizontalAlignment: Image.AlignLeft
+            cache: false
+        }
+
         Text {
+            visible: keyboardBridge.clipboardImage.length === 0
             anchors.fill: parent
             anchors.margins: 10
             text: keyboardBridge.hasClipboardText
@@ -41,6 +55,7 @@ Column {
             label: qsTr("Paste")
             accent: true
             enabled: keyboardBridge.hasClipboardText
+                || (keyboardBridge.clipboardImage.length > 0 && keyboardBridge.canPasteImages)
             onTriggered: keyboardBridge.pasteClipboard()
         }
         PanelButton {
@@ -61,14 +76,40 @@ Column {
         delegate: Rectangle {
             required property string modelData
             required property int index
+            readonly property bool image: keyboardBridge.isClipboardImage(modelData)
             width: ListView.view.width
-            height: root.portrait ? 66 : 54
+            height: image ? (root.portrait ? 120 : 100) : (root.portrait ? 66 : 54)
             radius: 12
             color: historyMouse.pressed ? root.specialKeyColor : root.keyColor
             border.width: keyboardBridge.keyBorders ? 1 : 0
             border.color: root.borderColor
 
+            Image {
+                // Gboard keeps copied images and screenshots: tap pastes
+                // (the application pastes it with Ctrl+V), long-press pins.
+                objectName: "clipboardImageItem"
+                visible: parent.image
+                anchors.left: parent.left
+                anchors.right: removeHistory.left
+                anchors.top: parent.top
+                anchors.bottom: parent.bottom
+                anchors.margins: 6
+                source: parent.image ? keyboardBridge.clipboardItemImage(modelData) : ""
+                sourceSize.height: height
+                fillMode: Image.PreserveAspectFit
+                horizontalAlignment: Image.AlignLeft
+                opacity: keyboardBridge.canPasteImages ? 1.0 : 0.6
+                Text {
+                    visible: (keyboardBridge.clipboardHistory, keyboardBridge.isClipboardPinned(modelData))
+                    anchors.left: parent.left
+                    anchors.top: parent.top
+                    text: "\uD83D\uDCCC"
+                    font.pixelSize: root.portrait ? 18 : 16
+                }
+            }
+
             Text {
+                visible: !parent.image
                 anchors.left: parent.left
                 anchors.right: removeHistory.left
                 anchors.verticalCenter: parent.verticalCenter
@@ -76,7 +117,7 @@ Column {
                 anchors.rightMargin: 8
                 // Long-press pins (Gboard): pinned items stay past the hour.
                 objectName: "clipboardItem"
-                text: (keyboardBridge.clipboardHistory, keyboardBridge.isClipboardPinned(modelData) ? "\uD83D\uDCCC " : "") + modelData
+                text: parent.image ? "" : (keyboardBridge.clipboardHistory, keyboardBridge.isClipboardPinned(modelData) ? "\uD83D\uDCCC " : "") + modelData
                 color: root.textColor
                 font.pixelSize: root.portrait ? 15 : 13
                 elide: Text.ElideRight

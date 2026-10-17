@@ -49,6 +49,9 @@ public:
     bool isSensitive() const override { return m_sensitive; }
     void setText(const QString &text) override;
     void clear() override;
+    QByteArray image() const override { return m_image; }
+    QString imageMime() const override { return m_imageMime; }
+    void setImage(const QByteArray &data, const QString &mime) override;
 
     // libwayland callbacks (C listeners); not for callers.
     static void registryGlobal(void *data, wl_registry *registry, uint32_t name, const char *interface, uint32_t version);
@@ -69,6 +72,8 @@ private:
     void stopReading();
     void finishReading(bool complete);
     void setTextFromOffer(const QString &text);
+    void setImageFromOffer(const QByteArray &data, const QString &mime);
+    void offerSource(const QByteArray &data, const QStringList &mimes);
 
     wl_display *m_display = nullptr;
     wl_registry *m_registry = nullptr;
@@ -79,12 +84,16 @@ private:
     ext_data_control_offer_v1 *m_selection = nullptr;
     ext_data_control_source_v1 *m_source = nullptr;             // what we put on the clipboard
     QByteArray m_sourceData;
+    QString m_sourceImageMime;                                  // set when the source is an image
     QByteArray m_ownMime;
+    QString m_readingImageMime;                                 // the read in progress is an image
     int m_readFd = -1;
     QSocketNotifier *m_reader = nullptr;
     QTimer *m_readTimeout = nullptr;
     QByteArray m_readBuffer;
     QString m_text;
+    QByteArray m_image;
+    QString m_imageMime;
     bool m_sensitive = false;
 };
 

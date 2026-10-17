@@ -1,8 +1,10 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 #pragma once
 
+#include <QByteArray>
 #include <QObject>
 #include <QString>
+#include <QStringList>
 
 namespace Tastra
 {
@@ -26,6 +28,19 @@ public:
     // Owns the clipboard with `text` (Copy/Cut in the text-editing panel).
     virtual void setText(const QString &text) = 0;
     virtual void clear() = 0;
+    // A copied image or screenshot when the clipboard holds no text (PNG,
+    // JPEG, WebP, GIF or BMP, as offered), and its type.
+    virtual QByteArray image() const { return {}; }
+    virtual QString imageMime() const { return {}; }
+    // Owns the clipboard with an image (a picture pasted from the history).
+    virtual void setImage(const QByteArray &data, const QString &mime) { Q_UNUSED(data) Q_UNUSED(mime) }
+
+    // The image types read, in order of preference.
+    static QStringList imageMimes()
+    {
+        return {QStringLiteral("image/png"), QStringLiteral("image/jpeg"), QStringLiteral("image/webp"),
+                QStringLiteral("image/gif"), QStringLiteral("image/bmp")};
+    }
 
 Q_SIGNALS:
     // The clipboard holds something new (text() may be empty).

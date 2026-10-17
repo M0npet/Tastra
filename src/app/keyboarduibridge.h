@@ -162,6 +162,13 @@ class KeyboardUiBridge final : public QObject
     Q_PROPERTY(QString clipboardText READ clipboardText NOTIFY clipboardChanged)
     Q_PROPERTY(QString clipboardPreview READ clipboardPreview NOTIFY clipboardChanged)
     Q_PROPERTY(bool hasClipboardText READ hasClipboardText NOTIFY clipboardChanged)
+    // A copied image or screenshot (Gboard shows and pastes those too): the
+    // clipboard's own, and a fresh one for the strip's chip, as
+    // "image://tastraclipboard/..." sources (empty when there is none).
+    Q_PROPERTY(QString clipboardImage READ clipboardImage NOTIFY clipboardChanged)
+    Q_PROPERTY(QString clipboardImageSuggestion READ clipboardImageSuggestion NOTIFY suggestionsChanged)
+    // Pasting an image needs Ctrl+V through KWin's fake input.
+    Q_PROPERTY(bool canPasteImages READ canPasteImages NOTIFY selectionChanged)
     // Text selected in the application (for Copy / Cut).
     Q_PROPERTY(bool hasSelection READ hasSelection NOTIFY selectionChanged)
     // Copy / Cut possible: a reported selection, or the editing shortcuts
@@ -312,6 +319,14 @@ public:
     QString clipboardPreview() const;
     bool hasClipboardText() const;
     QStringList clipboardHistory() const;
+    QString clipboardImage() const;
+    QString clipboardImageSuggestion() const;
+    bool canPasteImages() const { return m_chords && !m_secureInput; }
+    Q_INVOKABLE bool isClipboardImage(const QString &item) const { return ClipboardHistory::isImage(item); }
+    Q_INVOKABLE QString clipboardItemImage(const QString &item) const;
+    Q_INVOKABLE void pasteClipboardImageSuggestion();
+    // The bytes behind an image source's id (for the image provider).
+    QByteArray clipboardImageBytes(const QString &id) const;
     QStringList emojiItems() const;
     QStringList emojiCategories() const;
 
@@ -572,6 +587,11 @@ private:
     void updateForeignLayouts();
     QString m_freshClipboard;
     qint64 m_freshClipboardMs = 0;
+    QString m_freshClipboardImage;                 // history key of a fresh image
+    QString m_pastedImage;                         // the key just pasted (not offered again)
+    int m_clipboardRevision = 0;                   // the current image's source changes with it
+    void pasteImage(const QString &key);
+    void sendPasteChord();
     QHash<QString, QString> m_shortcuts;
     void loadShortcuts();
     bool m_symbolHints = true;

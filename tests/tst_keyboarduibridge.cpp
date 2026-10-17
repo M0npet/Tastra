@@ -23,6 +23,7 @@ Q_LOGGING_CATEGORY(lcOtherProbe, "other.test", QtWarningMsg)
 #include "app/keyboarduibridge.h"
 #include "app/uitranslator.h"
 #include "core/systemclipboard.h"
+#include "core/clipboardhistory.h"
 #include "core/keychords.h"
 #include "app/keyboardhider.h"
 #include "core/inputmethodbackend.h"
@@ -103,14 +104,35 @@ class FakeClipboard final : public Tastra::SystemClipboard
 public:
     QString text() const override { return m_text; }
     bool isSensitive() const override { return sensitive; }
-    void setText(const QString &text) override { m_text = text; sensitive = false; ++sets; Q_EMIT changed(); }
-    void clear() override { m_text.clear(); Q_EMIT changed(); }
-    void copiedElsewhere(const QString &text, bool secret = false) { m_text = text; sensitive = secret; Q_EMIT changed(); }
+    void setText(const QString &text) override { m_text = text; m_image.clear(); sensitive = false; ++sets; Q_EMIT changed(); }
+    void clear() override { m_text.clear(); m_image.clear(); Q_EMIT changed(); }
+    QByteArray image() const override { return m_image; }
+    QString imageMime() const override { return m_image.isEmpty() ? QString() : m_mime; }
+    void setImage(const QByteArray &data, const QString &mime) override
+    {
+        m_text.clear();
+        m_image = data;
+        m_mime = mime;
+        ++imageSets;
+        Q_EMIT changed();
+    }
+    void copiedElsewhere(const QString &text, bool secret = false) { m_text = text; m_image.clear(); sensitive = secret; Q_EMIT changed(); }
+    void imageCopiedElsewhere(const QByteArray &data, const QString &mime)
+    {
+        m_text.clear();
+        m_image = data;
+        m_mime = mime;
+        sensitive = false;
+        Q_EMIT changed();
+    }
     int sets = 0;
+    int imageSets = 0;
     bool sensitive = false;
 
 private:
     QString m_text;
+    QByteArray m_image;
+    QString m_mime;
 };
 
 class FakeChords final : public Tastra::KeyChordSender
@@ -182,6 +204,69 @@ private Q_SLOTS:
         QVERIFY(bridge.clipboardHistory().contains(QStringLiteral("from Firefox")));
         QCOMPARE(bridge.clipboardSuggestion(), QStringLiteral("from Firefox"));
         bridge.setSystemClipboard(nullptr);                         // back to QClipboard
+    }
+
+    void copiedImagesArePastedByTheApplication()
+    {
+        // Gboard keeps and pastes images and screenshots. An input method can
+        // only send text, so the image goes on the clipboard and the
+        // application pastes it itself (Ctrl+V through KWin's fake input).
+        FakeBackend backend;
+        Tastra::KeyboardController controller(backend);
+        Tastra::KeyboardModel model;
+        Tastra::KeyboardUiBridge bridge(controller, model);
+        bridge.clearClipboardHistory();
+        FakeClipboard clipboard;
+        FakeChords chords;
+        bridge.setSystemClipboard(&clipboard);
+        QVERIFY(!bridge.canPasteImages());
+        bridge.setKeyChordSender(&chords);
+        QVERIFY(bridge.canPasteImages());
+
+        const QByteArray shot = QByteArray("\x89PNG\r\n\x1a\n", 8) + QByteArray(64, 's');
+        clipboard.imageCopiedElsewhere(shot, QStringLiteral("image/png"));
+        const QString key = Tastra::ClipboardHistory::imageKey(shot, QStringLiteral("image/png"));
+        QCOMPARE(bridge.clipboardHistory().value(0), key);
+        QVERIFY(bridge.isClipboardImage(key));
+        QVERIFY(bridge.clipboardImage().startsWith(QStringLiteral("image://tastraclipboard/current/")));
+        QCOMPARE(bridge.clipboardImageBytes(bridge.clipboardImage().mid(24)), shot);
+        QCOMPARE(bridge.clipboardItemImage(key), QStringLiteral("image://tastraclipboard/") + key.section(QLatin1Char(':'), 1));
+        QCOMPARE(bridge.clipboardImageBytes(key.section(QLatin1Char(':'), 1)), shot);
+        QVERIFY(bridge.clipboardSuggestion().isEmpty());                 // no text chip
+        QCOMPARE(bridge.clipboardImageSuggestion(), bridge.clipboardItemImage(key));
+
+        // The strip's chip: already on the clipboard, only Ctrl+V.
+        bridge.pasteClipboardImageSuggestion();
+        QCOMPARE(chords.sent.size(), 1);
+        QCOMPARE(chords.sent.last().first, QList<int>{Tastra::EvdevKey::LeftCtrl});
+        QCOMPARE(chords.sent.last().second, Tastra::EvdevKey::V);
+        QVERIFY(bridge.clipboardImageSuggestion().isEmpty());
+        QCOMPARE(clipboard.imageSets, 0);
+
+        // From the history after other copies: back on the clipboard, then Ctrl+V.
+        clipboard.copiedElsewhere(QStringLiteral("some text"));
+        QVERIFY(bridge.clipboardImage().isEmpty());
+        bridge.pasteClipboardHistory(int(bridge.clipboardHistory().indexOf(key)));
+        QCOMPARE(clipboard.imageSets, 1);
+        QCOMPARE(clipboard.image(), shot);
+        QCOMPARE(chords.sent.size(), 2);
+        QCOMPARE(backend.commits, QStringList());                        // no text typed
+        QVERIFY(bridge.clipboardImageSuggestion().isEmpty());            // its own copy is no news
+        QCOMPARE(bridge.clipboardHistory().value(0), key);
+        // Paste in the panel with an image on the clipboard: Ctrl+V.
+        bridge.pasteClipboard();
+        QCOMPARE(chords.sent.size(), 3);
+
+        // Never into a password field.
+        bridge.setContentType(0, 8);
+        QVERIFY(!bridge.canPasteImages());
+        bridge.pasteClipboardHistory(0);
+        bridge.pasteClipboard();
+        QCOMPARE(chords.sent.size(), 3);
+        bridge.setContentType(0, 0);
+        bridge.setKeyChordSender(nullptr);
+        bridge.setSystemClipboard(nullptr);
+        bridge.clearClipboardHistory();
     }
 
     void passwordsFromAPasswordManagerAreNeitherKeptNorShown()

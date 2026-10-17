@@ -231,6 +231,41 @@ private Q_SLOTS:
         wl_display_flush(display);
     }
 
+    void imagesAreReadAndOffered()
+    {
+        // Gboard keeps copied images and screenshots: with no text offered,
+        // the image is read (PNG first); the keyboard can own the clipboard
+        // with an image too, written as the reader takes it (larger than a
+        // pipe's buffer here, with both clients on one thread).
+        FakeCompositor compositor;
+        Connection appConnection(compositor.socketName()), keyboardConnection(compositor.socketName());
+        auto keyboard = Tastra::KWin::DataControlClipboard::create(keyboardConnection.display());
+        auto app = Tastra::KWin::DataControlClipboard::create(appConnection.display());
+        QVERIFY(keyboard && app);
+        const QByteArray png = QByteArray("\x89PNG\r\n\x1a\n", 8) + QByteArray(2000, 'p');
+        {
+            RawSource screenshot(appConnection.display(), {"image/jpeg", "image/png"}, png);
+            screenshot.copy();
+            QTRY_COMPARE(keyboard->image(), png);
+            QCOMPARE(keyboard->imageMime(), QStringLiteral("image/png"));
+            QVERIFY(keyboard->text().isEmpty());
+            // Text wins over an image, and replaces it.
+            app->setText(QStringLiteral("words"));
+            QTRY_COMPARE(keyboard->text(), QStringLiteral("words"));
+            QVERIFY(keyboard->image().isEmpty());
+        }
+        QByteArray big(300 * 1024, '\0');
+        for (int i = 0; i < big.size(); ++i) big[i] = char(i * 7);
+        keyboard->setImage(big, QStringLiteral("image/png"));
+        QCOMPARE(keyboard->image(), big);
+        QTRY_COMPARE_WITH_TIMEOUT(app->image().size(), big.size(), 10000);
+        QCOMPARE(app->image(), big);
+        QCOMPARE(app->imageMime(), QStringLiteral("image/png"));
+        QVERIFY(app->text().isEmpty());
+        // The keyboard's own image comes back without a read.
+        QCOMPARE(keyboard->image(), big);
+    }
+
     void copyingAgainNeverEmptiesTheClipboard()
     {
         // The new source replaces the old one in one step (destroying the old

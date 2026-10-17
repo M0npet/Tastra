@@ -939,6 +939,45 @@ Rectangle {
                 }
             }
 
+            Rectangle {
+                // Gboard: a just-copied image or screenshot, as a chip with
+                // its picture; the application pastes it (Ctrl+V).
+                id: clipboardImageChip
+                objectName: "clipboardImageChip"
+                visible: keyboardBridge.clipboardImageSuggestion.length > 0 && keyboardBridge.canPasteImages
+                    && keyboardBridge.suggestions.length === 0 && !saveWordChip.visible && !voiceStatus.visible
+                    && !root.toolbarExpanded && keyboardBridge.morseCode.length === 0
+                anchors.centerIn: parent
+                height: parent.height - 10
+                width: clipboardImageThumb.width + clipboardImageIcon.implicitWidth + 36
+                radius: height / 2
+                color: clipboardImageMouse.pressed ? root.pressedColor : root.selectedColor
+                Text {
+                    id: clipboardImageIcon
+                    anchors.left: parent.left
+                    anchors.leftMargin: 14
+                    anchors.verticalCenter: parent.verticalCenter
+                    text: "\uD83D\uDCCB"
+                    font.pixelSize: root.portrait ? 17 : 15
+                }
+                Image {
+                    id: clipboardImageThumb
+                    anchors.left: clipboardImageIcon.right
+                    anchors.leftMargin: 8
+                    anchors.verticalCenter: parent.verticalCenter
+                    height: parent.height - 8
+                    width: Math.min(height * 3, Math.max(height, implicitWidth))
+                    source: keyboardBridge.clipboardImageSuggestion
+                    sourceSize.height: height
+                    fillMode: Image.PreserveAspectFit
+                }
+                MouseArea {
+                    id: clipboardImageMouse
+                    anchors.fill: parent
+                    onClicked: keyboardBridge.pasteClipboardImageSuggestion()
+                }
+            }
+
             Row {
                 // Gboard: paste what was just copied, or only the e-mail,
                 // web address, phone number, date or number found in it.
@@ -1013,6 +1052,7 @@ Rectangle {
                 // sat under the chip and took its tap. (The voice status is
                 // text only; the mic here must stay to finish recording.)
                 visible: !suggestionRow.visible && !clipboardChips.visible && !saveWordChip.visible && !morseStrip.visible
+                    && !clipboardImageChip.visible
                 anchors.centerIn: parent
                 spacing: root.portrait ? 18 : 14
 
