@@ -708,6 +708,95 @@ private Q_SLOTS:
         QVERIFY(!again.phraseSuggestions());
     }
 
+    void morseKeysTypeLettersAfterAPauseOrSpace()
+    {
+        // Gboard's Morse code layout (support.google.com/gboard/answer/9011881):
+        // a sign is typed after the character timeout, or by Space; with a
+        // word timeout a longer pause ends the word with a space.
+        FakeBackend backend;
+        Tastra::KeyboardController controller(backend);
+        Tastra::KeyboardModel model;
+        Tastra::KeyboardUiBridge bridge(controller, model);
+        bridge.setLanguage(QStringLiteral("en"));
+        bridge.setAutoCapitalizationEnabled(false);
+        bridge.setAutocorrectEnabled(false);
+        QVERIFY(!bridge.morseLayout());
+        while (!bridge.morseLayout()) bridge.cycleLetterLayout();
+        QCOMPARE(QSettings().value(QStringLiteral("layoutVariant/en")).toString(), QStringLiteral("morse"));
+        QCOMPARE(bridge.morseCharacterTimeout(), 800);                           // defaults
+        QCOMPARE(bridge.morseWordTimeout(), 0);
+        auto written = [&] { return backend.commits.join(QString()); };
+
+        // "Never": Space sends.
+        bridge.setMorseTimeouts(0, 0);
+        bridge.morseDot();
+        bridge.morseDot();
+        bridge.morseDot();
+        QCOMPARE(bridge.morseCode(), QStringLiteral("..."));
+        QCOMPARE(bridge.morseText(), QStringLiteral("s"));
+        QVERIFY(!bridge.morseHints().isEmpty());
+        QCOMPARE(bridge.morseHints().first().toMap().value(QStringLiteral("text")).toString(), QStringLiteral("h"));
+        QTest::qWait(100);
+        QVERIFY(written().isEmpty());
+        bridge.space();                                                           // sends, no space
+        QCOMPARE(written(), QStringLiteral("s"));
+        QVERIFY(bridge.morseCode().isEmpty());
+        // Backspace takes back a dot or dash first.
+        bridge.morseDash();
+        bridge.morseDash();
+        bridge.backspace();
+        QCOMPARE(bridge.morseCode(), QStringLiteral("-"));
+        bridge.space();
+        QCOMPARE(written(), QStringLiteral("st"));
+        bridge.space();                                                           // nothing keyed: a space
+        QCOMPARE(written(), QStringLiteral("st "));
+        // No sign: nothing is typed.
+        for (int i = 0; i < 6; ++i) bridge.morseDash();
+        bridge.space();
+        QCOMPARE(written(), QStringLiteral("st "));
+        // A sign from the strip instead of the keyed one.
+        bridge.morseDot();
+        bridge.morseDash();
+        bridge.chooseMorseHint(QStringLiteral("w"));
+        QCOMPARE(written(), QStringLiteral("st w"));
+        // Another key sends what was keyed first.
+        bridge.morseDot();
+        bridge.tapText(QStringLiteral("!"));
+        QCOMPARE(written(), QStringLiteral("st we!"));
+
+        // Timeouts (the pause itself: tst_qmlkeyboard, this test has no event loop).
+        bridge.setMorseTimeouts(60, 250);
+        QCOMPARE(QSettings().value(QStringLiteral("morseWordTimeout")).toInt(), 250);
+        bridge.cycleMorseCharacterTimeout();
+        QCOMPARE(bridge.morseCharacterTimeout(), 800);                           // unknown value: the default
+        bridge.cycleMorseCharacterTimeout();
+        bridge.cycleMorseCharacterTimeout();
+        bridge.cycleMorseCharacterTimeout();
+        QCOMPARE(bridge.morseCharacterTimeout(), 0);                              // 1.2, 2.0, then never
+        bridge.cycleMorseWordTimeout();
+        QCOMPARE(bridge.morseWordTimeout(), 0);
+
+        // German "ch", Russian letters; switching the language forgets the keyed code.
+        backend.commits.clear();
+        bridge.setLanguage(QStringLiteral("de"));
+        while (!bridge.morseLayout()) bridge.cycleLetterLayout();
+        for (int i = 0; i < 4; ++i) bridge.morseDash();
+        bridge.space();
+        QCOMPARE(written(), QStringLiteral("ch"));
+        bridge.morseDot();
+        bridge.setLanguage(QStringLiteral("ru"));
+        QVERIFY(bridge.morseCode().isEmpty());
+        QVERIFY(!bridge.morseLayout());                                           // each language its own layout
+        while (!bridge.morseLayout()) bridge.cycleLetterLayout();
+        bridge.morseDot();
+        bridge.morseDash();
+        bridge.morseDot();
+        bridge.morseDash();
+        bridge.space();
+        QCOMPARE(written(), QString::fromUtf8("chя"));
+        QVERIFY(bridge.letterLayoutChoice());
+    }
+
     void stripShowsTypedWordAndWhatSpaceWillInsert()
     {
         FakeBackend backend;

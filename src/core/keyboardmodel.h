@@ -46,6 +46,7 @@ public:
     static QStringList rowsForLanguage(const QString &code, const QString &variant = {});
     // Gboard "Select a layout": the layouts a language offers (its usual one
     // first) and the one chosen for it.
+    // The language's layouts, its first one first, Morse code ("morse") last.
     static QStringList layoutVariants(const QString &code);
     static QString layoutVariantLabel(const QString &code, const QString &variant);
     QString layoutVariant(const QString &code) const;

@@ -672,6 +672,71 @@ private Q_SLOTS:
         QTRY_VERIFY(!findNamed(view.rootObject(), QStringLiteral("phraseChip")));
     }
 
+    void morseLayoutKeysSignsAndShowsWhatTheyCanBecome()
+    {
+        FakeBackend backend;
+        Tastra::KeyboardController controller(backend);
+        Tastra::KeyboardModel model;
+        Tastra::KeyboardUiBridge bridge(controller, model);
+        bridge.setLanguage(QStringLiteral("en"));
+        bridge.setAutoCapitalizationEnabled(false);
+        bridge.setAutocorrectEnabled(false);
+        while (!bridge.morseLayout()) bridge.cycleLetterLayout();
+        bridge.setMorseTimeouts(250, 500);
+        QQuickView view;
+        view.setResizeMode(QQuickView::SizeRootObjectToView);
+        view.rootContext()->setContextProperty(QStringLiteral("keyboardBridge"), &bridge);
+        view.setSource(QUrl::fromLocalFile(QStringLiteral(TASTRA_MAIN_QML)));
+        view.resize(1280, 400);
+        view.show();
+        QVERIFY(QTest::qWaitForWindowExposed(&view));
+        static QPointingDevice *touch = QTest::createTouchDevice();
+        auto tap = [&](QQuickItem *item) {
+            QVERIFY(item);
+            const QPoint at = item->mapToScene(QPointF(item->width() / 2, item->height() / 2)).toPoint();
+            QTest::touchEvent(&view, touch).press(0, at);
+            QTest::qWait(40);
+            QTest::touchEvent(&view, touch).release(0, at);
+            QTest::qWait(40);
+        };
+        QTRY_VERIFY(findNamed(view.rootObject(), QStringLiteral("morseDotKey")));
+        QQuickItem *dot = findNamed(view.rootObject(), QStringLiteral("morseDotKey"));
+        QQuickItem *dash = findNamed(view.rootObject(), QStringLiteral("morseDashKey"));
+        QVERIFY(dot->isVisible() && dash->isVisible());
+        QVERIFY(dot->height() > 2.5 * findNamed(view.rootObject(), QStringLiteral("symbolsKey"))->height());
+        QQuickItem *q = findText(view.rootObject(), QStringLiteral("q"));
+        QVERIFY(!q || !q->isVisible());                                          // no letter keys
+
+        tap(dot);
+        tap(dash);
+        QCOMPARE(bridge.morseCode(), QStringLiteral(".-"));
+        QQuickItem *strip = findNamed(view.rootObject(), QStringLiteral("morseStrip"));
+        QTRY_VERIFY(strip && strip->isVisible());
+        QVERIFY(findNamed(view.rootObject(), QStringLiteral("morseHint_r")));
+        if (qEnvironmentVariableIsSet("TASTRA_SCREENSHOT")) view.grabWindow().save(qEnvironmentVariable("TASTRA_SCREENSHOT"));
+        // The pause types the sign; a longer one ends the word.
+        QTRY_COMPARE_WITH_TIMEOUT(backend.commits.join(QString()), QStringLiteral("a"), 2000);
+        QVERIFY(!strip->isVisible());
+        QTRY_COMPARE_WITH_TIMEOUT(backend.commits.join(QString()), QStringLiteral("a "), 2000);
+        // A sign from the strip instead.
+        tap(dot);
+        QTRY_VERIFY(findNamed(view.rootObject(), QStringLiteral("morseHint_i")));
+        QTest::mouseClick(&view, Qt::LeftButton, {}, findNamed(view.rootObject(), QStringLiteral("morseHint_i"))
+                          ->mapToScene(QPointF(10, 10)).toPoint());
+        QTRY_COMPARE(backend.commits.join(QString()), QStringLiteral("a i"));
+        // Backspace takes back a dot first.
+        bridge.setMorseTimeouts(0, 0);
+        tap(dash);
+        tap(findNamed(view.rootObject(), QStringLiteral("morseBackspaceKey")));
+        QVERIFY(bridge.morseCode().isEmpty());
+        QCOMPARE(backend.commits.join(QString()), QStringLiteral("a i"));
+        // Symbols still have their page; the Morse keys come back after it.
+        bridge.toggleSymbols();
+        QTRY_VERIFY(!dot->isVisible());
+        bridge.toggleSymbols();
+        QTRY_VERIFY(dot->isVisible());
+    }
+
     void topRowKeyPreviewStaysInsideThePanel()
     {
         // Live report: the preview of top-row keys was cut off — Wayland cannot
@@ -895,7 +960,8 @@ private Q_SLOTS:
         Tastra::KeyboardUiBridge restarted(controller, again);
         QCOMPARE(restarted.letterLayout(), QStringLiteral("Dvorak"));
         bridge.setLanguage(QStringLiteral("ru"));
-        QVERIFY(!bridge.letterLayoutChoice());
+        QVERIFY(bridge.letterLayoutChoice());                                        // ЙЦУКЕН and Morse code
+        QCOMPARE(bridge.letterLayout(), QString::fromUtf8("ЙЦУКЕН"));
         bridge.setLanguage(QStringLiteral("en"));
     }
 

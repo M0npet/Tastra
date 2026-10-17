@@ -61,6 +61,15 @@ KeyboardUiBridge::KeyboardUiBridge(
         m_model.setLayoutVariant(code, settings.value(QStringLiteral("layoutVariant/") + code).toString());
     }
     m_model.setLanguage(settings.value(QStringLiteral("language"), QStringLiteral("en")).toString());
+    m_morseCharacterTimeout = qBound(0, settings.value(QStringLiteral("morseCharacterTimeout"), 800).toInt(), 5000);
+    m_morseWordTimeout = qBound(0, settings.value(QStringLiteral("morseWordTimeout"), 0).toInt(), 5000);
+    m_morseCharacterTimer.setSingleShot(true);
+    m_morseWordTimer.setSingleShot(true);
+    connect(&m_morseCharacterTimer, &QTimer::timeout, this, [this] { sendMorse(); });
+    connect(&m_morseWordTimer, &QTimer::timeout, this, [this] {
+        // Gboard "Word timeout": a pause after the letters ends the word.
+        if (!m_morse.pending() && !m_typingEngine.currentWord().isEmpty()) space();
+    });
     m_typingEngine.setLanguage(m_model.languageCode());
     m_emojiCatalog.setKeywordLanguage(m_model.languageCode());
     m_typingEngine.setKeyboardRows({m_model.row1().join(QString()), m_model.row2().join(QString()), m_model.row3().join(QString())});
@@ -1241,6 +1250,7 @@ void KeyboardUiBridge::tapAlternate(const QString &base)
 
 void KeyboardUiBridge::tapText(const QString &text)
 {
+    flushMorse();
     if (typeIntoField(text)) return;
     m_saveCandidate.clear();
     const bool uppercaseBefore = uppercase();
@@ -1257,6 +1267,7 @@ void KeyboardUiBridge::tapText(const QString &text)
 
 void KeyboardUiBridge::selectSuggestion(const QString &word)
 {
+    flushMorse();
     const bool uppercaseBefore = uppercase();
     if (!word.isEmpty() && !word.front().isLetter()) {
         // Emoji suggestion: keep the typed word, add the emoji after it.
@@ -1288,12 +1299,14 @@ void KeyboardUiBridge::shift()
 
 void KeyboardUiBridge::toggleSymbols()
 {
+    flushMorse();
     m_model.toggleSymbols();
     Q_EMIT keyboardStateChanged();
 }
 
 void KeyboardUiBridge::nextLanguage()
 {
+    dropMorse();
     m_typingEngine.commitComposition();
     // Only languages the user enabled take part in the rotation.
     for (int guard = 0; guard < m_model.languageCodes().size(); ++guard) {
@@ -1312,6 +1325,7 @@ void KeyboardUiBridge::nextLanguage()
 
 void KeyboardUiBridge::setLanguage(const QString &code)
 {
+    dropMorse();
     m_typingEngine.commitComposition();
     m_model.setLanguage(code);
     m_typingEngine.setLanguage(m_model.languageCode());
@@ -1339,6 +1353,7 @@ void KeyboardUiBridge::cycleLetterLayout()
     const QString code = m_model.languageCode();
     const QStringList ids = KeyboardModel::layoutVariants(code);
     if (ids.size() < 2) return;
+    dropMorse();
     m_typingEngine.commitComposition();
     const QString next = ids.at((ids.indexOf(m_model.layoutVariant(code)) + 1) % ids.size());
     m_model.setLayoutVariant(code, next);
@@ -1346,6 +1361,96 @@ void KeyboardUiBridge::cycleLetterLayout()
     m_typingEngine.setKeyboardRows({m_model.row1().join(QString()), m_model.row2().join(QString()), m_model.row3().join(QString())});
     updateForeignLayouts();
     typingStateDidChange();
+}
+
+bool KeyboardUiBridge::morseLayout() const
+{
+    return m_model.layoutVariant(m_model.languageCode()) == QLatin1String("morse");
+}
+
+QVariantList KeyboardUiBridge::morseHints() const
+{
+    QVariantList result;
+    for (const MorseSign &sign : m_morse.continuations(8)) {
+        result.append(QVariantMap{{QStringLiteral("text"), sign.text}, {QStringLiteral("code"), sign.code}});
+    }
+    return result;
+}
+
+void KeyboardUiBridge::keyMorse(bool dash)
+{
+    m_morseWordTimer.stop();
+    m_morse.setLanguage(m_model.languageCode());
+    if (!(dash ? m_morse.dash() : m_morse.dot())) return;       // longer than any sign
+    if (m_morseCharacterTimeout > 0) m_morseCharacterTimer.start(m_morseCharacterTimeout);
+    Q_EMIT morseChanged();
+}
+
+bool KeyboardUiBridge::sendMorse()
+{
+    m_morseCharacterTimer.stop();
+    if (!m_morse.pending()) return false;
+    const QString text = m_morse.take();
+    Q_EMIT morseChanged();
+    typeMorseText(text);
+    return true;
+}
+
+void KeyboardUiBridge::chooseMorseHint(const QString &text)
+{
+    m_morseCharacterTimer.stop();
+    m_morse.clear();
+    Q_EMIT morseChanged();
+    typeMorseText(text);
+}
+
+void KeyboardUiBridge::typeMorseText(const QString &text)
+{
+    if (text.isEmpty()) return;                    // no sign: nothing is typed
+    if (text.front().isLetter()) {
+        for (const QChar ch : text) tapLetter(QString(ch));       // German "ch" is two letters
+    } else {
+        tapText(text);
+    }
+    if (m_morseWordTimeout > 0) m_morseWordTimer.start(m_morseWordTimeout);
+}
+
+void KeyboardUiBridge::flushMorse()
+{
+    m_morseWordTimer.stop();
+    sendMorse();
+}
+
+void KeyboardUiBridge::dropMorse()
+{
+    m_morseCharacterTimer.stop();
+    m_morseWordTimer.stop();
+    if (!m_morse.pending()) return;
+    m_morse.clear();
+    Q_EMIT morseChanged();
+}
+
+void KeyboardUiBridge::setMorseTimeouts(int characterMs, int wordMs)
+{
+    m_morseCharacterTimeout = qBound(0, characterMs, 5000);
+    m_morseWordTimeout = qBound(0, wordMs, 5000);
+    persistPreference(QStringLiteral("morseCharacterTimeout"), m_morseCharacterTimeout);
+    persistPreference(QStringLiteral("morseWordTimeout"), m_morseWordTimeout);
+    Q_EMIT typingPreferencesChanged();
+}
+
+void KeyboardUiBridge::cycleMorseCharacterTimeout()
+{
+    static const QList<int> steps = {500, 800, 1200, 2000, 0};
+    const qsizetype at = steps.indexOf(m_morseCharacterTimeout);
+    setMorseTimeouts(steps.at(at < 0 ? 1 : (at + 1) % steps.size()), m_morseWordTimeout);
+}
+
+void KeyboardUiBridge::cycleMorseWordTimeout()
+{
+    static const QList<int> steps = {0, 1000, 2000, 3000};
+    const qsizetype at = steps.indexOf(m_morseWordTimeout);
+    setMorseTimeouts(m_morseCharacterTimeout, steps.at(at < 0 ? 0 : (at + 1) % steps.size()));
 }
 
 void KeyboardUiBridge::activateToolbarAction(const QString &id)
@@ -1377,6 +1482,8 @@ void KeyboardUiBridge::closePanel()
 
 void KeyboardUiBridge::space()
 {
+    m_morseWordTimer.stop();
+    if (sendMorse()) return;                       // Gboard: Space sends the keyed letter
     if (typeIntoField(QStringLiteral(" "))) return;
     m_saveCandidate.clear();
     const bool uppercaseBefore = uppercase();
@@ -1387,6 +1494,13 @@ void KeyboardUiBridge::space()
 
 void KeyboardUiBridge::backspace()
 {
+    m_morseWordTimer.stop();
+    if (m_morse.backspace()) {                     // takes back a dot or dash
+        if (m_morse.pending() && m_morseCharacterTimeout > 0) m_morseCharacterTimer.start(m_morseCharacterTimeout);
+        else m_morseCharacterTimer.stop();
+        Q_EMIT morseChanged();
+        return;
+    }
     if (typeIntoField(QStringLiteral("\b"))) return;
     m_saveCandidate.clear();
     const bool uppercaseBefore = uppercase();
@@ -1397,6 +1511,11 @@ void KeyboardUiBridge::backspace()
 
 void KeyboardUiBridge::backspaceRepeated(int count)
 {
+    if (m_morse.pending()) {
+        dropMorse();
+        --count;
+        if (count <= 0) return;
+    }
     if (inlineFieldActive()) {
         for (int i = 0; i < count; ++i) typeIntoField(QStringLiteral("\b"));
         return;
@@ -1485,6 +1604,7 @@ void KeyboardUiBridge::moveRight()
 
 void KeyboardUiBridge::moveCursor(int delta)
 {
+    flushMorse();
     if (inlineFieldActive()) return;
     m_typingEngine.commitComposition();
     m_typingEngine.resetComposition();
@@ -1532,6 +1652,7 @@ void KeyboardUiBridge::enter()
         stopEmojiSearch();
         return;
     }
+    flushMorse();
     m_saveCandidate.clear();
     const bool uppercaseBefore = uppercase();
     m_typingEngine.enter();
@@ -1891,6 +2012,7 @@ void KeyboardUiBridge::saveLearning()
 
 void KeyboardUiBridge::deactivateInputContext()
 {
+    dropMorse();
     m_typingEngine.rememberCompositionBeforeDeactivation();
     // A delete slide ends with the field: no keys go to whatever comes next.
     m_deleteGestureActive = false;

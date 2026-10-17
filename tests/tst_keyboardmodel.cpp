@@ -2,7 +2,10 @@
 
 #include <QtTest/QTest>
 
+#include <QSet>
+
 #include "core/keyboardmodel.h"
+#include "core/morsecode.h"
 #include "../src/core/panelmanager.h"
 #include "../src/core/toolbarregistry.h"
 #include "../src/core/toolbarmodel.h"
@@ -195,14 +198,20 @@ private Q_SLOTS:
     void otherLetterLayoutsPerLanguage()
     {
         // Gboard "Select a layout": QWERTY, QWERTZ, AZERTY, Dvorak, Colemak for
-        // English, QWERTZ and QWERTY for German; the usual one first.
+        // English, QWERTZ and QWERTY for German; the usual one first, Morse
+        // code last (every language here).
         using Tastra::KeyboardModel;
         QCOMPARE(KeyboardModel::layoutVariants(QStringLiteral("en")),
                  (QStringList{QStringLiteral("qwerty"), QStringLiteral("qwertz"), QStringLiteral("azerty"),
-                              QStringLiteral("dvorak"), QStringLiteral("colemak")}));
+                              QStringLiteral("dvorak"), QStringLiteral("colemak"), QStringLiteral("morse")}));
         QCOMPARE(KeyboardModel::layoutVariants(QStringLiteral("de")),
-                 (QStringList{QStringLiteral("qwertz"), QStringLiteral("qwerty")}));
-        QCOMPARE(KeyboardModel::layoutVariants(QStringLiteral("ru")).size(), 1);
+                 (QStringList{QStringLiteral("qwertz"), QStringLiteral("qwerty"), QStringLiteral("morse")}));
+        QCOMPARE(KeyboardModel::layoutVariants(QStringLiteral("ru")),
+                 (QStringList{QStringLiteral("jcuken"), QStringLiteral("morse")}));
+        QCOMPARE(KeyboardModel::layoutVariantLabel(QStringLiteral("ru"), QStringLiteral("morse")), QStringLiteral("Morse"));
+        // Morse keeps the first layout's rows for the lexicon.
+        QCOMPARE(KeyboardModel::rowsForLanguage(QStringLiteral("ru"), QStringLiteral("morse")),
+                 KeyboardModel::rowsForLanguage(QStringLiteral("ru")));
         KeyboardModel model;
         model.setLanguage(QStringLiteral("en"));
         QCOMPARE(model.row1().join(QString()), QStringLiteral("qwertyuiop"));
@@ -225,6 +234,75 @@ private Q_SLOTS:
         QCOMPARE(model.row1().join(QString()), QStringLiteral("qwfpgjluy"));
         QCOMPARE(KeyboardModel::layoutVariantLabel(QStringLiteral("en"), QStringLiteral("dvorak")), QStringLiteral("Dvorak"));
         QCOMPARE(KeyboardModel::layoutVariantLabel(QStringLiteral("uk"), QString::fromUtf8("jcuken")), QString::fromUtf8("ЙЦУКЕН"));
+    }
+
+    void morseSignsPerLanguage()
+    {
+        using namespace Tastra;
+        // ITU-R M.1677-1 letters, digits and marks; national letters where
+        // the language has them (Wikipedia "Morse code", "Morse code for
+        // non-Latin alphabets"; DARC for German).
+        QCOMPARE(morseText(QStringLiteral(".-"), QStringLiteral("en")), QStringLiteral("a"));
+        QCOMPARE(morseText(QStringLiteral("--.."), QStringLiteral("en")), QStringLiteral("z"));
+        QCOMPARE(morseText(QStringLiteral("-----"), QStringLiteral("en")), QStringLiteral("0"));
+        QCOMPARE(morseText(QStringLiteral(".-.-.-"), QStringLiteral("en")), QStringLiteral("."));
+        QCOMPARE(morseText(QStringLiteral(".--.-."), QStringLiteral("en")), QStringLiteral("@"));
+        QCOMPARE(morseText(QStringLiteral("...-..-"), QStringLiteral("en")), QStringLiteral("$"));
+        QVERIFY(morseText(QStringLiteral(".-.-"), QStringLiteral("en")).isEmpty());          // ä is German
+        QCOMPARE(morseText(QStringLiteral(".-.-"), QStringLiteral("de")), QString::fromUtf8("ä"));
+        QCOMPARE(morseText(QStringLiteral("----"), QStringLiteral("de")), QStringLiteral("ch"));
+        QCOMPARE(morseText(QStringLiteral(".-.-"), QStringLiteral("ru")), QString::fromUtf8("я"));
+        QCOMPARE(morseText(QStringLiteral("---."), QStringLiteral("ru")), QString::fromUtf8("ч"));
+        QCOMPARE(morseText(QStringLiteral("-.--"), QStringLiteral("ru")), QString::fromUtf8("ы"));
+        QCOMPARE(morseText(QStringLiteral("..-.."), QStringLiteral("ru")), QString::fromUtf8("э"));
+        QCOMPARE(morseText(QStringLiteral("-.--"), QStringLiteral("uk")), QString::fromUtf8("и"));
+        QCOMPARE(morseText(QStringLiteral(".."), QStringLiteral("uk")), QString::fromUtf8("і"));
+        QCOMPARE(morseText(QStringLiteral(".---."), QStringLiteral("uk")), QString::fromUtf8("ї"));
+        QCOMPARE(morseText(QStringLiteral("..-.."), QStringLiteral("uk")), QString::fromUtf8("є"));
+        QCOMPARE(morseText(QStringLiteral("--..--"), QStringLiteral("ru")), QStringLiteral(","));
+        // Every sign of a language has its own code, and every letter of the
+        // keyboard has a sign (except ъ, ё, ß, ґ: see morsecode.h).
+        for (const QString &code : {QStringLiteral("en"), QStringLiteral("de"), QStringLiteral("ru"), QStringLiteral("uk")}) {
+            QSet<QString> codes;
+            QSet<QString> texts;
+            for (const MorseSign &sign : morseTable(code)) {
+                QVERIFY2(!codes.contains(sign.code), qPrintable(code + QLatin1Char(' ') + sign.code));
+                codes.insert(sign.code);
+                texts.insert(sign.text);
+                QVERIFY(sign.code.size() <= MorseKeyer::MaxLength);
+            }
+            for (const QString &row : KeyboardModel::rowsForLanguage(code)) {
+                for (const QChar letter : row) {
+                    if (QStringLiteral("ъёßґ").contains(letter)) continue;
+                    QVERIFY2(texts.contains(QString(letter)), qPrintable(code + QLatin1Char(' ') + letter));
+                }
+            }
+        }
+        // What a code can still become: shortest first.
+        const QList<MorseSign> next = morseContinuations(QStringLiteral(".-"), QStringLiteral("en"), 4);
+        QCOMPARE(next.size(), 4);
+        QCOMPARE(next.at(0).code.size(), 3);                                   // r .-. and w .--
+        QCOMPARE(next.at(0).text, QStringLiteral("r"));
+        QCOMPARE(next.at(1).text, QStringLiteral("w"));
+        QVERIFY(morseContinuations(QStringLiteral("...-..-"), QStringLiteral("en"), 4).isEmpty());
+
+        MorseKeyer keyer;
+        QVERIFY(!keyer.pending());
+        keyer.dot();
+        keyer.dash();
+        QCOMPARE(keyer.code(), QStringLiteral(".-"));
+        QCOMPARE(keyer.text(), QStringLiteral("a"));
+        QVERIFY(keyer.backspace());
+        QCOMPARE(keyer.text(), QStringLiteral("e"));
+        QCOMPARE(keyer.take(), QStringLiteral("e"));
+        QVERIFY(!keyer.pending());
+        QVERIFY(!keyer.backspace());
+        for (int i = 0; i < MorseKeyer::MaxLength; ++i) QVERIFY(keyer.dash());
+        QVERIFY(!keyer.dash());                                                 // longer than any sign
+        QVERIFY(keyer.take().isEmpty());                                        // no sign: nothing
+        keyer.dot();
+        keyer.setLanguage(QStringLiteral("ru"));                                // another language: forgotten
+        QVERIFY(!keyer.pending());
     }
 
     void changingLanguageClearsShiftState()

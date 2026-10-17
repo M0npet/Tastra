@@ -38,6 +38,7 @@ add_library(tastra-core STATIC
     src/core/keyboardcontroller.cpp
     src/core/keyboardmodel.cpp
     src/core/locallexicon.cpp
+    src/core/morsecode.cpp
     src/core/capsmode.cpp
     src/core/typingengine.cpp
     src/core/clipboardhistory.cpp

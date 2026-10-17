@@ -83,6 +83,12 @@ Rectangle {
     width: Screen.width
     // Gboard shows a number pad in number/phone fields.
     readonly property bool numpadShown: keyboardBridge.inputPurpose === "number" || keyboardBridge.inputPurpose === "phone"
+    // Gboard's Morse code layout replaces the letter rows (not symbols).
+    readonly property bool morseShown: keyboardBridge.morseLayout && !keyboardBridge.symbolsActive && !numpadShown
+    function morseGlyphs(code) { return code.replace(/\./g, "\u2022").replace(/-/g, "\u2014") }
+    function morseLabel(text) {
+        return keyboardBridge.uppercase ? text.charAt(0).toUpperCase() + text.slice(1) : text
+    }
     readonly property bool numberRowShown: keyboardBridge.numberRow && !keyboardBridge.symbolsActive && !numpadShown
     // Gboard: the fast-access row is there as soon as it is switched on
     // (frequent emoji until some were used).
@@ -431,6 +437,7 @@ Rectangle {
         property bool choosing: false
         property int choiceIndex: 0
         property real preferredWidth: root.baseKeyWidth
+        property real labelPixelSize: root.metrics.fontSize
         property bool special: false
         property bool accent: false
         property bool popupEnabled: keyboardBridge.keyPopups
@@ -501,7 +508,7 @@ Rectangle {
             visible: key.iconSource.length === 0
             text: key.label
             color: key.accent ? root.backgroundColor : root.textColor
-            font.pixelSize: root.metrics.fontSize
+            font.pixelSize: key.labelPixelSize
             font.weight: Font.Medium
         }
 
@@ -783,6 +790,7 @@ Rectangle {
                     && !root.toolbarExpanded
                     && !voiceStatus.visible
                     && !saveWordChip.visible
+                    && keyboardBridge.morseCode.length === 0
                 anchors.centerIn: parent
                 spacing: root.keyGap
 
@@ -863,11 +871,81 @@ Rectangle {
             }
 
             Row {
+                // Morse: the keyed dots and dashes and what they type now (tap:
+                // type it), then the signs they can still become (tap one to
+                // type it instead) - a chart to learn from while keying.
+                id: morseStrip
+                objectName: "morseStrip"
+                visible: keyboardBridge.morseCode.length > 0 && !root.toolbarExpanded && !voiceStatus.visible
+                anchors.centerIn: parent
+                height: parent.height - 10
+                spacing: 6
+                readonly property real hintWidth: root.portrait ? 104 : 96
+                readonly property int hintRoom: Math.max(0, Math.floor((parent.width - morseNow.width - 40)
+                                                                       / (hintWidth + spacing)))
+
+                Rectangle {
+                    id: morseNow
+                    objectName: "morseNow"
+                    width: morseNowText.implicitWidth + 32
+                    height: parent.height
+                    radius: height / 2
+                    color: morseNowMouse.pressed ? root.pressedColor : root.keyColor
+                    border.width: 1
+                    border.color: root.accentColor
+                    Text {
+                        id: morseNowText
+                        anchors.centerIn: parent
+                        text: root.morseGlyphs(keyboardBridge.morseCode) + "   "
+                            + (keyboardBridge.morseText.length > 0 ? root.morseLabel(keyboardBridge.morseText) : "?")
+                        color: root.textColor
+                        font.pixelSize: root.portrait ? 18 : 16
+                        font.weight: Font.DemiBold
+                    }
+                    MouseArea {
+                        id: morseNowMouse
+                        anchors.fill: parent
+                        onClicked: keyboardBridge.sendMorse()
+                    }
+                }
+                Repeater {
+                    model: keyboardBridge.morseHints.slice(0, morseStrip.hintRoom)
+                    delegate: Rectangle {
+                        required property var modelData
+                        objectName: "morseHint_" + modelData.text
+                        width: morseStrip.hintWidth
+                        height: morseStrip.height
+                        radius: 12
+                        color: hintMouse.pressed ? root.specialKeyColor : "transparent"
+                        Text {
+                            anchors.centerIn: parent
+                            width: parent.width - 8
+                            horizontalAlignment: Text.AlignHCenter
+                            elide: Text.ElideRight
+                            textFormat: Text.StyledText
+                            // The part already keyed is dimmed: what is left to key stands out.
+                            text: "<b>" + root.escapeMarkup(root.morseLabel(modelData.text)) + "</b> <font color=\""
+                                + root.secondaryTextColor + "\">" + root.morseGlyphs(keyboardBridge.morseCode) + "</font>"
+                                + root.morseGlyphs(modelData.code.slice(keyboardBridge.morseCode.length))
+                            color: root.textColor
+                            font.pixelSize: root.portrait ? 16 : 14
+                        }
+                        MouseArea {
+                            id: hintMouse
+                            anchors.fill: parent
+                            onClicked: keyboardBridge.chooseMorseHint(modelData.text)
+                        }
+                    }
+                }
+            }
+
+            Row {
                 // Gboard: paste what was just copied, or only the e-mail,
                 // web address, phone number, date or number found in it.
                 id: clipboardChips
                 visible: keyboardBridge.clipboardSuggestion.length > 0 && keyboardBridge.suggestions.length === 0
                     && !saveWordChip.visible && !voiceStatus.visible && !root.toolbarExpanded
+                    && keyboardBridge.morseCode.length === 0
                 anchors.centerIn: parent
                 height: parent.height - 10
                 spacing: 8
@@ -934,7 +1012,7 @@ Rectangle {
                 // Not under the save-word chip: with five buttons the middle one
                 // sat under the chip and took its tap. (The voice status is
                 // text only; the mic here must stay to finish recording.)
-                visible: !suggestionRow.visible && !clipboardChips.visible && !saveWordChip.visible
+                visible: !suggestionRow.visible && !clipboardChips.visible && !saveWordChip.visible && !morseStrip.visible
                 anchors.centerIn: parent
                 spacing: root.portrait ? 18 : 14
 
@@ -1425,7 +1503,63 @@ Rectangle {
         }
 
         Row {
-            visible: !root.numpadShown
+            // Gboard's Morse code layout: a big dot and dash key, Backspace
+            // beside them; the bottom row stays (Space sends the keyed sign).
+            id: morseKeys
+            objectName: "morseKeys"
+            visible: root.morseShown
+            property bool absorbsSplit: true
+            anchors.horizontalCenter: parent.horizontalCenter
+            spacing: root.keyGap
+            readonly property real blockHeight: root.layerKeyHeight * 3 + root.keyGap * 2
+            readonly property real sideWidth: root.baseKeyWidth * 1.5
+
+            Key {
+                objectName: "morseDotKey"
+                preferredWidth: (root.contentWidth - morseKeys.sideWidth - root.keyGap * 2) / 2
+                height: morseKeys.blockHeight
+                label: "\u2022"
+                labelPixelSize: root.metrics.fontSize * 2.4
+                popupEnabled: false
+                onTriggered: keyboardBridge.morseDot()
+            }
+            Key {
+                objectName: "morseDashKey"
+                preferredWidth: (root.contentWidth - morseKeys.sideWidth - root.keyGap * 2) / 2
+                height: morseKeys.blockHeight
+                label: "\u2014"
+                labelPixelSize: root.metrics.fontSize * 2.4
+                popupEnabled: false
+                onTriggered: keyboardBridge.morseDash()
+            }
+            Key {
+                objectName: "morseBackspaceKey"
+                preferredWidth: morseKeys.sideWidth
+                height: morseKeys.blockHeight
+                special: true
+                popupEnabled: false
+                longPressEnabled: true
+                sound: "delete"
+                iconSource: "qrc:/tastra/icons/backspace.svg"
+                onTriggered: keyboardBridge.backspace()
+                Timer {
+                    id: morseBackspaceRepeat
+                    interval: 75
+                    repeat: true
+                    onTriggered: keyboardBridge.backspace()
+                }
+                onLongPressed: {
+                    consumeRelease = true
+                    keyboardBridge.backspace()
+                    morseBackspaceRepeat.start()
+                }
+                onPressEnded: (x, y) => morseBackspaceRepeat.stop()
+                onPressCancelled: morseBackspaceRepeat.stop()
+            }
+        }
+
+        Row {
+            visible: !root.numpadShown && !root.morseShown
             anchors.horizontalCenter: parent.horizontalCenter
             spacing: root.keyGap
 
@@ -1463,7 +1597,7 @@ Rectangle {
         }
 
         Row {
-            visible: !root.numpadShown
+            visible: !root.numpadShown && !root.morseShown
             anchors.horizontalCenter: parent.horizontalCenter
             spacing: root.keyGap
 
@@ -1501,7 +1635,7 @@ Rectangle {
         }
 
         Row {
-            visible: !root.numpadShown
+            visible: !root.numpadShown && !root.morseShown
             anchors.horizontalCenter: parent.horizontalCenter
             spacing: root.keyGap
 

@@ -68,7 +68,23 @@ Flickable {
             visible: keyboardBridge.letterLayoutChoice
             width: parent.width; spacing: 12
             Text { width: parent.width - letterLayoutButton.width - parent.spacing; height: letterLayoutButton.height; verticalAlignment: Text.AlignVCenter; text: qsTr("Letter layout (%1)").arg(keyboardBridge.languageLabel); color: root.textColor; font.pixelSize: root.portrait ? 17 : 15 }
-            PanelButton { id: letterLayoutButton; objectName: "letterLayoutButton"; width: root.portrait ? 170 : 150; label: keyboardBridge.letterLayout; onTriggered: keyboardBridge.cycleLetterLayout() }
+            PanelButton { id: letterLayoutButton; objectName: "letterLayoutButton"; width: root.portrait ? 170 : 150; label: keyboardBridge.morseLayout ? qsTr("Morse code") : keyboardBridge.letterLayout; onTriggered: keyboardBridge.cycleLetterLayout() }
+        }
+
+        Row {
+            // Gboard Morse settings: how long a pause sends the keyed sign
+            // ("Never": Space sends it) and whether a longer one ends the word.
+            visible: keyboardBridge.morseLayout
+            width: parent.width; spacing: 12
+            Text { width: parent.width - morseCharacterButton.width - parent.spacing; height: morseCharacterButton.height; verticalAlignment: Text.AlignVCenter; text: qsTr("Morse: character timeout"); color: root.textColor; font.pixelSize: root.portrait ? 17 : 15; wrapMode: Text.WordWrap }
+            PanelButton { id: morseCharacterButton; objectName: "morseCharacterTimeoutButton"; width: root.portrait ? 170 : 150; label: keyboardBridge.morseCharacterTimeout === 0 ? qsTr("Never") : qsTr("%1 s").arg((keyboardBridge.morseCharacterTimeout / 1000).toFixed(1)); onTriggered: keyboardBridge.cycleMorseCharacterTimeout() }
+        }
+
+        Row {
+            visible: keyboardBridge.morseLayout
+            width: parent.width; spacing: 12
+            Text { width: parent.width - morseWordButton.width - parent.spacing; height: morseWordButton.height; verticalAlignment: Text.AlignVCenter; text: qsTr("Morse: word timeout"); color: root.textColor; font.pixelSize: root.portrait ? 17 : 15; wrapMode: Text.WordWrap }
+            PanelButton { id: morseWordButton; objectName: "morseWordTimeoutButton"; width: root.portrait ? 170 : 150; label: keyboardBridge.morseWordTimeout === 0 ? qsTr("Off") : qsTr("%1 s").arg((keyboardBridge.morseWordTimeout / 1000).toFixed(1)); onTriggered: keyboardBridge.cycleMorseWordTimeout() }
         }
 
         Row {

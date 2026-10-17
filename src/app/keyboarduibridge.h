@@ -5,6 +5,7 @@
 #include "core/clipboardhistory.h"
 #include "core/emojicatalog.h"
 #include "core/keyboardmodel.h"
+#include "core/morsecode.h"
 #include "core/panelmanager.h"
 #include "core/toolbarregistry.h"
 #include "core/toolbarmodel.h"
@@ -15,6 +16,7 @@
 #include <QPointer>
 #include <QString>
 #include <QStringList>
+#include <QTimer>
 #include <QVariantList>
 #include <QVariantMap>
 
@@ -107,6 +109,17 @@ class KeyboardUiBridge final : public QObject
     // for the current language.
     Q_PROPERTY(QString letterLayout READ letterLayout NOTIFY keyboardStateChanged)
     Q_PROPERTY(bool letterLayoutChoice READ letterLayoutChoice NOTIFY keyboardStateChanged)
+    // Gboard's Morse code layout: the dot and dash keys instead of letters.
+    Q_PROPERTY(bool morseLayout READ morseLayout NOTIFY keyboardStateChanged)
+    // The dots and dashes keyed so far ('.' and '-'), what they type now,
+    // and the signs they can still become ({text, code}, shortest first).
+    Q_PROPERTY(QString morseCode READ morseCode NOTIFY morseChanged)
+    Q_PROPERTY(QString morseText READ morseText NOTIFY morseChanged)
+    Q_PROPERTY(QVariantList morseHints READ morseHints NOTIFY morseChanged)
+    // Gboard "Character timeout" (0: never, Space sends) and "Word timeout"
+    // (0: off; otherwise a pause ends the word with a space), in ms.
+    Q_PROPERTY(int morseCharacterTimeout READ morseCharacterTimeout NOTIFY typingPreferencesChanged)
+    Q_PROPERTY(int morseWordTimeout READ morseWordTimeout NOTIFY typingPreferencesChanged)
     Q_PROPERTY(bool showLanguageKey READ showLanguageKey WRITE setShowLanguageKey NOTIFY uiPreferencesChanged)
     Q_PROPERTY(bool autoSpaceAfterPunctuation READ autoSpaceAfterPunctuation WRITE setAutoSpaceAfterPunctuation NOTIFY typingPreferencesChanged)
     // Gboard "Emoji fast-access row": recent emoji above the keys.
@@ -250,6 +263,21 @@ public:
     void setPicturesFolderForTesting(const QString &folder) { m_picturesFolderOverride = folder; }
     QString letterLayout() const;
     bool letterLayoutChoice() const;
+    bool morseLayout() const;
+    QString morseCode() const { return m_morse.code(); }
+    QString morseText() const { return m_morse.text(); }
+    QVariantList morseHints() const;
+    int morseCharacterTimeout() const { return m_morseCharacterTimeout; }
+    int morseWordTimeout() const { return m_morseWordTimeout; }
+    Q_INVOKABLE void morseDot() { keyMorse(false); }
+    Q_INVOKABLE void morseDash() { keyMorse(true); }
+    // Types the keyed sign now; false when nothing was keyed.
+    Q_INVOKABLE bool sendMorse();
+    // A sign from the strip: typed instead of the one being keyed.
+    Q_INVOKABLE void chooseMorseHint(const QString &text);
+    Q_INVOKABLE void cycleMorseCharacterTimeout();
+    Q_INVOKABLE void cycleMorseWordTimeout();
+    Q_INVOKABLE void setMorseTimeouts(int characterMs, int wordMs);
     Q_INVOKABLE void cycleLetterLayout();
     bool blockOffensive() const;
     QString layoutMode() const;
@@ -476,12 +504,19 @@ Q_SIGNALS:
     void inputContextChanged();
     void uiLanguageChanged();
     void selectionChanged();
+    void morseChanged();
 
 private:
     void persistLanguage() const;
     void persistPreference(const QString &key, const QVariant &value) const;
     void typingStateDidChange();
     void captureClipboard();
+    void keyMorse(bool dash);
+    void typeMorseText(const QString &text);
+    // Another key: what was keyed is typed first. dropMorse(): forgotten
+    // (another language or layout, another field).
+    void flushMorse();
+    void dropMorse();
 
     KeyboardController &m_controller;
     KeyboardModel &m_model;
@@ -504,6 +539,11 @@ private:
     bool m_emojiSuggestions = true;
     bool m_nextWordSuggestions = true;
     bool m_phraseSuggestions = true;
+    MorseKeyer m_morse;
+    QTimer m_morseCharacterTimer;
+    QTimer m_morseWordTimer;
+    int m_morseCharacterTimeout = 800;
+    int m_morseWordTimeout = 0;
     bool m_emojiSearchActive = false;
     QString m_emojiSearchText;
     QString m_wordEntryStep;

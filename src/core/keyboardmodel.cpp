@@ -156,11 +156,16 @@ QStringList KeyboardModel::layoutVariants(const QString &code)
     for (const auto &v : variants) {
         if (QString::fromLatin1(v.code) == code) ids.append(QString::fromLatin1(v.variant));
     }
+    // Gboard's Morse code layout (English US there; every language here,
+    // with its letters: core/morsecode.h). Its rows are the first layout's,
+    // for the lexicon; the keyboard shows the dot and dash keys instead.
+    if (!rowsForLanguage(code).isEmpty()) ids.append(QStringLiteral("morse"));
     return ids;
 }
 
 QString KeyboardModel::layoutVariantLabel(const QString &code, const QString &variant)
 {
+    if (variant == QLatin1String("morse")) return QStringLiteral("Morse");
     for (const auto &v : variants) {
         if (QString::fromLatin1(v.code) == code && QString::fromLatin1(v.variant) == variant) return QString::fromUtf8(v.label);
     }
