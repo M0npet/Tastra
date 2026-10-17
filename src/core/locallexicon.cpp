@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 
 #include "locallexicon.h"
+#include "languages.h"
 #include "glidegeometry.h"
 #include <QThreadPool>
 #include <QMutex>
@@ -169,6 +170,9 @@ namespace
 
 QStringList coreWords(const QString &code)
 {
+    // The languages of 0.7.19 have no list of their own: their frequency
+    // list and dictionary are the words (and never English ones).
+    if (languageInfo(code)) return {};
     if (code == QStringLiteral("de")) {
         return {
             QStringLiteral("aber"), QStringLiteral("alle"), QStringLiteral("auch"), QStringLiteral("auf"),
@@ -246,6 +250,7 @@ QHash<QString, QString> curatedTypos(const QString &code)
     auto add = [&map](const char *typo, const char *word) {
         map.insert(QString::fromUtf8(typo), QString::fromUtf8(word));
     };
+    if (languageInfo(code)) return map;
     if (code == QStringLiteral("de")) {
         add("dsa", "das"); add("udn", "und"); add("nciht", "nicht"); add("ncith", "nicht");
         add("hlalo", "hallo"); add("danek", "danke"); add("iwe", "wie");
@@ -265,6 +270,7 @@ QHash<QString, QString> curatedTypos(const QString &code)
 
 QStringList dictionaryNames(const QString &code)
 {
+    if (const QStringList names = languageDictionaries(code); !names.isEmpty()) return names;
     if (code == QStringLiteral("de")) {
         return {QStringLiteral("de_DE"), QStringLiteral("de_DE_frami"), QStringLiteral("de_AT"), QStringLiteral("de_CH")};
     }
@@ -985,7 +991,8 @@ QStringList LocalLexicon::apostropheVariants(const QString &typed) const
 {
     // English contractions and Ukrainian words such as "п'ять" (LatinIME:
     // intentional omission of an apostrophe or hyphen).
-    if (m_language != QStringLiteral("en") && m_language != QStringLiteral("uk")) return {};
+    const LanguageInfo *info = languageInfo(m_language);
+    if (m_language != QStringLiteral("en") && m_language != QStringLiteral("uk") && !(info && info->apostrophes)) return {};
     if (typed.size() < 2 || typed.contains(QLatin1Char('\''))) return {};
     QStringList variants;
     for (int i = 1; i < typed.size(); ++i) variants << QString(typed).insert(i, QLatin1Char('\''));
@@ -997,6 +1004,13 @@ namespace
 // Base letter -> accented letters it stands for, per language.
 QString accentsFor(const QString &language, QChar base)
 {
+    if (languageInfo(language)) {
+        // Ligatures stand for two letters ("coeur"): see unaccentedSpellings().
+        QString accents = languageAccents(language, base);
+        accents.remove(QChar(0x00E6));
+        accents.remove(QChar(0x0153));
+        return accents;
+    }
     if (language == QStringLiteral("de")) {
         switch (base.unicode()) {
         case 'a': return QStringLiteral("ä");
@@ -1024,7 +1038,22 @@ QStringList unaccentedSpellings(const QString &word)
         case 0x00DF: plain += QStringLiteral("ss"); digraph += QStringLiteral("ss"); break; // ß
         case 0x0451: plain += QChar(0x0435); digraph += QChar(0x0435); break;            // ё -> е
         case 0x0491: plain += QChar(0x0433); digraph += QChar(0x0433); break;            // ґ -> г
-        default: plain += ch; digraph += ch;
+        case 0x0142: plain += QLatin1Char('l'); digraph += QLatin1Char('l'); break;      // ł
+        case 0x00F8: plain += QLatin1Char('o'); digraph += QLatin1Char('o'); break;      // ø
+        case 0x00E6: plain += QStringLiteral("ae"); digraph += QStringLiteral("ae"); break; // æ
+        case 0x0153: plain += QStringLiteral("oe"); digraph += QStringLiteral("oe"); break; // œ
+        default:
+            // Other accented Latin letters (é, ñ, ą, ç ...) without the accent.
+            if (ch.unicode() >= 0x00C0 && ch.unicode() <= 0x017F) {
+                const QString bare = QString(ch).normalized(QString::NormalizationForm_D);
+                if (bare.size() > 1 && bare.front().unicode() < 0x80) {
+                    plain += bare.front();
+                    digraph += bare.front();
+                    break;
+                }
+            }
+            plain += ch;
+            digraph += ch;
         }
     }
     QStringList forms{plain};
@@ -1233,6 +1262,7 @@ QString LocalLexicon::normalize(const QString &word) const
 
 QString LocalLexicon::alphabet() const
 {
+    if (const LanguageInfo *info = languageInfo(m_language)) return QString::fromUtf8(info->alphabet);
     if (m_language == QStringLiteral("de")) return QStringLiteral("abcdefghijklmnopqrstuvwxyzäöüß");
     if (m_language == QStringLiteral("uk")) return QStringLiteral("абвгґдеєжзиіїйклмнопрстуфхцчшщьюя'");
     if (m_language == QStringLiteral("ru")) return QStringLiteral("абвгдеёжзийклмнопрстуфхцчшщъыьэюя");
@@ -1476,7 +1506,8 @@ void LocalLexicon::addSplitCandidates(const QString &typed, const QString &previ
         {QStringLiteral("ru"), QStringLiteral("авикосуя")},
         {QStringLiteral("uk"), QStringLiteral("авзійоуяє")},
     };
-    const QString oneLetter = oneLetterWords.value(m_language);
+    const LanguageInfo *info = languageInfo(m_language);
+    const QString oneLetter = info ? QString::fromUtf8(info->oneLetterWords) : oneLetterWords.value(m_language);
     auto partRank = [this, &oneLetter](const QString &part) {
         const int rank = frequencyRank(part);
         if (rank <= 0 || rank > PartRankLimit) return 0;
@@ -1588,10 +1619,17 @@ QStringList LocalLexicon::suggestions(const QString &word, const QString &previo
         for (size_t i = lo; i < end; ++i) consider(m_data->wordAt(i).toString(), m_data->capitalizedAt(i));
     }
 
-    // "cant" is a word, but "can't" is what most people mean: offer it.
+    // "cant" is a word, but "can't" is what most people mean: offer it; the
+    // same for a listed word with the accents left out ("tres" -> "très",
+    // "esta" -> "está", "fur" -> "für"), as Gboard does.
     if (m_data) {
         for (const QString &v : apostropheVariants(typed)) {
             if (const auto *entry = m_data->freqFind(v)) consider(v, entry->capital);
+        }
+        if (typed.size() >= 2) {
+            for (const QString &v : accentVariants(typed)) {
+                if (const auto *entry = m_data->freqFind(v)) consider(v, entry->capital);
+            }
         }
     }
 

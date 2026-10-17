@@ -3,7 +3,8 @@
 A Gboard-style on-screen keyboard for KDE Plasma 6 on Wayland (KWin), made for
 touch tablets such as the Minisforum V3. Native C++ / Qt 6 / QML (no Java,
 Electron or browser engine), fully offline, light on memory. English, German,
-Ukrainian and Russian. GPL-3.0-or-later (see `COPYING`).
+Ukrainian and Russian; Spanish, French, Italian, Portuguese, Polish and Dutch
+can be turned on in Settings → Languages. GPL-3.0-or-later (see `COPYING`).
 
 Status: **0.7.18, in development**. Version 1.0 means everything Gboard
 does, as far as it can be done offline on KWin; what is done and what is
@@ -38,8 +39,10 @@ type `~/.local/bin/tastra-update` and so on, or add it once:
   rebuilds.
 - Roll back to the previous build: `tastra-rollback` (again to go further
   back).
-- Dictionaries: `tastra-dictionaries [--status]` (EN/DE/RU from pacman, UK from a
-  pinned, checksummed upstream file).
+- Dictionaries: `tastra-dictionaries [--status]` (EN/DE/RU and ES/FR/IT/PL/NL
+  from pacman, UK and PT from pinned, checksummed upstream files; the
+  languages turned on in settings are included). Without a dictionary a
+  language still completes and suggests words, but Space does not correct.
 - Offline voice input (optional): `tastra-voice-setup`, then `tastra-update`.
 - Uninstall: `tastra-uninstall [--purge]`.
 
@@ -139,7 +142,7 @@ records sizes and decisions only, never text.
 FrequencyWords, wordfreq and Universal Dependencies treebanks (CC BY-SA 4.0), UA-GEC
 (CC BY 4.0), Common Voice sentences (CC0), Unicode CLDR annotations (Unicode License V3),
 LDNOOBW word lists (CC BY 4.0), Hunspell dictionaries (system packages),
-LibreOffice uk_UA dictionary (MPL-1.1), optional whisper.cpp + ggml model
+LibreOffice uk_UA (MPL-1.1) and pt_BR (LGPLv3/MPL) dictionaries, optional whisper.cpp + ggml model
 (MIT), KDE's fake-input protocol description (LGPL-2.1-or-later,
 `protocols/`). Details are in `data/*/ATTRIBUTION.md` and `protocols/README.md`,
 installed to `~/.local/share/doc/tastra`.

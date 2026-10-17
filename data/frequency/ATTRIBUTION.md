@@ -25,3 +25,29 @@ Russian words were dropped from the Ukrainian list with
 "конечно"): words the Russian Hunspell dictionary accepts and either the
 Ukrainian one rejects or wordfreq finds at least ten times more common in
 Russian, and words with ы, э, ъ or ё.
+
+## es, fr, it, pt, pl, nl (0.7.19)
+
+From the same FrequencyWords content/2018 50k lists (pt: the pt_br list), made
+with `tools/import-language.py`: lowercased, counts removed, non-word tokens
+and single letters other than each language's one-letter words dropped. Two
+filters use wordfreq (Robyn Speer, v3, data CC BY-SA 4.0; only list
+positions and the frequencies below were used, no counts were copied):
+
+- forms written without their accents that wordfreq finds under 10 % as
+  often as the accented word of the same letters ("tambien", "nao",
+  "prosze"; "esta" and "está" both stay), because subtitles often leave
+  accents out;
+- words wordfreq finds at least ten times as often in English ("the",
+  "you"), unless the language's Hunspell dictionary from LibreOffice
+  (es_ES, it_IT, pt_BR, pl_PL, nl_NL at LibreOffice/dictionaries
+  32b006a2; read with spylls, not distributed) knows them ("has", "come"
+  in Spanish). French had no dictionary at hand: the frequency rule alone.
+
+Apostrophe words for fr, it, nl were added with
+`tools/merge-apostrophe-words.py` as for en and uk ("aujourd'hui",
+"dell'anno", "zo'n"). French elisions ("c'est", "j'ai", "l'homme"), which
+wordfreq splits too, were counted in the Common Voice sentences (CC0,
+https://github.com/common-voice/common-voice b99fe2a, server/data/fr; not the
+Wikipedia, address and single-word sets) and placed at the position of the
+same frequency in wordfreq; the bare fragments ("c", "j", "qu") were dropped.

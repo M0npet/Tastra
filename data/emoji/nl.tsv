@@ -1,0 +1,1966 @@
+!	uitroepteken|uitroep|uitroeppunt
+#	hekje|aantal|hashtag|lb|pound
+$	dollar|geld|peso|usd
+%	procent
+&	en-teken|en|et
+'	rechte apostrof|aanhalingsteken|apostrof|enkel aanhalingsteken|recht aanhalingsteken
+)	haakje sluiten|ronde haak|sluithaakje
+*	asterisk|jokerteken|sterretje
++	plusteken|optellen|plus
+,	komma
+-	liggend streepje|gedachtestreepje|verbindingsstreepje
+.	punt|decimaal teken
+/	schuine streep|breukstreep|schrap|schuine lijn|streep
+0⃣	toets: 0|0|nul|toets
+1⃣	toets: 1|1|een|toets
+2⃣	toets: 2|2|toets|twee
+3⃣	toets: 3|3|drie|toets
+4⃣	toets: 4|4|toets|vier
+5⃣	toets: 5|5|toets|vijf
+6⃣	toets: 6|6|toets|zes
+7⃣	toets: 7|7|toets|zeven
+8⃣	toets: 8|8|acht|toets
+9⃣	toets: 9|9|negen|toets
+:	dubbele punt
+;	puntkomma
+<	kleiner-danteken|kleiner dan|punthaakje|punthaakje openen
+=	gelijkteken|is gelijk aan
+>	groter-danteken|groter dan|punthaakje|punthaakje sluiten
+?	vraagteken|vraag
+@	apenstaartje|a-krol|amfoor|amfora|at|slinger-a|slingeraap
+[	rechte haak openen|haak|rechte haak|rechte haak links
+\	backslash|omgekeerde schuine streep|terugschrap
+]	rechte haak sluiten|haak|rechte haak|rechte haak rechts
+^	accent circonflexe|aan/uit|aanwijzer|accent|caret|chevron|circonflexe|dakje
+_	underscore|lijn|onderstreping
+`	accent grave|accent|grave|toon
+{	accolade openen|accolade|accolade links|krulhaakje|krulhaakje link|krulhaakje openen
+|	verticale lijn|baar|spaak|spijl|staaf|stang|stok
+}	accolade sluiten|accolade|accolade rechts|krulhaakje|krulhaakje rechts|krulhaakje sluiten
+~	tilde
+¡	omgekeerd uitroepteken|omgekeerd|uitroep|uitroeppunt|uitroepteken
+¢	cent
+£	brits pond|egp|gbp|valuta
+¥	yen|cny|jpy|valuta|yuan
+§	paragraaf|deel|paragraafsymbool
+¨	trema|umlaut
+©	copyright|c
+«	guillemet naar links|aanhalingsteken|haakjes|hoek|inlastekens|links|onderscheidingsteken
+¬	negatie|niet
+®	gedeponeerd|r
+°	graden|bewijs|uur
+±	plusminus
+²	superscript twee|in het kwadraat|superscript|twee
+³	superscript drie|drie|kubieke|superscript
+´	accent aigu|accent|aigu|toon
+µ	mu|maat
+¶	paragraafteken|alinea|alineateken|paraaf|paragraaf
+·	hoge punt|hoge|interpunct|punt
+¹	superscript één|één|superscript
+»	guillemet naar rechts|aanhalingsteken|haakjes|hoek|inlastektekens|onderscheidingsteken|rechts
+¿	omgekeerd vraagteken|omgekeerd|vraag|vraagteken
+×	vermenigvuldigingsteken|keer|vermenigvuldigen|vermenigvuldiging
+÷	deelteken|delen|deling|obelus
+،	arabische komma|arabisch|komma
+؛	arabische puntkomma|arabisch|puntkomma
+؟	arabisch vraagteken|arabisch|vraag|vraagteken
+‐	koppelteken|gedachtestreep|verbindingsstreepje
+–	gedachtestreepje|gedachte|streepje
+—	aandachtsstreepje|aandacht|streepje
+―	horizontale balk|balk|gedachtestreep|lijn
+‘	linker apostrof|aanhalingsteken|apostrof|linker aanhalingsteken|slim aanhalingsteken
+’	rechter apostrof|aanhalingsteken|apostrof|rechter aanhalingsteken|slim aanhalingsteken
+‚	lage rechter apostrof|aanhalingsteken|apostrof|laag aanhalingsteken
+“	linker dubbel aanhalingsteken|aanhalingsteken|dubbel aanhalingsteken|slim aanhalingsteken
+”	rechter dubbel aanhalingsteken|aanhalingsteken|dubbel aanhalingsteken|slim aanhalingsteken
+„	laag rechter dubbel aanhalingsteken|aanhalingsteken|dubbel aanhalingsteken|laag aanhalingsteken|slim aanhalingsteken
+†	obelisk|obelus
+‡	dubbele obelisk|dubbel|obelisk|obelus
+•	bullet|rondje
+…	beletselteken|puntjes|weglating
+‧	koppeling|gedachtestreepje|koppelteken|punt
+‰	promille
+′	prime|accent
+″	dubbele prime|accent
+‴	drievoudige prime|accent
+‸	inlasteken
+※	referentieteken
+‼	dubbel uitroepteken|!|!!|dubbel|interpunctie|teken|uitroep
+‽	interrobang|vraagteken-uitroepteken
+‾	bovenlijn
+⁂	asterisme|dinkus|sterren
+⁄	breukstreep|schuine streep|streep
+⁉	uitroepteken en vraagteken|!|!?|?|interpunctie|teken|uitroep|vraag|vraagteken-uitroepteken
+⁻	superscript min|min|superscript
+₢	cruzeiro|brb|valuta
+₣	franse franc|franc|valuta
+₤	lira|valuta
+₥	mill|mil
+₨	roepie|valuta
+₩	won|kpw|krw
+€	euro|eur|valuta
+₰	duitse pfennig|pfennig|valuta
+₱	peso
+₳	austral|ara|valuta
+₶	livre tournois|valuta
+₷	spesmilo|valuta
+₹	indiase roepie|roepie|valuta
+₽	roebel|valuta
+₿	bitcoin|btc
+℗	copyright geluidsopname|copyright|geluid|opname
+™	handelsmerksymbool|handel|handelsmerk|merk|tm
+ℹ	informatie|i
+←	naar links wijzende pijl|links|pijl
+↑	omhoog wijzende pijl|omhoog|pijl
+→	naar rechts wijzende pijl|pijl|rechts
+↓	omlaag wijzende pijl|omlaag|pijl
+↔	pijl naar links en rechts|pijl
+↕	pijl omhoog en omlaag|omhoog en omlaag|pijl
+↖	pijl linksomhoog|linksboven|noordwest|pijl|richting|windrichting
+↗	pijl rechtsomhoog|noordoost|pijl|rechtsboven|richting|windrichting
+↘	pijl rechtsomlaag|pijl|rechtsonder|richting|windrichting|zuidoost
+↙	pijl linksomlaag|linksonder|pijl|richting|windrichting|zuidwest
+↚	streep met pijl naar links
+↛	streep met pijl naar rechts
+↜	golvende pijl naar links
+↝	golvende pijl naar rechts
+↞	pijl met twee koppen naar links
+↟	pijl met twee koppen omhoog
+↠	pijl met twee koppen naar rechts
+↡	pijl met twee koppen omlaag
+↢	pijl met staart naar links
+↣	pijl met staart naar rechts
+↤	pijl naar links vanaf balk
+↥	pijl omhoog vanaf balk
+↦	pijl naar rechts vanaf balk
+↧	pijl omlaag vanaf balk
+↨	pijl omhoog/omlaag met basis
+↩	pijl naar rechts die naar links draait|gebogen|links|pijl|rechts
+↪	pijl naar links die naar rechts draait|gebogen|links|pijl|rechts
+↫	pijl met lus naar links
+↬	pijl met lus naar rechts
+↭	golvende pijl naar links/rechts
+↮	streep met pijl naar links/rechts
+↯	zigzagpijl omlaag
+↰	pijlpunt omhoog en naar links wijzend
+↱	pijlpunt omhoog en naar rechts wijzend
+↲	pijlpunt omlaag en naar links wijzend
+↳	pijlpunt omlaag en naar rechts wijzend
+↴	hoekpijl omlaag en naar rechts wijzend
+↵	hoekpijl omlaag en naar links wijzend
+↶	pijl omhoog tegen de klok in met halve cirkel
+↷	pijl omhoog met de klok mee met halve cirkel
+↸	pijl noordwest lange balk
+↹	pijl naar links naar balk boven pijl naar rechts naar balk
+↺	pijl met open cirkel tegen de klok in
+↻	pijl met open cirkel met de klok mee
+↼	harpoen naar links met weerhaak naar boven
+↽	harpoen naar links met weerhaak naar beneden
+↾	harpoen naar boven met weerhaak naar rechts
+↿	harpoen naar boven met weerhaak naar links
+⇀	harpoen naar rechts met weerhaak naar boven
+⇁	harpoen naar rechts met weerhaak naar beneden
+⇂	harpoen naar beneden met weerhaak naar rechts
+⇃	harpoen naar beneden met weerhaak naar links
+⇄	pijl naar rechts boven pijl naar links
+⇅	omhoog en omlaag wijzende pijlen|omhoog|omlaag|pijl
+⇆	naar links boven naar rechts wijzende pijlen|links|pijl|rechts
+⇇	twee pijlen naar links
+⇈	twee pijlen naar boven
+⇉	twee pijlen naar rechts
+⇊	twee pijlen naar beneden
+⇋	harpoen naar links boven harpoen naar rechts
+⇌	harpoen naar rechts boven harpoen naar links
+⇍	dubbele doorgestreepte pijl naar links
+⇎	dubbele doorgestreepte pijl links/rechts
+⇏	dubbele doorgestreepte pijl naar rechts
+⇐	dubbele pijl naar links
+⇑	dubbele pijl omhoog
+⇒	dubbele pijl naar rechts
+⇓	dubbele pijl omlaag
+⇔	dubbele pijl links/rechts
+⇖	dubbele pijl noordwest
+⇗	dubbele pijl noordoost
+⇘	dubbele pijl zuidoost
+⇙	dubbele pijl zuidwest
+⇚	driedubbele pijl naar links
+⇛	driedubbele pijl naar rechts
+⇜	kronkelpijl naar links
+⇝	kronkelpijl naar rechts
+⇞	pijl naar boven met twee strepen
+⇟	pijl naar beneden met twee strepen
+⇠	gestippelde pijl naar links
+⇡	gestippelde pijl naar boven
+⇢	gestippelde pijl naar rechts
+⇣	gestippelde pijl naar beneden
+⇤	pijl naar links naar balk
+⇥	pijl naar rechts naar balk
+⇦	doorzichtige pijl naar linkss
+⇧	doorzichtige pijl naar boven
+⇨	doorzichtige pijl naar rechts
+⇩	doorzichtige pijl naar beneden
+⇪	doorzichtige pijl naar boven vanaf balk
+⇵	pijl omlaag links van pijl omhoog
+∀	voor alles|alles|gegeven|ieder|universeel
+∂	partiële afgeleide|afgeleide
+∃	bestaat
+∅	lege verzameling|verzameling-teken|wiskunde
+∆	toename|driehoek
+∇	nabla|driehoek
+∈	element van|bevat|element|lidmaatschap|verzameling
+∉	geen element van|element
+∋	bevat als lid|element
+∎	qed
+∏	cartesisch product|logica|product
+∑	productverzameling|verzameling|wiskunde
+−	minteken|aftrekken|min
+∓	min-of-plusteken|plusminus
+∕	deelstreep|lijn|schuine streep|streep
+∗	asterisk-teken|sterretje
+∘	operator samenstelling|operator|samenstelling
+∙	puntteken|operator
+√	vierkantswortel|onmeetbaar getal|radix|vierkant|wortelvorm
+∝	evenredig|evenredigheid
+∞	oneindig teken|oneindig
+∟	rechte hoek|wiskunde
+∠	hoek|scherp
+∣	deler
+∥	parallel
+∧	logisch en|ac|atque|wig
+∩	doorsnede|verzameling
+∪	vereniging|reeks|verzameling
+∫	integraal|calculus
+∬	dubbele integraal|calculus
+∮	kringintegraal
+∴	daarom|logica
+∵	omdat|logica
+∶	ratio
+∷	verhouding|proportionaliteit
+∼	tilde-teken|operator
+∽	omgekeerde tilde|tilde
+∾	oneindigheid
+≃	asymptotisch gelijkwaardige|asymptoot|asymptotisch gelijkwaardig|wiskunde
+≅	ongeveer gelijk|gelijkheid|isomorfie|overeenstemming|wiskunde
+≈	ongeveerteken|benadering|bijna gelijk aan
+≌	alles gelijk|gelijkwaardigheid|wiskunde
+≒	ongeveer gelijk aan de afbeelding
+≖	ring in gelijk|gelijkheid|wiskunde
+≠	niet-gelijkteken|is niet gelijk aan|ongelijkheid
+≡	is gelijk aan|drievoud|gelijk|gelijk aan|precies
+≣	strict gelijk|gelijkheid|wiskunde
+≤	kleiner dan of gelijk aan|gelijk aan|is gelijk aan|kleiner dan|ongelijk aan
+≥	groter dan of gelijk aan|gelijk aan|groter dan|is gelijk aan|ongelijk aan
+≦	minder dan boven gelijk aan|ongelijkheid|wiskunde
+≧	groter dan boven gelijk aan|ongelijkheid|wiskunde
+≪	veel minder dan|ongelijkheid|wiskunde
+≫	veel groter dan|ongelijkheid|wiskunde
+≬	tussen
+≮	niet minder dan|ongelijkheid|wiskunde
+≯	niet groter dan|ongelijkheid|wiskunde
+≳	groter of gelijk dan|ongelijkheid|wiskunde
+≺	komt voor|set operator|wiskunde
+≻	komt na|set operator|wiskunde
+⊁	komt niet na|set operator|wiskunde
+⊂	deelverzameling van|deelverzameling|verzameling
+⊃	verzameling|set operator|superset|wiskunde
+⊆	deelverzameling gelijk aan
+⊇	verzameling gelijk aan|gelijkheid|wiskunde
+⊕	plusteken in cirkel|plus
+⊖	minteken in cirkel|erosie|symmetrisch verschil
+⊗	vermenigvuldigingsteken in cirkel|product|tensor
+⊘	schuine streep voorwaarts in cirkel|wiskunde|zoals deling
+⊙	operator met punt in cirkel|operator|xnor
+⊚	operator met ring in cirkel
+⊛	operator met asterisk in cirkel|asterisk|operator
+⊞	plusteken in vierkant|wiskunde|zoals een optelteken
+⊟	minteken in vierkant|wiskunde|zoals een aftrekteken
+⊥	falsum
+⊮	forceert niet
+⊰	komt voor onder relatie|set operator|wiskunde
+⊱	komt na onder relatie|set operator|wiskunde
+⊶	origineel
+⊹	geconjugeerde hermitische matrix|vierkante matrix|wiskunde|zelf-geadjungeerde matrix
+⊿	driehoek rechts|driehoek met hoek rechts|wiskunde
+⋁	n-ary logisch of|disjunctie|logisch
+⋂	n-ary doorsnede|doorsnede|n-ary doosnede|set operator|wiskunde
+⋃	n-ary vereniging|set operator|vereniging|wiskunde
+⋅	puntoperator|operator
+⋆	steroperator|operator
+⋈	natuurlijk samenvoegen|binaire operator|strikje
+⋒	dubbele doorsnede|doorsnede|set operator|wiskunde
+⋘	heel veel minder dan|ongelijkheid|wiskunde
+⋙	heel veel groter dan|ongelijkheid|wiskunde
+⋭	is gelijk aan bevat geen normale deelverzameling|groepstheorie|wiskunde
+⋮	verticale ellips|ellips|wiskunde
+⋯	horizontale ellips op middellijn|ellips
+⋰	ellips diagonaal rechts omhoog|ellips|wiskunde
+⋱	ellips diagonaal rechts omlaag|ellips|wiskunde
+⌚	horloge|klok|polshorloge|tijd
+⌛	zandloper|tijd|timer|zand
+⌨	toetsenbord|computer
+⏏	knop voor uitwerpen|uitwerpen
+⏩	knop voor snel vooruitspoelen|dubbel|knop|pijl|snel|vooruit
+⏪	knop voor versneld terugspoelen|dubbele pijl links|links|pijl|terugspoelen
+⏫	knop voor versneld omhoog|dubbel|knop|omhoog|pijl|snel
+⏬	knop voor versneld omlaag|dubbel|knop|omlaag|pijl|snel
+⏭	knop voor volgende nummer|driehoek|knop|nummer|pijl|scène|volgende
+⏮	knop voor vorige nummer|driehoek|knop|laatste|nummer|pijl|scène|vorige
+⏯	knop voor afspelen of pauzeren|driehoek|knop|pauzeren|pijl|rechts|spelen
+⏰	wekker|alarm|klok|tijd
+⏱	stopwatch|klok|timer
+⏲	keukenwekker|klok|kookwekker|timer
+⏳	zandloper met stromend zand|tijd|timer|zand|zandloper
+⏸	pauzeknop|dubbel|knop|pauze|streep|verticaal
+⏹	knop voor stoppen|stoppen|vierkant
+⏺	knop voor opnemen|knop|opnemen|rondje
+Ⓜ	m in cirkel|cirkel|in cirkel|m
+■	ingevuld vakje
+□	leeg vakje
+▢	leeg vakje met afgeronde hoeken
+▣	leeg vakje met ingevuld vakje
+▤	vakje met horizontale invulling
+▥	vakje met verticale invulling
+▦	vakje met invulling met orthogonale dubbele arcering
+▧	vakje met invulling linksboven/rechtsonder
+▨	vakje met invulling linksonder/rechtsboven
+▩	vakje met invulling met diagonale dubbele arcering
+▪	klein zwart vierkant|geometrisch|klein|vierkant|zwart
+▫	klein wit vierkant|geometrisch|klein|vierkant|wit
+▬	rechthoek met invulling
+▭	holle rechthoek
+▮	ingevulde verticale rechthoek
+▰	ingevuld parallellogram
+▲	gevulde, omhoog wijzende driehoek|driehoek|gevuld|gevulde|omhoog|omhoog wijzende driehoek|pijl
+△	holle driehoek die naar boven wijst
+▴	ingevulde kleine driehoek die naar boven wijst
+▵	holle kleine driehoek die naar boven wijst
+▶	knop voor afspelen|afspelen|driehoek|knop|pijl|rechts
+▷	holle driehoek die naar rechts wijst
+▸	ingevulde kleine driehoek die naar rechts wijst
+▹	holle kleine driehoek die naar rechts wijst
+►	ingevulde pijl die naar rechts wijst
+▻	holle pijl die naar rechts wijst
+▼	gevulde, omlaag wijzende driehoek|driehoek|gevuld|gevulde|omlaag|omlaag wijzende driehoek|pijl
+▽	holle pijl die omlaag wijst
+▾	ingevulde kleine driehoek die omlaag wijst
+▿	holle kleine driehoek die omlaag wijst
+◀	knop voor terugspoelen|achteruit|driehoek|knop|links|pijl
+◁	holle driehoek die naar links wijst
+◂	ingevulde kleine driehoek die naar links wijst
+◃	holle kleine driehoek die naar links wijst
+◄	ingevulde pijl die naar links wijst
+◅	holle pijl die naar links wijst
+◆	ingevulde ruit
+◇	holle ruit
+◈	holle ruit met ingevulde ruit
+◉	holle cirkel met ingevulde cirkel|concentrische cirkels ingevuld|punt in cirkel|pupil|vissenoog
+◊	ruit|ruitvorm|ruitvormig
+○	holle cirkel|cirkel|ring
+◌	gestippelde cirkel
+◍	cirkel met verticale invulling
+◎	concentrische cirkels|doel|dubbele cirkel
+●	gevulde cirkel|cirkel
+◐	cirkel met ingevulde linker helft
+◑	cirkel met ingevulde rechter helft
+◒	cirkel met ingevulde onderste helft
+◓	cirkel met ingevulde bovenste helft
+◔	cirkel met bovenste kwadrant rechts ingevuld
+◕	cirkel met alles ingevuld behalve linker kwadrant
+◖	cirkel met linker helft ingevuld
+◗	cirkel met rechter helft ingevuld
+◘	omgekeerd opsommingsteken
+◙	ingevuld vakje met holle cirkel|omgekeerde holle cirkel
+◜	ronde boog kwadrant linksboven
+◝	ronde boog kwadrant rechtsboven
+◞	ronde boog kwadrant rechtsonder
+◟	ronde boog kwadrant linksonder
+◠	bovenste halve cirkel
+◡	onderste halve cirkel
+◢	ingevulde driehoek rechtsonder
+◣	ingevulde driehoek linksonder
+◤	ingevulde driehoek linksboven
+◥	ingevulde driehoek rechtsboven
+◦	hol opsommingsteken
+◯	grote holle cirkel|cirkel|ring
+◳	hol vakje kwadrant rechtsboven
+◷	holle cirkel met kwadrant rechtsboven
+◻	middelgroot wit vierkant|middelgroot|vierkant|wit
+◼	middelgroot zwart vierkant|geometrisch|middelgroot|vierkant|zwart
+◽	klein tot middelgroot wit vierkant|geometrisch|klein tot middelgroot|vierkant|wit
+◾	klein tot middelgroot zwart vierkant|geometrisch|klein tot middelgroot|vierkant|zwart
+◿	driehoek rechtsonder
+☀	zon|felle zon|helder|stralen|weer|zonnig
+☁	wolk|weer
+☂	paraplu|geopende paraplu|kleding|open paraplu|regen|weer
+☃	sneeuwpop|koud|sneeuw|weer
+☄	komeet|ruimte|vuurbal
+☎	telefoon|rode telefoon met hoorn|vaste telefoon
+☑	vinkje in vak|✓|check|klaar|stem|uit|vak|vink|vinkje
+☔	paraplu met regendruppels|druppels|kleding|paraplu|regen|weer
+☕	warme drank|café|cafeïne|chai|drank|drinken|koffie|ochtend|stomen|thee|warm
+☘	klavertjedrie|iers|plant
+☝	omhoog wijzende wijsvinger|dit|hand|omhoog|vinger|wijs|wijsvinger|wijzen
+☠	doodshoofd met gekruiste beenderen|bot|dood|doodshoofd|gekruiste botten|gezicht|monster|schedel
+☢	radioactief|teken
+☣	biologisch gevaar|teken
+☦	russisch kruis|christelijk|kruis|orthodox|religie
+☪	wassende maan en ster|islam|moslim|ramadan|religie|ster|wassende maan
+☮	vredessymbool|helend|symbool|vrede|vredig
+☯	yin en yang|leven|moeilijk|religie|tao|taoist|totaal|yang|yin
+☸	wiel van dharma|boeddhistisch|dharma|religie|wiel
+☹	fronsend gezicht|fronsen|fronsend|gezicht|verdrietig
+☺	lachend gezicht|blij|gezicht|lach|lachen|omtrek|ontspannen
+♀	vrouwelijkheidssymbool|vrouw
+♂	mannelijkheidssymbool|man
+♈	ram (sterrenbeeld)|aries|dierenriem|horoscoop|ram
+♉	stier (sterrenbeeld)|dierenriem|horoscoop|os|stier|taurus
+♊	tweelingen (sterrenbeeld)|dierenriem|gemini|horoscoop|tweelingen
+♋	kreeft (sterrenbeeld)|cancer|dierenriem|horoscoop|kreeft
+♌	leeuw (sterrenbeeld)|dierenriem|horoscoop|leeuw|leo
+♍	maagd (sterrenbeeld)|dierenriem|horoscoop|maagd|virgo
+♎	weegschaal (sterrenbeeld)|balans|dierenriem|gerechtigheid|horoscoop|libra|weegschaal
+♏	schorpioen (sterrenbeeld)|dierenriem|horoscoop|schorpioen|scorpio|scorpius
+♐	boogschutter (sterrenbeeld)|boogschutter|dierenriem|horoscoop|sagittarius
+♑	steenbok (sterrenbeeld)|capricorn|dierenriem|horoscoop|steenbok
+♒	waterman (sterrenbeeld)|aquarius|dierenriem|drager|horoscoop|water|waterman
+♓	vissen (sterrenbeeld)|dierenriem|horoscoop|pisces|vissen
+♟	pion|schaken|slachtoffer|waardeloos
+♠	schoppen|kaart|kaarten|spel
+♣	klaveren|kaart|kaarten|klaver|spel
+♥	harten|hart|kaart|kaarten|spel
+♦	ruiten|kaart|kaarten|ruit|spel|vorm
+♨	warmwaterbronnen|bronnen|stomend|warm
+♪	achtste noot|achtste|muziek|noot
+♭	mol|molteken|muziek|noot
+♯	kruis|dièse|diesis|muziek|noot
+♻	recycling-symbool|recycle|recycling|symbool
+♾	oneindig|eeuwig|grenzeloos|universeel
+♿	rolstoelsymbool|handicap|rolstoel|symbool|toegang
+⚒	twee hamers|gereedschap|hamer|hamer en pikhouweel|hamers|pikhouweel
+⚓	anker|hulpmiddel|schip
+⚔	gekruiste zwaarden|degens gekruist|gekruist|wapen|zwaarden
+⚕	esculaap|medicijnen|medisch|staf|symbool
+⚖	weegschaal|balans|dierenriem|gerechtigheid|gewichten|horoscoop|libra|recht|sterrenbeeld|weegschaal in balans
+⚗	distilleerkolf|gereedschap|scheikunde
+⚙	tandwiel|gereedschap|instellingen|radertje|tandrad
+⚛	atoomsymbool|atheïst|atoom|symbool
+⚜	fleur de lis|fleur-de-lis|ridders
+⚠	waarschuwing|voorzichtig
+⚡	hoog voltage|bliksem|donderslag|elektriciteit|elektrisch|gevaar|schok|spanning|voltage
+⚧	transgendersymbool|transgender
+⚪	witte cirkel|cirkel|geometrisch|wit
+⚫	zwarte cirkel|cirkel|geometrisch|zwart
+⚰	doodskist|dood|kist|vampier
+⚱	urn|as|begrafenis|dood
+⚽	voetbal|bal|futsal|messi|ronaldo|sport
+⚾	honkbal|bal|sport
+⛄	sneeuwpop zonder sneeuwvlokken|koud|sneeuw|sneeuwpop
+⛅	zon achter wolk|weer|wolk|zon|zon achter wolken
+⛈	wolk met bliksem en regen|onweer|regen|weer|wolk
+⛎	slangendrager (sterrenbeeld)|dierenriem|drager|horoscoop|ophiuchus|serpent|slang|slangendrager
+⛏	pikhouweel|gereedschap|mijnbouw
+⛑	helm van reddingswerker|gezicht|helm|hoed|hulp|kruis|redding|werknemer
+⛓	kettingen|ketting
+⛓‍💥	gebroken ketting|boeien|breek|gebroken|ketting|vrijheid
+⛔	geen toegang|belemmerd|doorgang|geen|ingang|mislukt|niet|toegang|verboden|verkeer
+⛩	shinto-tempel|geloof|japans|poort|religie|shinto|tempel|torii
+⛪	kerk|christelijk|geloof|kapel|kruis|religie
+⛰	berg
+⛱	strandparasol|parasol|parasol op de grond|regen|zon
+⛲	fontein
+⛳	vlag in hole|golf|hole|sport
+⛴	veerboot|boot|passagier|veerpont
+⛵	zeilboot|boot|jacht|jachthaven|vaartuig|vervoermiddel|zee
+⛷	skiër|ski|sneeuw
+⛸	schaats|ijs|kunstschaatsen|schaatsen|sport|witte schaats
+⛹	basketbalspeler|bal|basketbal|basketballer|dribbelen|nba|persoon met bal|sport|vrije worp
+⛹‍♀	basketbalster|bal|basketbal|sport|vrouw|vrouw met bal
+⛹‍♂	basketballer|bal|man
+⛺	tent|kamperen
+⛽	benzinestation|benzine|benzinepomp|brandstof|pomp|station
+✂	schaar|gereedschap|knippen
+✅	knop voor vinkje|✓|afgevinkt|check|gedaan|klaar|knop|markeren|vink|vinkje|voltooid
+✈	vliegtuig|luchtvaartuig|reizen|vervoermiddel|vliegen|vliegmachine
+✉	envelop|brief|e-mail|mail
+✊	opgeheven vuist|gebald|hand|opgeheven|solidariteit|stoot|vuist
+✋	opgeheven hand|5|hand|hoog|opgeheven|stop|vijf
+✌	winnende hand|hand|peace|twee vingers|v|vredesteken
+✍	schrijvende hand|hand|schrijf|schrijven
+✏	potlood
+✒	kroontjespen met zwarte punt|pen|punt|vulpen
+✔	vinkje|✓|afgevinkt|check|dikgedrukt|klaar|teken
+✖	vermenigvuldigen|×|annuleren|teken|x
+✝	christelijk kruis|christelijk|christus|kruis|latijns|religie
+✡	davidster|david|jodendom|jood|joods|religie|ster
+✨	sterretjes|*|glinsteren|glinsterende sterren|ster
+✳	achtpuntige asterisk|*|achtpuntig|asterisk
+✴	achtpuntige ster|*|achtpuntige|ster
+❄	sneeuwvlok|koud|sneeuw|weer
+❇	sprankeling|*
+❌	kruisteken|×|annuleren|kruis|teken|vermenigvuldigen|vermenigvuldiging|x
+❎	knop voor kruis|×|knop|kruis|teken|vermenigvuldigen|vermenigvuldiging|vierkant|x
+❓	rood vraagteken|?|interpunctie|rood|teken|vraag
+❔	wit vraagteken|?|contour|interpunctie|teken|vraag|wit
+❕	wit uitroepteken|!|contour|interpunctie|teken|uitroep|wit
+❗	rood uitroepteken|!|interpunctie|rood|teken|uitroep
+❣	hart als uitroepteken|hart|hart met druppel eronder|interpunctie|leesteken|punctuatie|teken|uitroep|uitroepteken|uitroepteken met hart
+❤	rood hart|emotie|hart|liefde
+❤‍🔥	hart in vuur en vlam|branden|hart|heilig hart|liefde|lust
+❤‍🩹	helend hart|gezond|gezonder|helend|herstellen|herstellend|verbeterend
+➕	plus|+
+➖	min|-|−|dikgedrukt|teken|wiskunde
+➗	delen|÷|deling|dikgedrukt|teken|wiskunde
+➡	pijl naar rechts|oost|pijl|rechts|richting|windrichting
+➰	gekrulde lus|gedraaid|lus
+➿	dubbele gekrulde lus|dubbel|krul|krullend|lus
+⤴	pijl naar rechts die omhoog draait|omhoog|pijl|rechts
+⤵	pijl naar rechts die omlaag draait|gebogen|omlaag|pijl|rechts
+⨧	plus subscript twee
+⨯	vectorkruisproduct
+⨼	inwendig product
+⩣	logische of dubbele onderbalk
+⩽	minder dan of gelijk aan
+⪍	minder dan boven soortgelijk aan
+⪚	dubbele lijn soortgelijk aan groter dan|ongelijkheid|wiskunde
+⪺	komt na boven niet bijna gelijk aan
+⬅	pijl naar links|links|pijl|richting|west|windrichting
+⬆	pijl omhoog|noord|omhoog|pijl|richting|windrichting
+⬇	pijl omlaag|omlaag|pijl|richting|windrichting|zuid
+⬛	groot zwart vierkant|geometrisch|groot|vierkant|zwart
+⬜	groot wit vierkant|geometrisch|groot|vierkant|wit
+⭐	witte middelgrote ster|ster
+⭕	lege rode cirkel|cirkel|groot|hol|o|rood|vet
+、	ideografische komma|ideografisch|komma
+。	ideografische punt|ideografisch|punt
+〈	punthaakje openen|chevron|haakje|hoekanker|punthaakje|ruithaakjes|tupel
+〉	punthaakje sluiten|chevron|haakje|hoekanker|punthaakje|ruithaakjes|tupel
+《	dubbel punthaakje openen|dubbel punthaakje|haakje
+》	dubbel punthaakje sluiten|dubbel punthaakje|haakje
+「	oost-aziatisch aanhalingsteken openen|haakje|oost-aziatisch aanhalingsteken
+」	oost-aziatisch aanhalingsteken sluiten|haakje|oost-aziatisch aanhalingsteken
+『	aziatisch aanhalingsteken openen|haakje
+』	aziatisch aanhalingsteken sluiten|haakje
+【	zwart lensvormig haakje openen|haakje|lenshaakje|lensvormig haakje
+】	lensvormig contourhaakje sluiten|haakje|lenshaakje|lensvormig haakje
+〔	schildhaakje openen|haakje|schildhaakje|schildpadhaakje
+〕	schildhaakje sluiten|haakje|schildhaakje|schildpadhaakje
+〖	lensvormig haakje openen|haakje|lenshaakje|lensvormig haakje
+〗	lensvormig haakje sluiten|haakje|lenshaakje|lensvormig haakje
+〰	golvend streepje|golvend|interpunctie|streepje
+〽	rolwisselingsmarkering|markering|rolwisseling|teken
+・	katakana middelste punt|hoge punt|katakana|middenpunt|puntjes
+㊗	japans teken voor ‘gefeliciteerd’|gefeliciteerd|ideogram|japans|knop
+㊙	japans teken voor ‘geheim’|geheim|ideogram|japans|knop
+﷼	rial|valuta
+🀄	mahjong rode draak|mahjong|rode draak|rood|spel|stenen
+🃏	jokerkaart|joker|kaart|kaarten|spel|spelen
+🅰	bloedgroep a|bloed|groep|knop
+🅱	bloedgroep b|b|bloed|groep|knop
+🅾	bloedgroep o|bloed|groep|knop|o
+🅿	p-knop|knop|p|parkeren
+🆎	bloedgroep ab|ab|bloed|groep|knop
+🆑	cl-knop|cl|knop
+🆒	cool-knop|cool|knop
+🆓	free-knop|free|knop
+🆔	id-knop|id|identiteit|knop
+🆕	new-knop|knop|new
+🆖	ng-knop|knop|ng
+🆗	ok-knop|knop|ok|oké
+🆘	sos-knop|help|knop|sos
+🆙	up!-knop|knop|teken|up|up!
+🆚	vs-knop|knop|versus|vs
+🈁	japans teken voor ‘hier’|hier|japans|katakana|knop
+🈂	japans teken voor ‘dienstenheffing’|dienstenheffing|japans|katakana|knop|service
+🈚	japans teken voor ‘gratis’|gratis|ideogram|japans|knop|kosten
+🈯	japans teken voor ‘gereserveerd’|gereserveerd|ideogram|japans|knop
+🈲	japans teken voor ‘verboden’|ideogram|japans|knop|verboden
+🈳	japans teken voor ‘plaats vrij’|ideogram|japans|knop|plaats vrij
+🈴	japans teken voor ‘voldoende (cijfer)‘|cijfer|ideogram|japans|knop|voldoende
+🈵	japans teken voor ‘vol, geen plaats’|geen|ideogram|japans|knop|plaats
+🈶	japans teken voor ‘niet gratis’|gratis|ideogram|japans|knop|kosten|niet
+🈷	japans teken voor ‘maandelijks bedrag’|bedrag|ideogram|japans|knop|maandelijks
+🈸	japans teken voor ‘toepassing’|ideogram|japans|knop|toepassing
+🈹	japans teken voor ‘korting’|ideogram|japans|knop|korting
+🈺	japans teken voor ‘geopend’|bedrijf|ideogram|japans|knop|open
+🉐	japans teken voor ‘koopje’|ideogram|japans|knop|koopje
+🉑	japans teken voor ‘acceptabel’|acceptabel|ideogram|japans|knop
+🌀	cycloon|duizelig|spiraal|twister|tyfoon|weer
+🌁	mistig|mist
+🌂	ingevouwen paraplu|dichte paraplu|kleding|paraplu|regen|weer
+🌃	sterrenhemel|metropool|miljoenenstad|nacht|stad bij nacht|sterren
+🌄	zonsopgang in de bergen|berg|bergen|ochtend|zon|zonsopgang
+🌅	zonsopgang|ochtend|zon
+🌆	stad bij schemering|avond|gebouw|landschap|metropool|miljoenenstad|schemer|stad|zonsondergang
+🌇	zonsondergang|flatgebouwen|gebouw|metropool|miljoenenstad|schemer|zon
+🌈	regenboog|genderqueer|glbt|homoseksueel|lesbisch|lgbt|lgbtq|lgtbqia|lhbt|natuur|pride|queer|regen|transgender|weer
+🌉	brug bij nacht|avond|brug|nacht|nachtelijke brug
+🌊	golf|golfsurfen|golven|japan|kanagawa|oceaan|surfen|water|weer|zee
+🌋	vulkaan|berg|lava|magma|natuur|vulkaanuitbarsting
+🌌	melkweg|ruimte
+🌍	wereldbol met europa-afrika|aarde|afrika|afrika|europa|europa|wereld|wereldbol
+🌎	wereldbol met noord- en zuid-amerika|aarde|amerika|noord- en zuid-amerika|wereld|wereldbol
+🌏	wereldbol met azië-australië|aarde|australië|australië|azië|azië|wereld|wereldbol
+🌐	wereldbol met meridianen|aarde|internet|meridianen|wereld|wereldbol|www
+🌑	nieuwe maan|avond|donker|maan|maansverduistering|ruimte
+🌒	jonge maansikkel|avond|maan|ruimte|sikkel|wassend|wassende halvemaan
+🌓	maan in eerste kwartier|avond|kwartier|maan|ruimte
+🌔	wassende maan|avond|bolvormig|maan|ruimte|tussen halve maan en volle maan|wassend
+🌕	volle maan|avond|maan|ruimte|vol
+🌖	afnemende maan|afnemend|avond|bolvormig|maan|ruimte|tussen halve maan en volle maan|wassend
+🌗	maan in laatste kwartier|avond|kwartier|maan|ruimte
+🌘	asgrauwe maan|afnemend|afnemende halvemaan|avond|maan|maansikkel|nacht|ruimte|sikkel
+🌙	maansikkel|avond|halvemaan|maan|ramadan|ruimte|sikkel|slapen
+🌚	nieuwe maan met gezicht|avond|gezicht|maan|nieuwe maan-gezicht|ruimte
+🌛	maan met gezicht in eerste kwartier|avond|eerste kwartier|gezicht|kwartier|maan|maan in eerste kwartier met gezicht|ruimte|slapen
+🌜	maan met gezicht in laatste kwartier|avond|gezicht|kwartier|laatste kwartier|maan|maan in laatste kwartier met gezicht|ruimte|slapen
+🌝	volle maan met gezicht|avond|gezicht|helder|heldere maan|maan|ruimte|vol|volle maan
+🌞	zon met gezicht|gezicht|helder|warm|weer|zon|zonneschijn
+🌟	stralende ster|fonkelen|fonkelend|schitteren|schitterend|schittering|ster|stralen
+🌠	vallende ster|hemel|ruimte|ster|vallen|vallend
+🌡	thermometer|koorts|weer
+🌤	zon achter kleine wolk|weer|wolk|zon
+🌥	zon achter grote wolk|weer|wolk|zon
+🌦	zon achter regenwolk|regen|weer|wolk|zon|zon achter wolk met regen
+🌧	wolk met regen|regen|weer|wolk
+🌨	wolk met sneeuw|koud|sneeuw|weer|winter|wolk
+🌩	wolk met bliksem|bliksem|weer|wolk
+🌪	tornado|storm|weer|wervelwind|wolk
+🌫	mist|bewolkt|weer|wolk
+🌬	gezicht dat wind blaast|blazen|gezicht|weer|wind|wind met gezicht|wolk
+🌭	hotdog|braadworst|frankfurter|knakworst|worst
+🌮	taco|mexicaans
+🌯	burrito|mexicaans|wrap
+🌰	kastanje|amandel|plant
+🌱	zaailing|jong|plant|spruit|stekje
+🌲	naaldboom|boom|bos|dennenboom|kerst
+🌳	loofboom|boom|bos|groen|habitat|verliezen
+🌴	palmboom|boom|palm|plant|strand|tropisch
+🌵	cactus|droogte|natuur|plant|woestijn
+🌶	hete peper|heet|peper
+🌷	tulp|bloem|bloesem|groei|plant
+🌸	kersenbloesem|bloem|bloesem|kers|lente|plant|voorjaar
+🌹	roos|bloem|elegant|liefde|plant|rood|schoonheid|valentijn
+🌺	hibiscus|bloem|plant
+🌻	zonnebloem|bloem|buiten|plant|zon
+🌼	bloesem|bloem|boterbloem|paardenbloem|plant
+🌽	maïskolf|boerderij|doolhof|gewassen|kolf|maïs
+🌾	rijstplant|aar|graan|granen|plant|rijst|rijstaar
+🌿	kruid|blad|plant
+🍀	klavertjevier|4|blad|geluk|iers|klaver|plant|vier
+🍁	esdoornblad|blad|esdoorn|vallend
+🍂	vallende bladeren|blad|gevallen|herfst|vallend
+🍃	blad in de wind|blad|blazen|fladderen|wind
+🍄	paddenstoel|schimmel|zwam
+🍄‍🟫	bruine paddestoel|bruine paddenstoel|champignon|eten|groente|natuur|paddenstoel|paddo|pizza|schimmel|shiitake
+🍅	tomaat|fruit|groente|voedsel
+🍆	aubergine|groente
+🍇	druiven|dionysus|druif|fruit
+🍈	meloen|fruit|kanteloep
+🍉	watermeloen|fruit
+🍊	mandarijn|c|citrus|fruit|nectarine|sinaasappel|vitamine
+🍋	citroen|citrus|fruit|zuur
+🍋‍🟩	limoen|citrus|cocktail|fruit|groen|margarita|sap|tropisch|vrucht|zuur
+🍌	banaan|fruit|kalium
+🍍	ananas|eten|fruit|tropisch|voedsel
+🍎	rode appel|appel|dieet|fruit|gezondheid|rijp|rood|voedsel
+🍏	groene appel|appel|fruit|groen
+🍐	peer|fruit
+🍑	perzik|fruit
+🍒	kersen|bessen|fruit|kers|rood
+🍓	aardbei|bes|fruit
+🍔	hamburger|burger|eten|fastfood|honger
+🍕	pizzapunt|eten|honger|kaas|pepperoni|pizza|punt
+🍖	vlees met bot|bot|vlees
+🍗	kippenpoot|bot|gevogelte|honger|kalkoen|kip|poot
+🍘	rijstwafel|cracker|eten|rijst
+🍙	rijstballetje|balletje|eten|japans|rijst
+🍚	gekookte rijst|gekookt|rijst|voedsel
+🍛	curry en rijst|curry|rijst|voedsel
+🍜	dampende kom|chopsticks|dampend|eten|kom|noedels|pho|ramen|soep
+🍝	spaghetti|eten|gehaktballen|pasta|restaurant
+🍞	brood|eten|koolhydraten|tarwe|voedsel
+🍟	patat|eten|fastfood|frans|frietjes
+🍠	gepofte zoete aardappel|aardappel|eten|gepoft|zoet
+🍡	dango|dessert|japans|spies|stokje|zoet
+🍢	oden|eten|kebab|restaurant|spies|stokje|zeevruchten
+🍣	sushi|eten
+🍤	gefrituurde garnaal|garnaal|garnalen|gefrituurd|tempura
+🍥	viskoekje met krul|koekje|krul|vis|viskoekje
+🍦	softijs|dessert|eten|ijs|restaurant|room|zoet
+🍧	geschaafd ijs|dessert|geschaafd|ijs|restaurant|zoet
+🍨	ijs|dessert|eten|restaurant|room|zoet
+🍩	donut|dessert|eten|voedsel|zoet
+🍪	koekje|chip|chocolade|dessert|zoet
+🍫	chocoladereep|chocolade|dessert|halloween|reep|snoep|zoetekauw
+🍬	snoep|dessert|eten|gaatjes|voedsel|wikkel|zoet
+🍭	lolly|dessert|eten|snoep|voedsel|zoet
+🍮	vla|dessert|pudding|zoet
+🍯	honingpot|beer|eten|honing|pot|vat|zoet
+🍰	cake|dessert|gebak|plak|zandgebak|zoet
+🍱	bentobox|bento|box|voedsel
+🍲	stoofschotel|pan|soep|voedsel
+🍳	koken|bakken|ei|gemakkelijk|ontbijt|pan|restaurant|spiegelei
+🍴	mes en vork|bestek|eten|honger|koken|lekker|lunch|mes|ontbijt|restaurant|uit eten|vork|vork en mes
+🍵	theekopje zonder oor|drankje|drinken|kop|thee|theekopje
+🍶	sake|bar|café|drankje|drinken|fles|kopje
+🍷	wijnglas|alcohol|bar|café|drankje|drinken|glas|restaurant|wijn
+🍸	cocktailglas|alcohol|bar|café|cocktail|drinken|glas|mad men|martini
+🍹	tropisch drankje|alcohol|bar|club|drankjes|drinken|dronken|mai tai|mix|tropisch
+🍺	bierglas|alcohol|bar|bier|café|drinken|duitsland|glas|oktoberfest|pils|pint
+🍻	klinkende bierglazen|alcohol|bar|bier|café|drinken|glas|proosten|proostende bierglazen
+🍼	babyflesje|baby|babyfles|drinken|fles|flesje|flesvoeding|geboorte|melk
+🍽	mes en vork met bord|bord|diner|eten|koken|mes|vork
+🍾	fles met knallende kurk|bar|drinken|fles|knallen|kurk
+🍿	popcorn|film|maïs|pop
+🎀	strik|feest|roze lint|viering
+🎁	ingepakt cadeau|cadeau|cadeautje|cadeauverpakking met strik|feest|ingepakt|verpakking
+🎂	verjaardagstaart|dessert|gebak|gelukkig|taart|verjaardag|viering|zoet
+🎃	halloweenlantaarn|feest|halloween|lampion|lantaarn|pompoen|pompoenlantaarn|sint maarten
+🎄	kerstboom|boom|feest|kerstmis|kerstmis|viering
+🎅	kerstman|fantasie|feestdag|kerst|kerstmis|viering|vrolijk
+🎆	vuurwerk|feest|jaarwisseling|knal|oud en nieuw|oudejaarsavond|vermaak|viering
+🎇	sterretje|afsteken|feest|jaarwisseling|knal|oud en nieuw|oudejaarsavond|viering|vuurwerk|vuurwerksterretje
+🎈	ballon|feest|jarig|verjaardag|vieren|viering
+🎉	feestknaller|confetti|feest|hoera|jarig|knaller|partypopper|verjaardag|viering
+🎊	confettibal|bal|confetti|feest|hoera|jarig|verjaardag|viering
+🎋	tanabataboom|boom|boom met papierlinten|feest|japans|papierlinten|tanabata
+🎌	gekruiste vlaggen|feest|gekruist|japans|kruis
+🎍	dennenboomversiering|bamboe|den|dennentakdecoratie|feest|japans|plant
+🎎	japanse poppen|feest|festival|japans|pop|poppen|viering
+🎏	karperslinger|feest|karper|karpers|karperwimpel|slinger|wimpel
+🎐	windorgel|bel|feest|wind|windklokkenspel
+🎑	maanobservatieceremonie|ceremonie|feest|maan|maanceremonie|viering
+🎒	schooltas|boekentas|rugzak|school|tas
+🎓	academische baret|afstuderen|baret|feest|hoed|kleding|opleiding|student
+🎖	militaire medaille|medaille|militair|onderscheiding|viering
+🎗	bewustzijnslintje|herinnering|herinneringslintje|lintje|viering
+🎙	studiomicrofoon|microfoon|muziek|studio
+🎚	schuifregelaar|muziek|niveau|schuifje|volumeregelaar
+🎛	controleknoppen|bediening|knoppen|muziek
+🎞	filmframes|bioscoop|film|filmrol|films|frames
+🎟	entreekaartjes|entree|kaartje|toegang|toegangskaartje
+🎠	draaimolenpaard|carrousel|draaimolen|kermis|paard|pretpark
+🎡	reuzenrad|kermis|pretpark|rad
+🎢	achtbaan|baan|pretpark
+🎣	vishengel|hengel|sport|vis
+🎤	microfoon|geluid|karaoke|muziek|zingen
+🎥	filmcamera|bioscoop|bollywood|camera|film|hollywood|opnemen
+🎦	knop voor filmen|bioscoop|camera|film|filmen
+🎧	hoofdtelefoon|geluid|koptelefoon|oordopje
+🎨	schilderspalet|creatief|kleurrijk|kunst|kunstzinnig|museum|palet|schilderen|schilderij
+🎩	hoge hoed|fancy|formeel|goochelen|goochelhoed|hoed|hoog|kleding
+🎪	circustent|circus|tent
+🎫	ticket|entree|entreekaartje|kaartje|toegang|toegangskaartje
+🎬	klapbord|actie|entertainment|film|filmklapper|filmset|klapper|opnames
+🎭	toneelkunsten|kunst|masker|maskers|optreden|theater|toneel|toneelkunst|treurspel
+🎮	videogame|controller|game|gamecontroller|playstation|spel|videospel|xbox
+🎯	directe treffer|bull’s eye|bullseye|darts|doelwit|in de roos|spel|sport|treffer|voltreffer
+🎰	fruitautomaat|casino|eenarmige bandiet|gokkast|gokken|spel
+🎱	biljart|8|8 ball|8-ball|acht|bal|pool|spel
+🎲	dobbelsteen|dobbelen|dobbelstenen|spel|yahtzee
+🎳	bowlen|bal|spel|sport|strike
+🎴	speelkaarten|bloem|bloemenkaart|bloemspeelkaarten|hanafuda|japans|kaart|kaartspel|spel|spelen
+🎵	muzieknoot|achtste noten|muziek|noot
+🎶	muzieknoten|achtste noten|geluid|muziek|noot|noten
+🎷	saxofoon|instrument|muziek|muziekinstrument|sax
+🎸	gitaar|instrument|muziek|muziekinstrument|strat|stratocaster
+🎹	piano|instrument|keyboard|muziek|muziekinstrument
+🎺	trompet|instrument|muziek|muziekinstrument
+🎻	viool|instrument|muziek|muziekinstrument|stradivarius
+🎼	notenschift|g-sleutel|muziek|partituur
+🎽	hardloopshirt|atletiek|hardlopen|shirt|sjerp|sport
+🎾	tennis|bal|sport|tennisbal|tennisracket
+🎿	ski’s|laars en skis|ski|skiën|skis|skischoen|sneeuw|sport|wintersport
+🏀	basketbal|bal|basket|sport
+🏁	geblokte vlag|finish|formule 1|geblokt|racen|sport|vlag
+🏂	snowboarder|ski|sneeuw|snowboard|sport
+🏃	hardloper|hardlopen|hollen|joggen|man|marathon|persoon|rennen|snel|sport
+🏃‍♀	rennende vrouw|atleet|baan|beroep|haasten|hardlopen|kom eraan|marathon|persoon|rennen|snel|sport|vlug|vrouw|werk
+🏃‍♂	rennende man|hardlopen|man|marathon|rennen
+🏄	surfer|golf|golven|oceaan|sport|strand|surfen|surfende persoon|zee
+🏄‍♀	vrouwelijke surfer|golven|sport|surfen|surfende vrouw|vrouw
+🏄‍♂	mannelijke surfer|man|surfen
+🏅	sportmedaille|eerste|eerste plaats|gewonnen|medaille|medaille 1e plaats|medaille met ster|winnaar
+🏆	trofee|beker|gewonnen|kampioen|overwinning|prijs|winnaar
+🏇	jockey op renpaard|jockey|paard|paardrijden|racen|renpaard|sport
+🏈	american football|amerikaans|bal|football|sport|super bowl
+🏉	rugby|bal|football|sport|voetbal
+🏊	zwemmende persoon|freestyle|persoon|sport|triatlon|zwemmen|zwemmer
+🏊‍♀	zwemmende vrouw|sport|vrouw|zwemmen|zwemster
+🏊‍♂	zwemmende man|man|zwemmen
+🏋	gewichtheffer|bodybuilder|gewicht|heffer|krachtsport|krachttraining|sport|sportschool|sterk|trainen|work-out
+🏋‍♀	vrouwelijke gewichtheffer|gewichtheffen|gewichtheffende vrouw|sport|vrouw
+🏋‍♂	mannelijke gewichtheffer|gewichtheffen|man
+🏌	golfer|bal|birdie|golf|golfbaan|golfbal|green|persoon die golf speelt|pga|sport
+🏌‍♀	golfende vrouw|bal|drivingrange|golfen|sport|vrouw
+🏌‍♂	golfende man|golfen|man
+🏍	motor|racen|vervoermiddel|voertuig
+🏎	raceauto|auto|formule 1|racen|racewagen|vervoermiddel|voertuig|vroem
+🏏	cricket|bal|bat|cricketbat|cricketbat en bal|slaghout|sport|wedstrijd
+🏐	volleybal|bal|wedstrijd
+🏑	hockey|bal|hockeystick|hockeystick en bal|sport|stick|veld|wedstrijd
+🏒	ijshockeystick en puck|ijs|ijshockey|puck|sport|stick|wedstrijd
+🏓	pingpong|bal|bat|batje|sport|tafeltennis|wedstrijd
+🏔	berg met besneeuwde toppen|berg|koud|sneeuw
+🏕	kamperen|camping|tent
+🏖	strand met parasol|parasol|strand
+🏗	woningbouw|bouw|bouwen|haven|hijskraan
+🏘	huizen|buurt|huis
+🏙	stadsgezicht|flatgebouwen|gebouw|metropool|miljoenenstad|stad
+🏚	vervallen huis|bouwval|gebouw|huis|vervallen
+🏛	klassiek gebouw|gebouw|historisch gebouw|klassiek|klassieke oudheid|renaissance|rome|zuilen
+🏜	woestijn
+🏝	onbewoond eiland|eiland|onbewoond
+🏞	nationaal park|natuurgebied|park
+🏟	stadion|amfitheater
+🏠	huis|gebouw|settelen|thuis|villa|voorstad|vrijstaande woning
+🏡	huis met tuin|gebouw|huis|huisje boompje beestje|settelen|thuis|tuin|voorstad|vrijstaande woning
+🏢	kantoorgebouw|gebouw|kantoorbaan|werk
+🏣	japans postkantoor|gebouw|japans|japans|post
+🏤	postkantoor|europees|europees|gebouw|post
+🏥	ziekenhuis|dokter|gebouw|medicijnen
+🏦	bank|gebouw
+🏧	pinautomaat|atm|automaat|bank|geld|pinnen
+🏨	hotel|gebouw
+🏩	love-hotel|gebouw|hotel|liefde|liefdeshotel|lovehotel
+🏪	supermarkt|boodschappen|gebouw|winkel
+🏫	school|gebouw
+🏬	warenhuis|gebouw|winkel|winkelen
+🏭	fabriek|gebouw
+🏮	rode papieren lantaarn|bar|lantaarn|licht|rood
+🏯	japans kasteel|gebouw|japans|kasteel
+🏰	kasteel|europees|gebouw|middeleeuwen
+🏳	witte vlag|vlag|wapperend|wit
+🏳‍⚧	transgendervlag|lichtblauw|roze|transgender|vlag|wit
+🏳‍🌈	regenboogvlag|biseksueel|glbt|glbtq|homoseksueel|lesbisch|lgbt|lgbtq|lgbtqia|lhbt|pride|queer|regenboog|transgender|twijfelend|vlag
+🏴	zwarte vlag|vlag|wapperend|zwart
+🏴‍☠	piratenvlag|jolly roger|piraat|plunderen|schat
+🏵	rozet|plant
+🏷	label
+🏸	badminton|badmintonracket en shuttle|pluimbal|racket|shuttle|sport|wedstrijd
+🏹	pijl en boog|boog|boogschieten|boogschutter|horoscoop|pijl|sport|sterrenbeeld|wapen
+🏺	amfora|amfoor|drinken|horoscoop|koken|kruik|sterrenbeeld|waterman
+🏻	lichte huidskleur|huidskleur|type 1–2
+🏼	lichtgetinte huidskleur|huidskleur|type 3
+🏽	getinte huidskleur|huidskleur|type 4
+🏾	donkergetinte huidskleur|huidskleur|type 5
+🏿	donkere huidskleur|huidskleur|type 6
+🐀	rat|dier
+🐁	muis|dier|dieren
+🐂	os|boerderij|dier|dieren|sterrenbeeld|stier|taurus
+🐃	waterbuffel|buffel|dier|dierentuin|water
+🐄	koe|boe|boerderij|dier|dieren|melk
+🐅	tijger|dier|dierentuin|groot|kat|roofdier
+🐆	luipaard|dier|dierentuin|groot|kat|roofdier
+🐇	konijn|dier|huisdier|konijntje
+🐈	kat|dier|dieren|huisdier|katten|kitten
+🐈‍⬛	zwarte kat|dier|halloween|kat|katachtig|miauw|pech|zwart
+🐉	draak|dier|ridders|sprookje
+🐊	krokodil|dier|dierentuin
+🐋	walvis|dier|oceaan|strand
+🐌	slak|dier|escargot|naaktslak|natuur|tuin
+🐍	slang|dier|dierenriem|drager|ophiuchus|serpent
+🐎	paard|boerderij|dier|racen|renpaard|ruitersport
+🐏	ram|aries|dier|dierentuin|horens|mannelijk|schaap|sterrenbeeld
+🐐	geit|boerderij|capricorn|dier|melk|sterrenbeeld
+🐑	ooi|blaten|boerderij|dier|lam|schaap|vrouwelijk|wol|wollig
+🐒	aap|banaan|dier
+🐓	haan|dier|ornithologie|vogel
+🐔	kip|dier|gevogelte
+🐕	hond|dier|dieren|honden|huisdier
+🐕‍🦺	assistentiehond|assistentie|dier|hond|hulp|toegankelijkheid
+🐖	varken|boerderij|dier|spek|zeug
+🐗	zwijn|dier|varken
+🐘	olifant|dier
+🐙	octopus|dier|oceaan|wezen
+🐚	schelp|dier|spiraal|strand|zee
+🐛	insect|beestje|dier|tuin
+🐜	mier|dier|insect|tuin
+🐝	honingbij|bij|dier|hommel|honing|insect|lente|natuur
+🐞	lieveheersbeestje|dier|insect|kever|lieveheersbeest|natuur|tuin
+🐟	vis|dier|eten|pisces|sterrenbeeld|vissen
+🐠	tropische vis|dier|tropisch|vis|vissen
+🐡	kogelvis|dier|vis
+🐢	schildpad|dier|waterschildpad
+🐣	kuiken uit ei|baby|dier|ei|kuiken|uitkomen|vogel
+🐤	kuikentje|baby|dier|gevogelte|kuiken|vogel
+🐥	naar voren kijkend kuikentje|baby|dier|gevogelte|kuiken|vogel
+🐦	vogel|dier|duif
+🐦‍⬛	merel|dier|kauw|kraai|kraaiachtige|ornithologie|raaf|roek|snavel|vogel|zwart
+🐦‍🔥	feniks|as|fantasie|hergeboorte|herrezen|mythe|reïncarnatie|vogel|vuurvogel
+🐧	pinguïn|antarctica|dier|vogel
+🐨	koala|australië|beer|buideldier|dier|down|gezicht|under
+🐩	poedel|dier|hond|pluizig
+🐪	dromedaris|bult|dier|één|kameel|woestijn
+🐫	kameel|bult|dier|dromedaris|twee|twee bulten|woestijn
+🐬	dolfijn|dier|flipper|oceaan|strand
+🐭	muizengezicht|dier|gezicht|muis
+🐮	koeiengezicht|boe|boerderij|dier|gezicht|koe|melk
+🐯	tijgergezicht|dier|gezicht|groot|kat|roofdier|tijger
+🐰	konijnengezicht|dier|gezicht|huisdier|konijn
+🐱	kattengezicht|dier|gezicht|huisdier|kat|kitten
+🐲	drakengezicht|dier|draak|gezicht|sprookje
+🐳	spuitende walvis|dier|gezicht|oceaan|spuitend|strand|walvis
+🐴	paardengezicht|boerderij|dier|dressuur|gezicht|paard|paarden
+🐵	apengezicht|aap|banaan|dier|gezicht
+🐶	hondengezicht|dier|gezicht|hond|huisdier|puppy|puppy’s|schattig
+🐷	varkensgezicht|boerderij|dier|gezicht|spek|varken
+🐸	kikker|dier|gezicht
+🐹	hamster|dier|gezicht|huisdier
+🐺	wolf|dier|gezicht
+🐻	beer|dier|gezicht|grizzly|grommen|honing
+🐻‍❄	ijsbeer|beer|noordpool|wit
+🐼	panda|bamboe|dier|gezicht
+🐽	varkensneus|gezicht|neus|varken
+🐾	pootafdrukken|afdruk|poot|poten
+🐿	eekhoorn|dier
+👀	ogen|gezicht|kijken|omg|ondeugend|oog|staren
+👁	oog|één oog|lichaam|pupil
+👁‍🗨	spraakballon met oog|ballon|bubbel|getuige|oog|spraak
+👂	oor|geluid|horen|lichaam|luisteren
+👃	neus|geur|lichaam|ruiken|stinkt
+👄	mond|kus|lippen|open mond|roze lippen|zoen
+👅	tong|lichaam|lik|slurp
+👆	achterkant van hand met omhoog wijzende wijsvinger|achterkant|hand|omhoog|vinger|wijs|wijsvinger|wijzen
+👇	achterkant van hand met omlaag wijzende wijsvinger|achterkant|hand|omlaag|vinger|wijs|wijsvinger|wijzen
+👈	achterkant van hand met naar links wijzende wijsvinger|achterkant|hand|links|vinger|wijs|wijsvinger|wijzen
+👉	achterkant van hand met naar rechts wijzende wijsvinger|achterkant|hand|rechts|vinger|wijs|wijsvinger|wijzen
+👊	stotende vuist|boks|gebald|gebalde vuist|groet|hand|mee eens|stoot|vuist
+👋	zwaaiende hand|ben je er|doei|groet|groeten|hallo|hand|is daar iemand|moet gaan|spreek je later|tot later|tot ziens|ttyl|zwaai|zwaaien
+👌	ok-handgebaar|fantastisch|geweldig|goed|hand|oké|prima|top|vingers
+👍	duim omhoog|+1|duim|goed|hand|ja|leuk|omhoog
+👎	duim omlaag|-1|duim|fout|hand|lichaam|niet goed|niet leuk|omlaag|slecht|stom
+👏	klappende handen|applaudiseren|applaus|bidden|dankjewel|gefeliciteerd|goed gedaan|goedkeuring|hand|hoera|klappen
+👐	open handen|hand|handen|jazz hands|open
+👑	kroon|adel|game of thrones|kleding|koning|koningin|koninklijk|middeleeuwen|vorst|vorstin
+👒	dameshoed|hoed|hoed met strik|kleding|vrouw
+👓	bril|bijziend|brillen|kleding|oog|verziend|zien|zonnebril
+👔	stropdas|formeel|kleding|overhemd|pak
+👕	t-shirt|blauw shirt|kleding|kraag|poloshirt|shirt|vrijetijdskleding
+👖	spijkerbroek|broek|jeans|kleding
+👗	jurk|blauwe jurk|dansen|kleding|kledingstuk|sjiek|winkelen
+👘	kimono|japans|japon|kleding
+👙	bikini|kleding|zwembad|zwemkleding|zwemmen
+👚	dameskleding|blouse|dames|kleding|shirt
+👛	portemonnee|accessoire|beurs|geld uitgeven|kleding|knip|munt|portefeuille|roze portemonnee|winkelen
+👜	handtas|accessoire|kleding|modieuze tas|tas|winkelen
+👝	tasje|accessoire|clutch|enveloptas|handtas|kleding|tas
+👞	herenschoen|formeel|kleding|leren schoen|man|nette schoen|schoen
+👟	sportschoen|atletiek|hardlopen|kleding|rennen|schoen|sneaker|sporten
+👠	schoen met hoge hak|hak|hoge hak|kleding|naaldhak|pump|schoen|stiletto|vrouw
+👡	damessandaal|hak|hoge hak|kleding|muiltje|sandaal|schoen|schoen met open teen|vrouw
+👢	dameslaars|kleding|laars|schoen|vrouw
+👣	voetafdrukken|afdruk|blote voeten|kleding|lopen|onderweg|voetafdruk
+👤	silhouet van persoon|buste|mysterieus|schaduw|silhouet
+👥	silhouet van twee personen|bff|buste|bustes in silhouet|schaduw|silhouet|vrienden
+👦	jongen|jong|kind|persoon
+👧	meisje|dochter|enthousiast|jong|maagd|persoon|staartjes|sterrenbeeld
+👨	man|volwassen|vriend
+👨‍⚕	mannelijke gezondheidsmedewerker|arts|gezondheid|gezondheidszorg|man|therapeut|verpleger|werknemer
+👨‍⚖	mannelijke rechter|gerechtigheid|man|recht|rechter|weegschaal
+👨‍✈	mannelijke piloot|man|piloot|vliegtuig
+👨‍🌾	mannelijke boer|boer|man|tuinder|veehouder
+👨‍🍳	mannelijke kok|chef-kok|kok|man
+👨‍🍼	man die een baby voedt|baby|borstvoeding|man|melk|papa|persoon|vader|voeden|voeding
+👨‍🎓	mannelijke student|man|scholier|student
+👨‍🎤	mannelijke zanger|acteur|entertainer|man|rock|rockster|ster|zanger
+👨‍🎨	mannelijke kunstenaar|kunstenaar|man|palet
+👨‍🏫	mannelijke docent|docent|instructeur|leraar|man|professor
+👨‍🏭	mannelijke fabrieksarbeider|arbeider|fabriek|industrieel|lopende band|man
+👨‍💻	mannelijke technoloog|computer|man|ontwikkelaar|programmeur|software|technoloog|uitvinder
+👨‍💼	mannelijke kantoormedewerker|ambtenaar|architect|bedrijf|kantoor|man|manager|werknemer
+👨‍🔧	mannelijke monteur|elektricien|handelsman|loodgieter|man|monteur
+👨‍🔬	mannelijke wetenschapper|bioloog|ingenieur|man|natuurkundige|scheikundige|wetenschapper|wiskundige
+👨‍🚀	mannelijke astronaut|astronaut|man|raket|ruimte
+👨‍🚒	mannelijke brandweerman|brandweer|brandweerman|brandweerwagen|man
+👨‍🦯	man met taststok|blind|man|man met blindenstok|toegankelijkheid
+👨‍🦼	man in elektrische rolstoel|elektrisch|man|rolstoel|toegankelijkheid
+👨‍🦽	man in rolstoel|handmatig|man|rolstoel|toegankelijkheid
+👩	vrouw|dame|volwassene
+👩‍⚕	gezondheidsmedewerkster|arts|gezondheid|gezondheidszorg|therapeute|verpleegster|vrouw|werknemer
+👩‍⚖	vrouwelijke rechter|gerechtigheid|recht|rechter|vrouw|weegschaal
+👩‍✈	pilote|piloot|vliegtuig|vrouw
+👩‍🌾	boerin|boer|tuinder|veehouder|vrouw
+👩‍🍳	kokkin|chef-kok|kok|vrouw
+👩‍🍼	vrouw die een baby voedt|baby|borstvoeding|mama|moeder|oppas|pasgeboren|voeden|voeding|vrouw
+👩‍🎓	studente|scholier|student|vrouw
+👩‍🎤	zangeres|actrice|entertainer|rock|rockster|ster|vrouw
+👩‍🎨	kunstenares|palet|vrouw
+👩‍🏫	docente|instructrice|lerares|professor|vrouw
+👩‍🏭	fabrieksarbeidster|arbeider|fabriek|industrieel|lopende band|vrouw
+👩‍💻	technologe|computer|ontwikkelaar|programmeur|software|uitvindster|vrouw
+👩‍💼	kantoormedewerkster|ambtenaar|architect|bedrijf|kantoor|manager|vrouw|werknemer
+👩‍🔧	monteuse|elektricien|handelsman|loodgieter|monteur|vrouw
+👩‍🔬	wetenschapster|biologe|ingenieur|natuurkundige|scheikundige|vrouw|wiskundige
+👩‍🚀	astronaute|astronaut|raket|ruimte|vrouw
+👩‍🚒	brandweervrouw|brandweer|brandweerwagen|vrouw
+👩‍🦯	vrouw met taststok|blind|toegankelijkheid|vrouw|vrouw met blindenstok
+👩‍🦼	vrouw in elektrische rolstoel|elektrisch|rolstoel|toegankelijkheid|vrouw
+👩‍🦽	vrouw in rolstoel|handmatig|rolstoel|toegankelijkheid|vrouw
+👪	gezin|kind
+👫	man en vrouw hand in hand|afspraakje|bae|date|flirten|hand|hand in hand|koppel|man|stel|vasthouden|verliefd|vrienden|vrouw
+👬	mannen hand in hand|beste vrienden|bff|broers|daten|flirten|hand|jongens|mannen|paar|schatje|tweeling|vasthouden|vrienden
+👭	vrouwen hand in hand|beste vrienden|bff|daten|flirten|hand|meisjes|paar|schatje|tweeling|vasthouden|vrienden|vrouwen|zussen
+👮	politieagent|agent|arresteren|beroep|boete|misdaad|persoon|politie|politieman|werk
+👮‍♀	politievrouw|agent|arresteren|beroep|boete|misdaad|persoon|politie|politieagente|vrouw|vrouwelijke politieagent
+👮‍♂	politieman|agent|man|politie
+👯	mensen met konijnenoren|bestie|bff|dansen|danser|danseressen|feesten|konijnenoor|konijnenoren|meisje|personen|tweeling|vriendinnen|vrouw
+👯‍♀	vrouwen met konijnenoren|danseres|feesten|konijnenoor|vrouwen
+👯‍♂	mannen met konijnenoren|beste vrienden|bff|dansen|danser|feesten|feestende mannen|konijnenoor|konijnenoren|mannen|twee dansers
+👰	persoon met sluier|bruiloft|persoon|sluier
+👰‍♀	vrouw met sluier|sluier|vrouw
+👰‍♂	man met sluier|man|sluier
+👱	persoon met blond haar|blond|blond haar|mens|persoon
+👱‍♀	vrouw met blond haar|blond|blondine|haar|vrouw
+👱‍♂	man met blond haar|blond|haar|man
+👲	man met chinees petje|gua pi mao|hoed|man|man met chinese hoed|persoon|petje
+👳	persoon met tulband|dragen|persoon|tulband
+👳‍♀	vrouw met tulband|dragen|tulband|vrouw
+👳‍♂	man met tulband|man|tulband
+👴	oude man|grootvader|kaal|man|opa|oud|ouder|volwassen|wijs
+👵	oude vrouw|dame|grootmoeder|oma|oud|ouder|volwassene|vrouw|wijs
+👶	baby|jong|kindje|pasgeboren|persoon
+👷	bouwvakker|bouw|helm|klusser|man|persoon|renovatie|renoveren|werk
+👷‍♀	vrouwelijke bouwvakker|baan|beroep|bouw|bouwvakker|helm|persoon|vrouw|werk
+👷‍♂	mannelijke bouwvakker|bouw|bouwvakker|man
+👸	prinses|fantasie|koningin|kroon|persoon|sprookje|vrouw met kroon
+👹	boeman|duivel|eng|fantasie|gezicht|masker|monster|oger|sprookje|verhaal|wezen
+👺	kobold|fabel|fantasie|gezicht|japans|masker|monster|mythologie|smiley|sprookje|tengu|wezen
+👻	spook|boe|fantasie|geest|gezicht|halloween|monster|spook met tong uit mond|sprookje|uitgestoken tong|wezen
+👼	baby-engel|baby|engel|fantasie|gezicht|kerk|sprookje
+👽	buitenaards wezen|alien|buitenaards|fantasie|gezicht|monster|ruimte|sprookje|ufo|wezen
+👾	buitenaards monster|alien|buitenaards|game|gezicht|monster|pixels|ruimte|space invader|spel|ufo|videogame|wezen
+👿	boos gezicht met hoorns|boos duiveltje|demon|duivel|duivels|fantasie|gezicht|hoorns|kleine duivel|paars duivelsgezicht|smiley|sprookje
+💀	schedel|dood|doodshoofd|gezicht|monster|skelet|sprookje
+💁	persoon achter informatiebalie|brutaal|hand|hand ophouden|hulp|informatie|knikken|persoon|roddelen|sarcasme|sarcastisch|uitleg geven|vrouw met hand omhoog
+💁‍♀	vrouw achter informatiebalie|brutaal|pols knikken|vrouw
+💁‍♂	man achter informatiebalie|brutaal|hand|hooghartig|man|man knikt pols|persoon|pols knikken|polsgebaar|sarcasme|sarcastisch|uitdagend
+💂	wachter|bewaker|buckingham palace|londen
+💂‍♀	vrouwelijke wachter|buckingham palace|londen|persoon|vrouw|wachter
+💂‍♂	mannelijke wachter|man|wachter
+💃	dansende vrouw|dansen|dansende vrouw met rode jurk|danseres|elegant|feest|flamenco|persoon|salsa|tango|vrouw
+💄	lippenstift|afspraakje|cosmetica|date|make-up|opmaken
+💅	nagellak|beauty|cosmetica|hand|lak|manicure|nagel|nagels lakken|verzorging
+💆	persoon die hoofdmassage krijgt|gespannen|gezicht|gezichtsmassage|hoofdpijn|massage|ontspannen|persoon|relaxen|salon|spa|spanning
+💆‍♀	vrouw die hoofdmassage krijgt|gezicht|massage|vrouw
+💆‍♂	man die hoofdmassage krijgt|geduld|gezicht|gezichtmassage|man|man krijgt gezichtsmassage|massage|masseren|ontspannen|ontspannend|persoon|relaxen|relaxing
+💇	persoon die wordt geknipt|beauty|beroep|haar knippen|kapper|kapsalon|kapsel|kapster|salon|schaar|schoonheid
+💇‍♀	vrouw die wordt geknipt|kapsel|vrouw
+💇‍♂	man die wordt geknipt|haar|kapper|kapsel|knippen|man|man wordt geknipt|persoon|verzorging
+💈	kapperspaal|kapper|kapsel|paal
+💉	injectiespuit|dokter|gereedschap|griep|injectie|medicijn|naald|spuit|vaccinatie|ziek
+💊	pil|dokter|geneeskunde|medicatie|medicijn|vitamine|ziek
+💋	lipafdruk|afdruk|daten|emotie|kus|kusafdruk|liefde|lippen|romantiek|sexy|zoen
+💌	liefdesbrief|brief|brief met hart|hart|liefde|post|romantiek|valentijn
+💍	ring|bruiloft|diamant|glinsteren|romantiek|schitteren|trouwen|verloving
+💎	edelsteen|bruiloft|diamant|juweel|romantiek|trouwen|verloving
+💏	kus|afspraakje|date|kussen|liefde|personen|romantiek|stel|stelletje|verliefd
+💐	boeket|afspraakje|bedankt|beterschap|bloem|date|jubileum|romantiek|verjaardag
+💑	stel met hart|hart|jubileum|liefde|personen|relatie|romantiek|stel|stelletje|stelletje met hart|verliefd
+💒	bruiloft|huwelijk|kapel|romantiek|trouwkapel
+💓	kloppend hart|cardio|hart|hartslag|hou van jou|hvj|kloppen|slaan
+💔	gebroken hart|alleen|breken|droevig|eenzaam|emotie|gebroken|liefdesverdriet|verdrietig
+💕	twee harten|hart|hou van jou|hvj|jubileum|liefde|xoxo
+💖	fonkelend hart|fonkelend|glinsterend|hart|hou van jou|hvj|spannend|sprankelend|xoxo
+💗	groeiend hart|emotie|groeiend|hart|hartslag|hou van jou|hvj|kloppend hart|nerveus|spannend|xoxo
+💘	hart met pijl|afspraakje|cupido|date|hart|hou van jou|hvj|liefde|pijl|pijl door hart|romantiek|valentijn
+💙	blauw hart|blauw|emotie|hart|hou van jou|hvj|liefde|romantiek
+💚	groen hart|groen|hart|hou van jou|hvj|romantisch|xoxo
+💛	geel hart|emotie|geel|hart|hou van jou|hvj|liefde
+💜	paars hart|emotie|hart|hou van jou|hvj|paars
+💝	hart met strik|emotie|hart|hou van jou|hvj|liefde|strik|valentijn|valentijn|xoxo
+💞	ronddraaiende harten|draaien|draaiende harten|emotie|hart|harten|jubileum
+💟	decoratief hart|emotie|hart|hartdecoratie|paars hart|wit hart
+💠	ruitvorm met stip erin|diamant|geometrisch|stip|strip
+💡	gloeilamp|elektrisch|idee|lamp|licht|peertje|strip
+💢	woedesymbool|boos|cartoonesk|kwaad|ontdaan|strip|symbool|teken|woede
+💣	bom|cartoonbom|explosie|gevaarlijk|ontploffing|strip
+💤	slaapsymbool|cartoonesk|goedenacht|moe|rust|saai|slaap|slaapwel|slapen|slaperig|strip|vermoeid|zzz
+💥	botsing|boem|bom|botsen|ontploffen|strip
+💦	zweetdruppels|druppels|spetteren|sporten|strip|water|work-out|zweet
+💧	druppel|bedroefd|koud|strip|water|weer|zweet
+💨	wegrennen|cartoonesk|moet gaan|rennen|rook|scheet|strip|vertrokken|weg|wind
+💩	drol|grappig|monster|poep|poep met gezichtje|smiley|stinkt
+💪	spierballen|aanspannen|arm|biceps|bodybuilder|flex|gewichtheffen|spannen|spier|spierbal|sportschool|sterk|strip
+💫	duizelig|cartoonesk|ster|strip|vallende ster
+💬	spraakballon|aan het typen|ballon|cartoonesk|dialoog|spraak|strip|tekstballon|tekstballon met puntjes
+💭	gedachteballon|ballon|besef|cartoonesk|dagdromen|denkballon|denkwolkje|gedachten|gedachtenballon|strip|uitvinden|uitvinding
+💮	witte bloem|bloem|wit
+💯	maximumscore|100|100 punten|beste|cijfer|fantastisch|foutloos|getal|geweldig|score|top|zeker
+💰	zak met geld|dollar|geld|geldzak|rijk|zak
+💱	geld wisselen|bank|geld|valuta|wisselen
+💲	vetgedrukt dollarteken|betalen|dikgedrukt dollarteken|dollar|dollarteken|geld|munteenheid|valuta
+💳	creditcard|bank|betaalkaart|geld|kaart|krediet|pinpas
+💴	yenbiljet|bankbiljet|biljet|briefgeld|briefje|geld|valuta|yen
+💵	dollarbiljet|bankbiljet|biljet|briefgeld|briefje|dollar|geld|valuta
+💶	eurobiljet|bankbiljet|biljet|briefgeld|briefje|euro|geld|valuta
+💷	pondbiljet|bankbiljet|biljet|briefgeld|briefje|geld|pond|valuta
+💸	vliegend geld|bankbiljet|biljet|briefgeld|dollar|geld|geld met vleugels|vleugels|vliegen|vliegend bankbiljet
+💹	stijgende grafiek met yenteken|bank|geld|grafiek|groei|markt|stijging|toenemend|trend|valuta|yen
+💺	stoel|treinstoel|vliegtuigstoel
+💻	laptop|computer|notebook|pc|personal computer
+💼	aktentas|aktetas|boekentas|handtas|kantoor
+💽	harddisk|computer|disk|minidisc|optisch
+💾	floppydisk|computer|disk|diskette|floppy|opslaan
+💿	optische schijf|blu-ray|cd|cd-rom|computer|dvd|optisch|schijf
+📀	dvd|blu-ray|cd|computer|optisch|schijf
+📁	bestandsmap|bestand|map
+📂	geopende map|bestand|geopende bestandsmap|map|open
+📃	omkrullende pagina|bladzijde|document|half opgerold papier|krul|pagina|pagina met krul|papier
+📄	pagina met bovenzijde omhoog|bladzijde|document|pagina
+📅	kalender|datum
+📆	scheurkalender|kalender
+📇	kaartindex|index|kaart|rolodex|systeemkaarten
+📈	stijgende trend|diagram|grafiek|grafiek met stijgende trend|groei|positief|stijgend
+📉	dalende trend|dalend|daling|diagram|grafiek|grafiek met dalende trend|negatief
+📊	staafdiagram|diagram|grafiek|staaf|staafgrafiek
+📋	klembord|notities|to-dolijst
+📌	punaise|speld
+📍	ronde speld|kaart|kopspeld|locatie|speld
+📎	paperclip|clip
+📏	liniaal|meetinstrument|meten|rechte lijn|wiskunde
+📐	geodriehoek|driehoek|geo|liniaal|meetinstrument|meten|wiskunde
+📑	bladwijzertabs|bladwijzer|bladwijzers|markering|tabbladen|tabs
+📒	grootboek|map|notitieboek|ringband|schrift
+📓	schrift|notitieboek
+📔	versierd schrift|boek|decoratief|notitieboekje|omslag|opleiding|school|schrijven|versierd
+📕	gesloten boek|bibliotheek|boek|educatie|gesloten|lezen|onderwijs
+📖	geopend boek|boek|geopend|open
+📗	groen boek|bibliotheek|boek|educatie|groen|lezen|onderwijs
+📘	blauw boek|bibliotheek|blauw|boek|educatie|lezen|onderwijs
+📙	oranje boek|bibliotheek|boek|educatie|lezen|onderwijs|oranje
+📚	boeken|boek|educatie|kennis|lezen|onderwijs|opleiding|school
+📛	naamkaartje|badge|kaartje|naam
+📜	rol|papier|papierrol|perkament|perkamentpapier
+📝	memo|aantekeningen|opmerkingen|papier|potlood
+📞	telefoonhoorn|bellen|hoorn|telefoon
+📟	pager|pieper
+📠	fax|communicatie|faxapparaat
+📡	satellietschotel|antenne|communicatie|satelliet|schotel
+📢	luidspreker|luid|megafoon|toespraak|toespreken
+📣	megafoon|communicatie|geluid|gouden megafoon|juichen|versterken
+📤	postvak uit|brief|mail|post|postvak|uitgaand|verzonden
+📥	postvak in|brief|inkomend|mail|ontvangen|post|postvak
+📦	pakket|bezorging|dichtgeplakte doos|doos|pakketje
+📧	e-mail|brief|mail|post
+📨	inkomende post|binnengekomen|brief|e-mail|elektronische post|envelop|inkomend|mail|ontvangen|post
+📩	envelop met pijl|brief|communicatie|e-mail|envelop|omlaag|pijl|post|uitgaand|verzenden|verzonden
+📪	gesloten brievenbus met vlaggetje omlaag|brievenbus|gesloten|omlaag|post|postbus
+📫	gesloten brievenbus met vlaggetje omhoog|brievenbus|gesloten|post|postbus
+📬	open brievenbus met vlaggetje omhoog|brievenbus|open|post|postbus
+📭	open brievenbus met vlaggetje omlaag|brievenbus|omlaag|open|post|postbus
+📮	brievenbus|brief posten|brievenbus met brief|post|postbus
+📯	posthoorn|blaasinstrument|hoorn|jachthoorn|post
+📰	krant|dagblad|nieuws|nieuwsblad|voorpagina|weekblad
+📱	mobiele telefoon|bellen|communicatie|mobiel|smartphone|telefoon
+📲	mobiel met pijl|bellen|mobiel|mobiele telefoon|ontvangen|pijl|smartphone|telefoon
+📳	trilstand|communicatie|mobiel|modus|telefoon|trillen
+📴	telefoon uit|mobiel|telefoon|uit
+📵	geen mobiele telefoon|mobiel|nee|niet|telefoon|telefoons|verboden
+📶	mobiel signaal|antenne|communicatie|mobiel|signaal|streep|streepjes|telefoon
+📷	camera|fotocamera|fotograferen|selfie|snap|video
+📸	camera met flitser|camera|flitser|fotograferen|video
+📹	videocamera|camcorder|camera|video
+📺	tv|beeld|beeldbuis|televisie
+📻	radio|entertainment|muziek
+📼	videoband|band|film|vhs|video
+📽	filmprojector|bioscoop|film|projector|video
+📿	gebedssnoer|gebed|gebedsketting|gebedskralen|geloof|ketting|kleding|kralen
+🔀	knop voor shuffle|gekruist|knop|nummers|pijl|shuffle
+🔁	knop voor herhalen|herhalen|knop|met de klok mee|pijl
+🔂	knop voor één herhalen|één keer|enkel|herhalen|knop|met de klok mee|pijl
+🔃	verticale pijlen met de klok mee|met de klok mee|opnieuw laden|pijl|pijlen|verticaal|verversen
+🔄	pijlen tegen de klok in|déjà|knop|linksom|pijl|pijlen|tegen de klok in|vernieuwen|vu|weer
+🔅	knop voor lagere helderheid|dimmen|helderheid|laag
+🔆	knop voor hogere helderheid|helder|helderheid|knop|licht
+🔇	speaker uit|dempen|geen geluid|geluid uit|luidspreker|mute|speaker|stil|volume
+🔈	speaker|laag volume|luidspreker|volume|zacht
+🔉	speaker aan|gemiddeld volume|luidspreker|speaker|volume
+🔊	speaker luid|hard|hoog volume|luid|luidspreker|speaker|volume
+🔋	batterij
+🔌	stekker|elektriciteit|elektrisch
+🔍	vergrootglas naar links gericht|gereedschap|glas|vergrootglas|vergroten|zoeken
+🔎	vergrootglas naar rechts gericht|gereedschap|glas|vergrootglas|vergroten|zoeken
+🔏	slot met pen|inkt|pen|privacy|slot|slot met vulpen|vulpen
+🔐	gesloten slot met sleutel|beveiligd|gesloten|sleutel|slok|slot met sleutel
+🔑	sleutel|beveiligd|op slot|openen|wachtwoord
+🔒	slot|gesloten slot|privé
+🔓	geopend hangslot|gekraakt slot|geopend|hangslot|open|open slot|openen
+🔔	bel|kerkklok|klok|luiden|pauze|rinkelen
+🔕	doorgestreepte bel|bel|dempen|geen|geen geluid|geluid uit|niet toegestaan|stil|stilte
+🔖	bladwijzer|markering
+🔗	schakels|twee ringen
+🔘	keuzerondje|geometrisch|knop|radio
+🔙	back-pijl|back|pijl
+🔚	end-pijl|end|pijl
+🔛	on!-pijl|on!|pijl|teken
+🔜	soon-pijl|onderweg|pijl|soon|zo terug
+🔝	top-pijl|omhoog|pijl|top
+🔞	niemand onder de 18|18|achttien|beperking|één|leeftijd|minderjarig|nee|niet|verboden
+🔠	hoofdletters|abcd|invoeren|latijns|letters
+🔡	kleine letters|abcd|invoeren|latijns|letters
+🔢	cijfers|1234|invoeren
+🔣	symbolen|&|%|♪|〒|invoeren
+🔤	latijns alfabet|abc|alfabet|invoeren|latijns|letters
+🔥	vuur|brand|heet|hulpmiddel|vlam
+🔦	zaklamp|elektrisch|lamp|licht|zaklantaarn
+🔧	moersleutel|engelse sleutel|gereedschap|schroefsleutel
+🔨	hamer|gereedschap|timmeren
+🔩	bout en moer|bout|gereedschap|moer
+🔪	keukenmes|koken|koksmes|mes|wapen
+🔫	waterpistool|gereedschap|pistool|revolver|vuurwapen|wapen|water
+🔬	microscoop|experiment|gereedschap|instrument|laboratorium|onderzoek|wetenschap
+🔭	telescoop|buitenaards leven|gereedschap|heelal|instrument|sterrenkijker|wetenschap
+🔮	kristallen bol|bol|glazen bol|kristal|magie|sprookje|toekomst voorspellen|waarzeggen|waarzeggerij
+🔯	zespuntige ster|geluk|jodendom|joods|met stip|ster|zespuntig
+🔰	japans symbool voor beginner|beginner|blad|chevron|geel|gereedschap|groen|japans|symbool
+🔱	drietand-symbool|anker|drietand|embleem|gereedschap|poseidon|schip
+🔲	zwarte vierkante knop|geometrisch|knop|vierkant|zwart
+🔳	witte vierkante knop|geometrisch|knop|omlijnd|vierkant|wit
+🔴	rode cirkel|cirkel|geometrisch|rood
+🔵	blauwe cirkel|blauw|cirkel|geometrisch
+🔶	grote oranje ruit|diamant|geometrisch|groot|oranje
+🔷	grote blauwe ruit|blauw|diamant|geometrisch|groot
+🔸	kleine oranje ruit|diamant|geometrisch|klein|oranje
+🔹	kleine blauwe ruit|blauw|diamant|geometrisch|klein
+🔺	rode omhoogwijzende driehoek|driehoek|geometrisch|omhoog|rood|wijzend
+🔻	rode omlaagwijzende driehoek|driehoek|geometrisch|omlaag|rood|wijzend
+🔼	knop voor omhoog|knop|omhoog|pijl|rood
+🔽	knop voor omlaag|beneden|knop|omlaag|pijl|rood
+🕉	om-symbool|hindoeïsme|om|religie
+🕊	duif|ornithologie|vliegen|vogel|vrede
+🕋	kaäba|bedevaart|geloof|islam|mekka|moslim|religie
+🕌	moskee|geloof|islam|moslim|religie
+🕍	synagoge|geloof|jodendom|jood|joods|religie|tempel
+🕎	menora|hannuka|jodendom|joods|kandelaar|religie
+🕐	één uur|00|01:00|1|1:00|13:00|één|klok|tijd|uur
+🕑	twee uur|00|02:00|14:00|2|2:00|klok|tijd|twee|uur
+🕒	drie uur|00|03:00|15:00|3|3:00|drie|klok|tijd|uur
+🕓	vier uur|00|04:00|16:00|4|4:00|klok|tijd|uur|vier
+🕔	vijf uur|00|05:00|17:00|5|5:00|klok|uur|vijf
+🕕	zes uur|00|06:00|18:00|6|6:00|klok|tijd|uur|zes
+🕖	zeven uur|00|07:00|19:00|7|7:00|klok|tijd|uur|zeven
+🕗	acht uur|00|08:00|20:00|8|8:00|acht|klok|tijd|uur
+🕘	negen uur|00|09:00|21:00|9|9:00|klok|negen|tijd|uur
+🕙	tien uur|00|10|10:00|22:00|klok|tien|tijd|uur
+🕚	elf uur|00|11|11:00|23:00|elf|klok|tijd|uur
+🕛	twaalf uur|00|12|12:00|klok|tijd|twaalf|uur
+🕜	half twee|1|1:30|13:30|30|dertig|een|één|klok|tijd
+🕝	half drie|14:30|2|2:30|30|dertig|klok|tijd|twee
+🕞	half vier|15:30|3|3:30|30|dertig|drie|klok|tijd
+🕟	half vijf|16:30|30|4|4:30|dertig|klok|tijd|vier
+🕠	half zes|05:30|17:30|30|5|5:30|dertig|klok|tijd|vijf
+🕡	half zeven|06:30|18:30|30|6|6:30|dertig|klok|tijd|zes
+🕢	half acht|07:30|19:30|30|7|7:30|dertig|klok|tijd|zeven
+🕣	half negen|08:30|20:30|30|8|8:30|acht|dertig|klok|tijd
+🕤	half tien|09:30|21:30|30|9|9:30|dertig|klok|negen|tijd
+🕥	half elf|10|10:30|22:30|30|dertig|klok|tien|tijd
+🕦	half twaalf|11|11:30|23:30|30|dertig|elf|klok|tijd
+🕧	half één|00:30|12|12:30|30|dertig|klok|tijd|twaalf|uur
+🕯	kaars|kaarslicht|licht
+🕰	klok|pendule|staande klok|tijd
+🕳	gat|hole
+🕴	zwevende man in pak|pak|persoon|zaken|zwevend
+🕵	detective|speurder|spion
+🕵‍♀	vrouwelijke detective|detective|speurder|spionne|vrouw
+🕵‍♂	mannelijke detective|detective|man|speurder|spion
+🕶	zonnebril|bril|brillen|donker|oog
+🕷	spin|dier|insect
+🕸	spinnenweb|spin|web
+🕹	joystick|game|videogame|videospel
+🕺	dansende man|dansen|disco|feest|festival|flamenco|man|persoon|salsa|tango
+🖇	twee paperclips aan elkaar|aan elkaar|paperclip|paperclips|vastgemaakt
+🖊	pen|ballpoint|balpen
+🖋	vulpen|pen
+🖌	kwast|penseel|schilderen|schilderkwast|verven
+🖍	krijtje|krijt|rood krijtje
+🖐	opgeheven hand met uitgestoken vingers|hand|opgeheven|stop|uitgestoken|vinger|vingers
+🖕	middelvinger|hand|midden|vinger
+🖖	vulcaanse groet|hand|leef lang en voorspoedig|spock|star trek|vinger|vulcan|vulcangroet
+🖤	zwart hart|hart|kwaad|slecht|verdorven|zwart
+🖥	desktop|beeldscherm|computer|monitor
+🖨	printer|afdrukken|computer
+🖱	computermuis|computer|muis
+🖲	trackball|computer
+🖼	lijst met afbeelding|afbeelding|kunst|lijst|museum|schilderij
+🗂	tabbladen|index|kaart|kaarten
+🗃	kaartenbak|archief|bak|kaart
+🗄	archiefkast|archief|archiveren|kast
+🗑	prullenmand|prullenbak|recyclen
+🗒	schrijfblok met spiraal|notitie|notitieblok|schrijfblok|spiraal
+🗓	kalender met spiraal|blok|jaarkalender|kalender|omlegkalender|spiraal
+🗜	lijmklem|bankschroef|gereedschap|samendrukken
+🗝	oude sleutel|aanwijzing|oud|ouderwetse sleutel|sleutel|slot
+🗞	opgerolde krant|dagblad|krant|nieuws|nieuwsblad|opgerold|weekblad
+🗡	dolk|mes|wapen
+🗣	silhouet van sprekend hoofd|gezicht|hoofd|silhouet|spreek|spreken
+🗨	spraakballon naar links|dialoog|spraak|zwarte spraakballon
+🗯	boze spraakballon naar rechts|ballon|kwaad|tekstballon boos|woede|woedeballon|woedeballon naar rechts
+🗳	stembus met stembiljet|doos|stem uitbrengen|stembus
+🗺	wereldkaart|kaart|wereld
+🗻	berg fuji|berg|fuji|fuji|natuur|vulkaan
+🗼	tokio-toren|tokio|tokio|tokiotoren|toren
+🗽	vrijheidsbeeld|beeld|new york|nyc|vrijheid
+🗾	kaart van japan|japan|japan|kaart
+🗿	moai-beeld|beelden|gezicht|moai|paaseiland|reizen|standbeeld
+😀	grijnzend gezicht|blij|fijn|gezicht|glimlachen|grijns|grijnzend|lach|lachen|leuk|tanden|vrolijk
+😁	stralend gezicht met lachende ogen|blij|fijn|gezicht|glimlachen|grijns|grijnzend|lach|ogen|oog|stralend|tanden
+😂	gezicht met tranen van vreugde|blij|gevoelens|gezicht|grappig|haha|hehe|hilarisch|huilen|lachen|lmao|lol|rofl|roflmao|traan|vreugde
+😃	grijnzend gezicht met grote ogen|blij|gaaf|gezicht|glimlachen|grijns|grijnzend|groot|joepie|lach|mond|ogen|open|tanden
+😄	grijnzend gezicht met lachende ogen|blij|gezicht|glimlachen|grijns|grijnzend|lach|lachen|lol|mond|ogen|oog|open
+😅	grijnzend gezicht met zweetdruppels|gestrest|gezicht|glimlachen|grijnzend|koud|lach|mond|neerslachtig|nerveus|open|opgewonden|stress|zweet
+😆	grijnzend gezicht met stijf dichtgeknepen ogen|blij|gesloten|gezicht|glimlachen|grijnzend|haha|hahaha|lach|lachen|lol|mond|ogen|open|rofl|scheelzien
+😇	lachend gezicht met halo|blij|elfje|engel|engelachtig|engelen|fantasie|geest|gezegend|gezicht|glimlach|glimlachen|onschuldig|sprookje|stralenkrans|verhaal|vredig
+😈	lachend gezicht met hoorns|duivels|fantasie|gezicht|glimlach|hoorns|lach|lachend paars gezicht met hoorns|ondeugend|smiley|sprookje
+😉	knipogend gezicht|flirten|gezicht|hartenbreker|knipogen|knipoog|knipoogt|plagerij|sexy|zwoel
+😊	lachend gezicht met lachende ogen|blozen|gelukkig|gezicht|glimlach|glimlachen|ogen|oog|tevreden
+😋	lachend gezicht dat lippen likt|genieten|gezicht|glimlach|jammie|lachend gezicht|lekker|mmm|smiley|smullen
+😌	opgelucht gezicht|gezicht|kalmte|opgelucht|opluchting|vrede|zen
+😍	lachend gezicht met hartvormige ogen|gevoelens|gezicht|hartjes|hartjesogen|kussen|lach|liefde|oog|romantiek|schatje
+😎	lachend gezicht met zonnebril|bril|chillen|cool|gaaf|geweldig|gezicht|glimlach|ontspannen|stijl|stoer|strand|zonnebril
+😏	gniffelend gezicht|arrogant|flirten|gezicht|gezicht met grote grijns|gladjes|gniffelen|grijnzen|schuin|smiley|swag|vol van zichzelf|wenkbrauwen
+😐	neutraal gezicht|geen commentaar|gezicht|jaloers|neutraal|niet leuk|ongemakkelijk|pokerface|pokergezicht|uitdrukkingsloos|uitgestreken
+😑	uitdrukkingsloos gezicht|dichtgeknepen|geen commentaar|geen uitdrukking|gezicht|jaloers|lame|omg|ontevreden|smiley|tegenzin|ugh|uitdrukkingsloos|vooruit|wtf
+😒	chagrijnig gezicht|boos|ehm|gezicht|jaloers|niet blij|niet leuk|ongelukkig|smiley|ugh|uhh|verveeld|whatever
+😓	neerslachtig gezicht met zweetdruppel|angstzweet|bang|dichtgeknepen ogen|gezicht|gezicht met angstzweet|koud|nerveus|smiley|zweet
+😔	peinzend gezicht|afgewezen|balen|gezicht|moedeloos|peinzend|smiley|teleurgesteld|terneergeslagen|triest|verdrietig|verloren
+😕	verward gezicht|gezicht|hmm|ik weet het niet|in de war|ontevreden|peinzend|smiley|teleurgesteld|uhm|verward
+😖	onthutst gezicht|bah|boos|gefrustreerd|geïrriteerd|gezicht|onthutst|smiley|verdrietig|verwarring
+😗	kussend gezicht|afspraakje|date|gezicht|hou van jou|hvj|kus|kussen|smiley|xoxo|zoen
+😘	gezicht dat kus toeblaast|flirten|gezicht|hartje|kus|kusje blazen|kussen|romantiek|smiley|xoxo|zoen
+😙	kussend gezicht met lachende ogen|143|afspraakje|daten|flirten|gesloten|gezicht|ik hou van je|kus|kussen|kussend|lach|lachen|liefde|nacht|ogen|oog
+😚	kussend gezicht met gesloten ogen|blosjes|blozen|gesloten|gesloten ogen|gezicht|kus|kussend gezicht met ogen dicht|oog|rode wangen|smiley|zoen
+😛	gezicht met uitgestoken tong|gezicht|gezicht met uitgestoken tong en open ogen|grapje|grappig|ontdeugend|smiley|tong|tong uitsteken|uitgesteken tong
+😜	knipoog met uitgestoken tong|gezicht|gezicht met uitgestoken tong en knipoog|grap|grapjas|knipoog|oog|plagen|smiley|tong
+😝	gezicht met uitgestoken tong en dichtgeknepen ogen|bah|dichte ogen|gezicht|oog|smaak|smerig|smiley|tong|uitgestoken tong|vies|vreselijk
+😞	teleurgesteld gezicht|afgewezen|afwijzing|bedroefd|gezicht|niet blij|schuldig|smiley|teleurstelling|terneergeslagen|triest|verloren
+😟	bezorgd gezicht|bedroefd|bezorgd|gestresst|gezicht|nerveus|smiley|stress|triest|zenuwen|zorgen
+😠	boos gezicht|boos|fronsen|gefrustreerd|gezicht|kwaad|smiley|woedend
+😡	pruilend gezicht|boos|gezicht|kwaad|pruilend|rood|smiley|woede|woedend
+😢	huilend gezicht|bedroefd|gevoelens|gezicht|huilen|smiley|traan|triest
+😣	volhardend gezicht|concentratie|concentreren|focus|gezicht|hoofdpijn|volharden|volharding
+😤	gezicht blazend van woede|boos|gewonnen|gezicht|gezicht met stoom uit neus|kokend van woede|ontevreden|triomf|witheet|woedend|ziedend
+😥	teleurgesteld maar opgelucht gezicht|bijna|gezicht|ingewikkeld|oef|opgelucht|smiley|teleurgesteld|zweetdruppel|zweten
+😦	fronsend gezicht met open mond|bang|betrapt|eng|frons|fronsen|gezicht|hoede|mond|open|verrassing|wat|wauw
+😧	gekweld gezicht|bang|gezicht|lijden|lijdend|ontevreden|smiley|stress|verrast
+😨	bang gezicht|angst|angstig|bang|bezorgd|gezicht|schuld
+😩	moe gezicht|aanstellen|gezicht|honger|moe|nee|ontevreden|smiley|tegenzin|vermoeid|zeuren
+😪	slaperig gezicht|gezicht|huilen|slaap|smiley|traan
+😫	vermoeid gezicht|bah|gezicht|jakkes|moe|niesen|niezen|smiley|vermoeid|vies
+😬	gezicht met grimas|gezicht|grimas|grimasgezicht|grinniken|niks|oeps|ongemakkelijk|smiley|tanden op elkaar
+😭	hard huilend gezicht|bedroefd|gezicht|hard huilen|huilen|ontroostbaar|smiley|snikken|traan|tranen|tranen met tuiten
+😮	gezicht met open mond|geschokt|geschrokken|gezicht|mond|oeps|omg|ongelofelijk|ongelooflijk|open|smiley|sympathie|vergeten|wauw
+😮‍💨	gezicht dat uitademt|blazen|fluisteren|fluiten|kreunen|naar adem snakken|opgelucht|roken|rook|smiley|uitademen|uitgeput
+😯	verstomd gezicht|geschokt|gezicht|omg|smiley|verbaasd|verrast|verstomd|wauw|wow
+😰	angstig gezicht met zweetdruppel|angstig|angstzweet|blauw|blauw gezicht met angstzweet|gehaast|gezicht|gezicht met open mond en zweetdruppel|koud|nerveus|smiley|zweet|zweetdruppel
+😱	angstig schreeuwend gezicht|angst|angstig|bang|doodsbang|geschrokken|gezicht|gezicht dat schreeuwt van angst|munch|schreeuw|schreeuwend van angst|smiley
+😲	verbaasd gezicht|geschokt|gezicht|kosten|nee|omg|totaal|verbaasd
+😳	blozend gezicht|beschaamd|blozend|dood|gek|gezicht|heet|hitte|jeetje|onder de indruk|ongeloof|ongemakkelijk|sjonge|verbaasd|verbijsterd|wat|wauw
+😴	slapend gezicht|bedtijd|dutje|gapen|gezicht|moe|slaap|slaap lekker|slapen|smiley|vermoeid|welterusten|zzz
+😵	duizelig gezicht|dood|duizelig|gezicht|gezicht met mond open en kruisjes als ogen|smiley|ziek
+😵‍💫	gezicht met spiraalvormige ogen|dronken|duizelig|gehypnotiseerd|probleem|smiley|spiraalvormig|stoned|verward|wow
+😶	gezicht zonder mond|geen mond|geheim|gezicht|mond|niets zeggen|persoon|rustig|smiley|sprakeloos|stil|zwijgen
+😶‍🌫	gezicht in de wolken|afwezig|gezicht in de mist|hoofd in de wolken
+😷	gezicht met doktersmasker|besmet|dokter|doktersmasker|gezicht|gezicht met masker|koud|masker|medicijn|medisch masker|smiley|virus|ziek
+😸	grijnzende kat met lachende ogen|dier|gezicht|grijns|grijnzend kattengezicht met lachende ogen|kat|lach|oog|vrolijk
+😹	kat met tranen van vreugde|dier|gezicht|kat|lach|lachen|lol|traan|tranen|vreugde
+😺	grijnzende kat|dier|gezicht|grijnzen|kat|lach|lachen|mond|open
+😻	lachende kat met hartvormige ogen|dier|gezicht|hart|hartjesogen|kat|lach|lachen|liefde|oog
+😼	gniffelende kat|gezicht|grimas|ironisch|ironische lach|kat|kattenkwaad|lach|ondeugend kattengezicht|smiley|spottend
+😽	kussende kat|dier|gezicht|kat|kus|kussend kattengezicht met gesloten ogen|oog|smiley
+😾	pruilende kat|boos|boos kattengezicht|dier|gezicht|kat|mokken|pruilen|smiley
+😿	huilende kat|dier|gezicht|huilen|huilend|kat|traan|verdrietig
+🙀	vermoeide kat|dier|geschokt|geschrokken kat|gezicht|kat|oh nee|smiley|verbazing|vermoeid|verrast
+🙁	licht fronsend gezicht|fronsen|fronsend|gezicht|licht|verdrietig
+🙂	enigszins lachend gezicht|blij|enigszins|gezicht|glimlachen|lach
+🙂‍↔	hoofd dat horizontaal beweegt|nee|schudden
+🙂‍↕	hoofd dat verticaal beweegt|ja|knikken
+🙃	omgekeerd gezicht|gezicht|glimlach|hehe|omgekeerd
+🙄	gezicht met rollende ogen|gezicht|ogen|rollen|rollen met de ogen|schaduw|ugh|wat dan ook
+🙅	persoon die nee-gebaar maakt|gebaar|hand|illegaal|nee|niet|persoon|verboden
+🙅‍♀	vrouw die nee-gebaar maakt|gebaar|hand|illegaal|verboden|vrouw
+🙅‍♂	man die nee-gebaar maakt|gebaar|hand|illegaal|man|nee|niet|verboden
+🙆	persoon die ok-gebaar maakt|gebaar|gebaren|hand|oefening|ok|omg|persoon
+🙆‍♀	vrouw die ok-gebaar maakt|gebaar|hand|ok|vrouw
+🙆‍♂	man die ok-gebaar maakt|gebaar|gebaren|hand|man|oefening|ok|omg
+🙇	buigende persoon|buigende man|buiging|diepe buiging|excuses|gebaar|persoon|persoon die buiging maakt|sorry|spijt|verontschuldiging
+🙇‍♀	buigende vrouw|buigen|buiging|excuses|gebaar|gunst|persoon|schaamte|schuld|sorry|verontschuldigen|vrouw|vrouw die buigt
+🙇‍♂	buigende man|buigen|excuses|gebaar|gunst|man|sorry
+🙈	geen kwaad zien|aap|beschaamd|dier|gebaar|geen|gezicht|kwaad|niet|niet kijken|schaamte|uit den boze|verboden|verlegen|wil niet zien|zie|zien
+🙉	geen kwaad horen|aap|dier|gebaar|geen|geheim|gezicht|horen|kwaad|luisteren|niet|uit den boze|verboden|wil niet horen
+🙊	geen kwaad spreken|aap|gebaar|geen|geheim|gezicht|kwaad|niet|oeps|spreken|stiekem|uit den boze|verboden
+🙋	persoon met opgeheven hand|antwoord|blij|gebaar|hand|ik weet het|omhoog|persoon|vraag|vrouw die hand opsteekt
+🙋‍♀	vrouw met opgeheven hand|gebaar|hand opsteken|vrouw
+🙋‍♂	man met opgeheven hand|gebaar|hand in de lucht|hand omhoog|hand opsteken|ik weet het|man|man met opgestoken hand|persoon|vraag
+🙌	juichend omhooggestoken handen|feest|gebaar|hand|handen|hoera|lof|omhoog|omhooggestoken
+🙍	fronsend persoon|bedroefd|frons|fronzen|persoon|teleurgesteld|uitdrukking|verdrietig|verontrust|vrouw
+🙍‍♀	fronsende vrouw|frons|uitdrukking|vrouw
+🙍‍♂	fronsende man|frons|man|ontevreden|persoon|sip|uitdrukking|verdrietig
+🙎	pruilend persoon|humeurig|persoon|pruilen|pruilende vrouw|pruillip|skeptisch|teleurgesteld|uitdrukking|vrouw
+🙎‍♀	pruilende vrouw|pruilen|uitdrukking|vrouw
+🙎‍♂	pruilende man|man|persoon|pruilen|sip|uitdrukking|verdrietig
+🙏	gevouwen handen|alsjeblieft|bedankt|bidden|buigen|dank|gebaar|gebed|geef me de vijf|gevouwen|gezegend|hand|handen tegen elkaar|high five|smeken|vragen
+🚀	raket|lancering|ruimte|ruimtereis|vervoermiddel|voertuig
+🚁	helikopter|roflcopter|roflkopter|vervoermiddel|voertuig
+🚂	locomotief|reizen|spoor|spoorweg|stoom|stoomtrein|trein|vervoermiddel|voertuig
+🚃	treinwagon|elektrisch|spoor|tram|trein|trolleybus|vervoermiddel|voertuig|wagon
+🚄	hogesnelheidstrein|hsl|shinkansen|snelheid|spoor|trein|ultrasnel|vervoermiddel|voertuig
+🚅	hogesnelheidstrein met kogelneus|hoge snelheid|kogeltrein|neus|reizen|shinkansen|snelheid|spoorweg|trein
+🚆	trein|aankomst|spoor|vertrek|vervoermiddel|voertuig
+🚇	metro|ondergrondse|vervoermiddel|voertuig
+🚈	lightrail|monorail|spoor|vervoermiddel|voertuig
+🚉	treinstation|spoor|station|trein|vervoermiddel|voertuig
+🚊	tram|trolleybus|vervoermiddel|voertuig
+🚋	tramwagon|tram|trolleybus|vervoermiddel|voertuig|wagon
+🚌	bus|schoolbus|vervoermiddel|voertuig
+🚍	naderende bus|bus|naderend|tegemoetkomende bus|vervoermiddel|voertuig
+🚎	trolleybus|bus|tram|trolley|vervoermiddel|voertuig
+🚏	bushalte|bus|halte
+🚐	minibus|bus|vervoermiddel|voertuig
+🚑	ambulance|hulpdienst|spoed|vervoermiddel|voertuig
+🚒	brandweerauto|auto|brand|hulpdienst|spoed|vervoermiddel|voertuig
+🚓	politieauto|auto|hulpdienst|politie|politiewagen|vervoermiddel|voertuig
+🚔	naderende politieauto|auto|hulpdienst|naderend|politie|tegemoetkomende politiewagen|vervoermiddel|voertuig
+🚕	taxi|taxichauffeur|uber|vervoermiddel|voertuig
+🚖	naderende taxi|auto’s|geel|naderend|rijden|roepen|taxi
+🚗	auto|automobiel|rijden|vervoermiddel|voertuig
+🚘	naderende auto|auto|automobiel|naderend|tegemoetkomende auto|vervoermiddel|voertuig
+🚙	suv|auto|kampeerauto|recreatie|rijden|vervoermiddel|voertuig
+🚚	bestelbus|bestelwagen|bezorging|bus|levering|pakketdienst|truck|vervoermiddel|voertuig
+🚛	vrachtwagen|truck|vervoermiddel|voertuig|vrachtauto|vrachtwagen met oplegger
+🚜	tractor|trekker|vervoermiddel|voertuig
+🚝	monorail|vervoermiddel|voertuig
+🚞	bergspoor|berg|spoor|vervoermiddel|voertuig|wagon
+🚟	zweeftrein|hangend spoor|spoor|vervoermiddel|voertuig|zwevend
+🚠	bergkabelbaan|berg|gondel|kabel|skilift|vervoermiddel|voertuig
+🚡	kabelbaan|baan|gondel|kabel|transportbaan|vervoermiddel|voertuig
+🚢	schip|boot|passagier|passagiersschip|titanic|vaartuig
+🚣	persoon in roeiboot|boot|meer|persoon in boot|roeiboot|roeien|roeiende persoon|roeispaan|sport
+🚣‍♀	vrouw in roeiboot|boot|cruise|kano|meer|peddel|rivier|roeiboot|roeien|roeispaan|vissen|vlot|vrouw
+🚣‍♂	man in roeiboot|boot|man|roeiboot
+🚤	speedboot|boot|jacht|luxe|miljonair|reizen|vaartuig|zomer
+🚥	horizontaal verkeerslicht|licht|stoplicht|verkeer|verkeerslichten
+🚦	verticaal verkeerslicht|kruising|licht|stoplicht|verkeer|verkeerslicht|verkeerslichten
+🚧	bouwwerkzaamheden|barricade|werkzaamheden
+🚨	zwaailicht van politieauto|alarm|auto|baken|draaiend|licht|noodgeval|politie|sirene|waarschuwing
+🚩	driehoekige vlag|golf|locatie|puntvlag|vlag
+🚪	deur|achterdeur|gesloten deur|voordeur
+🚫	verboden|nee|niet|roken|toegang
+🚬	sigaret|roken
+🚭	niet roken|nee|niet|roken|verboden
+🚮	prullenbaksymbool|afval|prullenbak|teken|vuilnisbak
+🚯	geen afval weggooien|geen|niet|verboden|zwerfvuil
+🚰	drinkwater|drink|drinkbaar|water
+🚱	geen drinkwater|droog|niet drinkbaar|verboden|water
+🚲	fiets|fietsen|rijwiel|spinning|vervoermiddel|voertuig
+🚳	geen fietsen|fiets|fietsen|nee|niet|verboden
+🚴	fietsende persoon|fiets|fietsen|fietser|persoon|sport|wielrennen
+🚴‍♀	fietsende vrouw|fiets|fietsen|fietster|sport|vrouw|wielrennen
+🚴‍♂	fietsende man|fiets|fietsen|man|wielrenner
+🚵	persoon op mountainbike|berg|fiets|fietsen|fietser|mountainbiken|persoon|sport
+🚵‍♀	vrouw op mountainbike|berg|fiets|fietsen|fietster|mountainbiken|sport|vrouw
+🚵‍♂	man op mountainbike|berg|fiets|fietsen|fietser|man
+🚶	voetganger|lopen|persoon|slenteren|stappen|struien|wandelaar|wandelen
+🚶‍♀	wandelende vrouw|kuieren|lopen|persoon|slenteren|voetganger|vrouw|wandelaar|wandelen
+🚶‍♂	wandelende man|lopen|man|wandelen
+🚷	geen voetgangers|nee|niet|verboden|voetganger|voetgangers
+🚸	overstekende kinderen|kind|kinderen|oversteekplaats|verkeer|voetganger
+🚹	herentoilet|heren|man|plee|toilet|urinoir|wc
+🚺	damestoilet|dames|plee|toilet|vrouw|wc
+🚻	toiletten|plee|toilet|wc
+🚼	babysymbool|baby|symbool|verschonen
+🚽	toilet|wc
+🚾	wc|toilet|wasgelegenheid|water
+🚿	douche|douchekop|water
+🛀	persoon in badkuip|bad|badkuip|badkuip met douche|persoon in bad
+🛁	badkuip|bad|badkuip met douche
+🛂	paspoortcontrole|controle|paspoort
+🛃	douane|inpakken
+🛄	bagage afhalen|aangekomen|bagage|ingecheckt|inpakken|klaar|koffer|ophalen|reis|reisje|reizen|tassen|vliegtuig
+🛅	bagagekluis|achtergelaten|bagage|kluisje|koffer
+🛋	bank en lamp|bank|hotel|lamp|sofa
+🛌	persoon in bed|bed|deken|dutje|goedenacht|hotel|moe|slaap|slaapwel|slapen|vermoeid|welterusten|zzz
+🛍	boodschappentassen|hotel|tas|winkelen
+🛎	piccolobel|balie|baliebel|bel|hotel
+🛏	bed|hotel|slapen
+🛐	gebedsruimte|bidden|godsdienst|plaats|religie
+🛑	stopteken|achthoekig|bord|stop|verkeersteken
+🛒	winkelwagen|boodschappen|shoppen|wagen|wagentje|winkelen
+🛕	hindoetempel|gebouw|geloof|goden|hindoe|india|religie|tempel
+🛖	hut|huis|joert|onderdak|ronde hut|strand|woning
+🛗	lift|hijstoestel|machine|omhoog|omlaag|personenlift|toegankelijkheid|voorwerp
+🛘	aardverschuiving|aardbeving|berg|gevaar|lawine|modderlawine|ramp|stenen
+🛜	draadloos|computer|internet|netwerk
+🛝	glijbaan|glijden|kind|kinderen|speeltuin|spelen
+🛞	wiel|auto|band|cirkel|draaien|velg|velgen|vervoer|voertuig
+🛟	reddingsboei|boei|drijven|redden|reddingsgordel|reddingsvest|veiligheid|verdrinken|zwemmen
+🛠	hamer en moersleutel|gereedschap|hamer|klussen|moersleutel
+🛡	schild|bescherming|middeleeuwen|wapen
+🛢	olievat|olie|vat
+🛣	snelweg|autosnelweg|weg
+🛤	treinspoor|spoor|trein
+🛥	motorboot|boot|vaartuig|vervoermiddel
+🛩	vliegtuigje|jet|klein vliegtuig|luchtvaartuig|vervoermiddel|vliegmachine|vliegtuig
+🛫	vertrek van vliegtuig|inchecken|opstijgen|vertrek|vertrekken|vervoermiddel|vliegmachine|vliegtuig|voertuig
+🛬	aankomst van vliegtuig|aankomen|aankomst|landen|landing|vervoermiddel|vliegmachine|vliegtuig|voertuig
+🛰	satelliet|ruimte|ruimtevaart
+🛳	passagiersschip|passagier|schip|veerboot|vervoermiddel|voertuig
+🛴	step|autoped|steppen|vervoermiddel|voertuig
+🛵	scooter|brommer|motor|vervoermiddel|voertuig
+🛶	kano|boot|kajak|vaartuig|vervoermiddel
+🛷	slee|rodelen|roetsjen|slede|sleeën|sleetje|sneeuw
+🛸	vliegende schotel|aliens|buitenaards|buitenaardse wezens|science fiction|ufo|ufo|vervoermiddel|voertuig
+🛹	skateboard|board|deck|skate|skaten|skater|wielen
+🛺	riksja|auto|azië|thailand|tuktuk|vervoer|wagen
+🛻	pick-up|auto|bestelbak|laadbak|laadbakwagen|transport|truck|vervoer|vracht|wagen
+🛼	rolschaats|hobby|rollerskate|rollerskates|rolschaatsen|schaats|skaten|sport|sporten
+🟠	oranje cirkel|cirkel|oranje
+🟡	gele cirkel|cirkel|geel
+🟢	groene cirkel|cirkel|groen
+🟣	paarse cirkel|cirkel|paars
+🟤	bruine cirkel|bruin|cirkel
+🟥	rood vierkant|kaart|penalty|rood|vierkant
+🟦	blauw vierkant|blauw|vierkant
+🟧	oranje vierkant|oranje|vierkant
+🟨	geel vierkant|geel|kaart|penalty|vierkant
+🟩	groen vierkant|groen|vierkant
+🟪	paars vierkant|paars|vierkant
+🟫	bruin vierkant|bruin|vierkant
+🟰	vetgedrukt gelijkteken|dikgedrukt|gelijk|gelijkheid|is gelijk aan|teken|uitkomst|wiskunde
+🤌	samengeknepen vingers|gebaar|hand|handgebaar|italiaans|maffia|ondervraging|samengeknepen|sarcastisch|vingers
+🤍	wit hart|hart|liefde|symbool|wit
+🤎	bruin hart|bruin|hart|liefde|symbool
+🤏	hand met samengeknepen vingers|beetje|gebaar voor kleine hoeveelheid|hand|klein|kleine hoeveelheid|vingers|weinig
+🤐	gezicht met een rits als mond|dicht|geheim|gezicht|houden|mond|rits|rits als mond|stil|zwijg
+🤑	gezicht met geld in de mond|betaald|geld|geldmond|gezicht|mond
+🤒	gezicht met thermometer|gezicht|niet lekker|thermometer|ziek
+🤓	nerdgezicht|geek|gezicht|gezicht met bril en tanden|nerd|nerderig|smiley
+🤔	nadenkend gezicht|afvragen|denken|gezicht|hmm|kin|nadenken|nadenkend|overwegen
+🤕	gezicht met een verband om het hoofd|gewond|gezicht|gezicht met hoofdverband|pijn|verband|verwonding
+🤖	robot|gezicht|monster
+🤗	blij gezicht met uitgestoken handen|blij|gezicht|handen|knuffel|knuffelen|uitgestoken
+🤘	duivelshorens|hand|hoorns|rock on|teken|vinger
+🤙	bel me-gebaar|bel mij-gebaar|bellen|hand|handgebaar voor bellen
+🤚	achterkant van opgeheven hand|achterzijde opgestoken hand|hand|hand omhoog|handrug|opgestoken|rug van hand|vijf vingers
+🤛	naar links gerichte vuist|linksom|naar links|vuist
+🤜	naar rechts gerichte vuist|naar rechts|rechtsom|vuist
+🤝	handdruk|deal|hand|overeenkomst|schudden|vergadering
+🤞	gekruiste vingers|gekruist|geluk|hand|kruisen|vinger|vingers
+🤟	ik-hou-van-je-gebaar|gebarentaal|hand|hvj|ik hou van jou-gebaar|ily
+🤠	gezicht met cowboyhoed|cowboy|cowgirl|gezicht|hoed
+🤡	clownsgezicht|clown|gezicht
+🤢	misselijk gezicht|gadver|gezicht|misselijk|overgeven|vies|ziek
+🤣	gezicht dat op de grond rolt van het lachen|blij|gezicht|grappig|haha|hehe|hilarisch|huilen|lachen|lmao|lol|rofl|roflmao|rollen|traan|vloer|vreugde
+🤤	kwijlend gezicht|gezicht|kwijlend
+🤥	liegend gezicht|gezicht|leugen|leugenaar|liegen|pinokkio
+🤦	persoon die het gezicht met de hand bedekt|ergernis|gebaar|gezicht|hand voor gezicht|niet opnieuw|ongeloof|ongelooflijk|palm|persoon|schaamte|zucht
+🤦‍♀	vrouw die het gezicht met de hand bedekt|ergernis|facepalm|gebaar|gezicht bedekken|omg|ongeloof|ongelooflijk|persoon|schaamte|vrouw
+🤦‍♂	man die het gezicht met de hand bedekt|ergernis|facepalm|gebaar|gezicht bedekken|man|omg|ongeloof|ongelooflijk|persoon|schaamte
+🤧	niezend gezicht|gezicht|gezondheid|griep|koorts|niezen|niezend|ziek
+🤨	gezicht met opgeheven wenkbrauw|afkeurend|frons|gezicht met opgetrokken wenkbrauw|hmm|ongeloof|sceptisch|skeptisch|smiley|verrassing|wantrouwen|wantrouwend|wat
+🤩	sterren in de ogen|gezicht|grijnzend|lach|ogen|opgewonden|ster|sterren als ogen|wauw
+🤪	gek gezicht|gekke blik|gestoord|groot|klein|oog|smiley
+🤫	gezicht dat tot stilte maant|gezicht|manen|sst|stil|stilte
+🤬	gezicht met symbolen op mond|boos|censuur|gezicht met tekens over mond|kwaad|schelden|smiley|vloeken
+🤭	gezicht met hand over de mond|geheim|geschrokken|gezicht met hand over mond|giechelen|oeps|smiley|verrast
+🤮	brakend gezicht|braaksel|braken|misselijk|overgeven|spuwen|walgelijk|ziek
+🤯	ontploffend hoofd|exploderen|geschokt|ondersteboven|onmogelijk|smiley|verbaasd|verbijsterd|verrast|wow
+🤰	zwangere vrouw|vrouw|zwanger
+🤱	borstvoeding|baby|borst|de borst geven|persoon
+🤲	beide handpalmen omhoog|bidden|gebed|hand|kommetje maken met handen|palmen bij elkaar
+🤳	selfie|camera|telefoon
+🤴	prins|fantasie|koning|koninklijk|kroon|royalty|sprookje
+🤵	persoon in smoking|bruiloft|formeel|persoon|smoking
+🤵‍♀	vrouw in smoking|smoking|vrouw
+🤵‍♂	man in smoking|man|smoking
+🤶	kerstvrouw|feest|kerst|kerstmis|moedertje kerst|persoon|viering
+🤷	persoon die schouders ophaalt|gebaar|idk|ik weet het niet|misschien|onverschilligheid|onwetend|onwetendheid|schouderophalen|twijfel
+🤷‍♀	vrouw die schouders ophaalt|gebaar|geen idee|onverschillig|onverschilligheid|onwetendheid|persoon|schouderophalen|twijfel|vrouw|weet niet
+🤷‍♂	man die schouders ophaalt|gebaar|geen idee|man|man haalt schouders op|onverschillig|onverschilligheid|onwetendheid|persoon|schouderophalen|twijfel
+🤸	persoon die een radslag doet|blij|buiten|gymnastiek|olympische spelen|persoon|radslag|sport|turnen
+🤸‍♀	vrouw die een radslag doet|blij|gymnastiek|lenig|persoon|radslag|sport|turnen|turnster|vrouw|vrouw doet radslag
+🤸‍♂	man die een radslag doet|blij|gymnastiek|lenig|man|man doet radslag|persoon|radslag|sport|turnen|turner
+🤹	persoon die jongleert|balanceren|balans|beheren|hanteren|jongleren|multitasken|nummer|persoon|vaardigheid
+🤹‍♀	vrouw die jongleert|jongleren|jonglerende vrouw|multitasken|vrouw
+🤹‍♂	man die jongleert|ballen|goochelaar|jongleren|jonglerende man|jongleur|man|multitasken|vaardigheid
+🤺	schermer|degen|persoon|schermen
+🤼	personen die worstelen|duel|olympische spelen|sport|toernooi|worstelaar|worstelen
+🤼‍♀	worstelende vrouwen|olympische spelen|persoon|sport|strijd|toernooi|vechten|vrouwen|worstelen
+🤼‍♂	worstelende mannen|mannen|persoon|sport|strijd|toernooi|worstelaars|worstelen
+🤽	persoon die waterpolo speelt|persoon|polo|spelen|sport|water|waterpolo|zwemmen
+🤽‍♀	vrouw die waterpolo speelt|polo|spelen|sport|vrouw|water|waterpolo|zwemmen
+🤽‍♂	man die waterpolo speelt|man|polo|spelen|sport|water|waterpolo|zwemmen
+🤾	persoon die handbal speelt|bal|gooien|handbal|sport|springen|worp
+🤾‍♀	vrouw die handbal speelt|bal|gooien|handballen|handballende vrouw|sport|springen|vrouw|worp
+🤾‍♂	man die handbal speelt|handballen|handballende man|handballer|man|sport
+🤿	duikbril|duiken|duikmasker|onder water|scuba|scubaduiken|snorkelen|vis|zee
+🥀	verwelkte bloem|bloem|sterven|verwelkt
+🥁	trommel|drummen|drums|drumsticks|muziek|muziekinstrument|trommelen|trommelstokken
+🥂	klinkende glazen|drinken|glas|glazen|klinken|toosten|vieren
+🥃	tumblerglas|glas|likeur|shot|tumbler|whiskey|whisky
+🥄	lepel|bestek|tafelgerei
+🥅	doelnet|doel|goal|net|sport
+🥇	medaille 1e plaats|eerste|gewonnen|goud|gouden|medaille|winnaar
+🥈	medaille 2e plaats|medaille|tweede|tweede plaats|zilver
+🥉	medaille 3e plaats|brons|bronzen|derde|derde plaats|medaille
+🥊	bokshandschoen|boksen|handschoen|sport
+🥋	pak voor vechtsporten|judo|karate|kunst|taekwondo|uniform|vecht
+🥌	curlingsteen|curling|kei|spel|sport|steen
+🥍	lacrosse|bal|doel|sport|stick
+🥎	softbal|bal|handschoen|onderarm|onderhands|sport|werpen
+🥏	frisbee|schijf|ultiem|ultimate|vliegende schotel|werpschotel
+🥐	croissant|brood|eten|frans|ontbijt|voedsel
+🥑	avocado|fruit|voedsel
+🥒	komkommer|augurk|eten|groente
+🥓	bacon|eten|ontbijt|spek|vlees
+🥔	aardappel|groente|voedsel
+🥕	wortel|groente|voedsel
+🥖	stokbrood|brood|eten|frans
+🥗	groene salade|eten|groen|salade
+🥘	paellapan|braadpan|eten|ondiep|paella|pan
+🥙	gevuld pitabroodje|eten|falafel|gevuld|gyros|kebab|pitabrood
+🥚	ei|ontbijt|voedsel
+🥛	glas melk|drinken|glas|melk
+🥜	pinda’s|eten|groente|noot|pinda
+🥝	kiwi|fruit|voedsel
+🥞	pannenkoeken|crêpe|eten|flensje|ontbijt|pannenkoek
+🥟	knoedel|dumpling|empanada|gyōza|jiaozi|pierogi|potsticker
+🥠	gelukskoekje|geluk|koekje|profetie
+🥡	afhaalmaaltijd|bezorgen|doggybag|eten|oesteremmer|stokjes|voedsel
+🥢	chopsticks|eetstokjes|eten|stokjes
+🥣	kom met lepel|cornflakes|eten|muesli|ontbijt|ontbijtgranen|pap|soep|voedsel
+🥤	beker met rietje|drinken|frisdrank|sap|water
+🥥	kokosnoot|eten|palm|palmboom|pina colada|voedsel
+🥦	broccoli|kool|wild
+🥧	taart|fruit|gebak|gebakje|hartige taart|pastei|vlees|vulling
+🥨	pretzel|gedraaid|krakeling
+🥩	vlees|biefstuk|bout|karbonade|kotelet|lamskotelet|rood
+🥪	boterham|brood|sandwich
+🥫	blikvoedsel|blik|ingeblikt|voedsel
+🥬	bladgroente|bladgroen|boerenkool|bok choy|burgers|kool|paksoi|salade|sla
+🥭	mango|eten|fruit|tropisch
+🥮	maancake|cake|festival|herfst|maan|yuèbǐng
+🥯	bagel|bakkerij|brood|ontbijt|spread
+🥰	lachend gezicht met hartjes|3|crush|dol|gezicht|glimlach|glimlachen|hart|hartjes|hou van jou|jou|liefde|romantiek
+🥱	gapend gezicht|bed|dutje|gaap|gapen|geeuwen|moe|rusten|saai|slaap lekker|slaperig|smiley|vermoeid|verveeld
+🥲	lachend gezicht met traan|aangedaan|blij|dankbaar|enigszins lachend|gelukkig|opgelucht|smiley|traan|trots
+🥳	feestend gezicht|feest|feesten|fuif|gelukkig|gezicht|hoed|hoera|opgewonden|roltong|verjaardag|vieren|viering
+🥴	wazig gezicht|aangeschoten|beneveld|beschonken|dronken|duizelig|gezicht|mond|ogen|scheel|wazig
+🥵	heet gezicht|beroerte|gezicht|heet|hijgen|hitte|koortsig|rood gezicht|sterven|tong|zweten
+🥶	koud gezicht|bevriezen|bevriezing|blauw|gezicht|ijspegels|koud|onder nul|tanden
+🥷	ninja|geheim|japan|krijger|persoon|samurai|sluipmoordenaar|vechten|verborgen|zwaard
+🥸	vermomd gezicht|bril|gezicht|incognito|neus|smiley|snor|vermomming|wenkbrauwen
+🥹	gezicht dat tranen tegenhoudt|alsjeblieft|aww|beschaamd|bewondering|dankbaar|dankbaarheid|gevoelens|gezicht|houden|huilen|tegen|tranen|trots|verdrietig|vreugde|weerstaan
+🥺	smekend gezicht|alsjeblieft|genade|gezicht|grote ogen|smeken|smekende blik|smiley|verdrietig|waarom niet|zielig gezicht
+🥻	sari|jurk|kledij|kleding
+🥼	labjas|dokter|dr.|experiment|jas|kleding|lab|wetenschapper|wit
+🥽	oogscherm|bescherming|bril|duik|duiken|lassen|oog|zwemmen
+🥾	wandelschoen|backpacken|bruin|buiten|kamperen|laars|schoen|wandelen
+🥿	platte schoen|ballerina|ballerina’s|comfortabel|flatjes|instapper|slip-on
+🦀	krab|dierenriem|kreeft
+🦁	leeuw|alfa|brul|dier|gezicht|leo|manen|orde|safari|sterk|sterrenbeeld
+🦂	schorpioen|scorpio|scorpius|sterrenbeeld
+🦃	kalkoen|dier|gevogelte
+🦄	eenhoorn|gezicht
+🦅	adelaar|dier|ornithologie|vogel
+🦆	eend|dier|vogel|woerd
+🦇	vleermuis|dier|vampier
+🦈	haai|dier|vis
+🦉	uil|dier|vogel|wijs|wijsheid
+🦊	vos|dier|gezicht
+🦋	vlinder|insect|mooi
+🦌	hert|dier
+🦍	gorilla|dier
+🦎	hagedis|dier|reptiel
+🦏	neushoorn|dier
+🦐	garnaal|klein|schaaldier|voedsel
+🦑	inktvis|dier|voedsel|weekdier
+🦒	giraffe|dier|vlekken
+🦓	zebra|dier|streep
+🦔	egel|dier|stekelig
+🦕	sauropode|brachiosaurus|brontosaurus|dinosaurus|diplodocus
+🦖	t-rex|dinosaurus|rex|t|tyrannosaurus
+🦗	krekel|dier|insect|orthoptera|sprinkhaan
+🦘	kangoeroe|buideldier|dier|joey|springen
+🦙	lama|alpaca|dier|guanaco|vicuña|wol
+🦚	pauw|dier|kleurrijk|mooie vogel|opzichtig|pauwhen|pronkerig|trots|trots als een pauw|vogel
+🦛	nijlpaard|dier|hippopotamus
+🦜	papegaai|dier|lorre|napraten|piraat|praten|vogel
+🦝	wasbeer|dier|nieuwsgierig|sluw
+🦞	kreeft|bisque|dier|scharen|zeevruchten
+🦟	mug|beet|insect|koorts|malaria|ongedierte|virus|ziekte
+🦠	microbe|amoebe|bacteriën|virus|wetenschap
+🦡	das|dier|honing|kwellen
+🦢	zwaan|dier|jonge zwaan|lelijk eendje|vogel|zwanenjong
+🦣	mammoet|dier|groot|slagtand|uitsterven|wollig
+🦤	dodo|dier|groot|ornithologie|uitsterven|vogel
+🦥	luiaard|lui|traag
+🦦	otter|dier|speels|vissen
+🦧	orang-oetang|aap|dier
+🦨	stinkdier|dier|stank
+🦩	flamingo|dier|flamboyant|ornithologie|tropisch|vogel
+🦪	oester|duiken|parel
+🦫	bever|dam|dier|tanden
+🦬	bizon|buffel|dier|kudde|wisent
+🦭	zeehond|dier|leeuw|oceaan|zee
+🦮	blindengeleidehond|blind|dier|geleide|hond|toegankelijkheid
+🦯	taststok|blind|blindenstok|lopen|toegankelijkheid
+🦰	rood haar|rooie|rossig
+🦱	krullend haar|afro|krulhaar|krullen
+🦲	kaal|chemotherapie|geen haar|geschoren|haarloos
+🦳	wit haar|grijs|haar|oud|wit
+🦴	bot|botten|hond|skelet|vorkbeen
+🦵	been|gebogen|knie|ledemaat|schop|voet
+🦶	voet|enkel|schop|schoppen|stampen|trap
+🦷	tand|parelmoer|tandarts|tanden|wit
+🦸	superheld|goed|held|superkracht
+🦸‍♀	vrouwelijke superheld|goed|held|heldin|superkrachten|vrouw
+🦸‍♂	mannelijke superheld|goed|held|man|superkrachten
+🦹	superschurk|crimineel|kwaad|schurk|slecht|superkracht
+🦹‍♀	vrouwelijke superschurk|boef|crimineel|slecht|superkrachten|vrouw
+🦹‍♂	mannelijke superschurk|boef|crimineel|man|slecht|superkrachten
+🦺	veiligheidsvest|gevaarlijk|noodgeval|veilig|veiligheid|vest
+🦻	oor met gehoorapparaat|doof|gehoorapparaat|oor met oorapparaat|oorapparaat|slechthorend|toegankelijkheid
+🦼	elektrische rolstoel|rijden|toegankelijkheid|wiel
+🦽	rolstoel|duwen|toegankelijkheid|zitten
+🦾	armprothese|bionische arm|kunstarm|mechanische arm|prothese|toegankelijkheid
+🦿	beenprothese|bionisch been|kunstbeen|mechanisch been|prothese|toegankelijkheid
+🧀	stuk kaas|kaas|plak
+🧁	cupcake|bakkerij|dessert|hagelslag|suiker|traktatie|zoet
+🧂	zout|gezouten|overstuur|smaak|specerij|zoutvaatje
+🧃	pakje drinken|drankje|pakje|rietje|sap|zoet
+🧄	knoflook|smaakmaker
+🧅	ui|smaakmaker
+🧆	falafel|gehaktbal|kikkererwt
+🧇	wafel|besluiteloos|ijzer|ontbijt
+🧈	boter|zuivel
+🧉	maté|drank
+🧊	ijsklontje|ijs|ijsberg|klontje|koud
+🧋	bubbelthee|boba|bubbel|melk|parel|thee|voedsel
+🧌	trol|fantasie|monster|trollen
+🧍	staande persoon|persoon|staan|staand
+🧍‍♀	staande vrouw|staand|vrouw
+🧍‍♂	staande man|man|staand
+🧎	knielende persoon|knieën|knielen|knielend|persoon
+🧎‍♀	knielende vrouw|knielend|vrouw
+🧎‍♂	knielende man|knielend|man
+🧏	doof persoon|doof|horen|oor|slechthorend|toegankelijkheid
+🧏‍♀	dove vrouw|doof|vrouw
+🧏‍♂	dove man|doof|man
+🧐	gezicht met monocle|chic|gezicht|klasse|monocle|rijk|saai
+🧑	volwassene|persoon
+🧑‍⚕	gezondheidsmedewerker|dokter|gezondheidszorg|therapeut|verpleegster
+🧑‍⚖	rechter|recht|weegschaal
+🧑‍✈	piloot|vliegtuig
+🧑‍🌾	boer|tuinder|veehouder
+🧑‍🍳	kok|chef-kok
+🧑‍🍼	persoon die een baby voedt|baby|borstvoeding|oppas|ouder|pasgeboren|voeden|voeding
+🧑‍🎄	kersttransgender|feestdagen|kerst|kerstdagen|kerstman|kerstman|kerstmis|kerstmuts|kerstvrouw|persoon
+🧑‍🎓	student|scholier
+🧑‍🎤	zanger|acteur|entertainer|rock|ster
+🧑‍🎨	kunstenaar|palet
+🧑‍🏫	docent|leraar|professor
+🧑‍🏭	fabrieksarbeider|arbeider|fabriek|industrieel|lopende band
+🧑‍💻	technoloog|ontwikkelaar|programmeur|techneut|uitvinder
+🧑‍💼	kantoormedewerker|architect|bedrijf|manager
+🧑‍🔧	monteur|elektricien|handelsman|loodgieter
+🧑‍🔬	wetenschapper|bioloog|ingenieur|natuurkundige|scheikundige
+🧑‍🚀	astronaut|raket
+🧑‍🚒	brandweerman|brandweerwagen
+🧑‍🤝‍🧑	personen hand in hand|hand|hand in hand|handen vasthouden|koppeltje|paar|persoon|samen|stel|vasthouden
+🧑‍🦯	persoon met taststok|blind|toegankelijkheid
+🧑‍🦼	persoon in elektrische rolstoel|rolstoel|toegankelijkheid
+🧑‍🦽	persoon in rolstoel|rolstoel|toegankelijkheid
+🧑‍🧑‍🧒	gezin: volwassene, volwassene, kind|gezin|kind|volwassene
+🧑‍🧑‍🧒‍🧒	gezin: volwassene, volwassene, kind, kind|gezin|kind|volwassene
+🧑‍🧒	gezin: volwassene, kind|gezin|kind|volwassene
+🧑‍🧒‍🧒	gezin: volwassene, kind, kind|gezin|kind|volwassene
+🧑‍🩰	balletdanser|ballet|danser
+🧒	kind|heldere ogen|jong|jonger|kleinkind
+🧓	oudere persoon|bejaard|genderneutraal|niet nader omschreven geslacht|oud|ouder persoon|oudere volwassene|persoon|volwassene
+🧔	persoon: baard|baard|bebaard|persoon|persoon met baard
+🧔‍♀	vrouw: baard|baard|vrouw
+🧔‍♂	man: baard|baard|man
+🧕	vrouw met hoofddoek|hidjab|hijab|hoofddoek|mantilla|persoon|sluier
+🧖	persoon in ruimte vol stoom|hamam|ontspannen|persoon in stomende ruimte|relaxen|sauna|stoombad|stoomcabine|stoomruimte
+🧖‍♀	vrouw in ruimte vol stoom|sauna|stoomruimte
+🧖‍♂	man in ruimte vol stoom|sauna|stoomruimte
+🧗	klimmende persoon|alpinisme|berg|bergbeklimmen|bergbeklimmer|klimmen|klimmer|sport
+🧗‍♀	klimmende vrouw|klimmer
+🧗‍♂	klimmende man|klimmer
+🧘	persoon in lotushouding|benen gekruist|kleermakerszit|meditatie|ontspannen|relax|yoga|zen
+🧘‍♀	vrouw in lotushouding|meditatie|yoga
+🧘‍♂	man in lotushouding|meditatie|yoga
+🧙	magiër|fantasie|heks|magie|spreuk|sprookje|tovenaar|tovenares
+🧙‍♀	vrouwelijke magiër|heks|tovenares
+🧙‍♂	mannelijke magiër|heksenmeester|tovenaar
+🧚	elfje|fantasie|mythe|persoon|pixie|sprookje|vleugels
+🧚‍♀	vrouwelijk elfje|titania
+🧚‍♂	mannelijk elfje|oberon|puck
+🧛	vampier|bloed|dracula|eng|halloween|ondode|snijtanden|tanden|verkleden
+🧛‍♀	vrouwelijke vampier|ondode
+🧛‍♂	mannelijke vampier|dracula|ondode
+🧜	zeemeermin|drietand|folklore|meermin|oceaan|schepsel|sirene|sprookje|zee
+🧜‍♀	sirene|meermin
+🧜‍♂	zeemeerman|triton
+🧝	elf|fantasie|folklore|in de ban van de ring-stijl|legolas|lotr-stijl|magisch|mythe
+🧝‍♀	vrouwelijke elf|magisch
+🧝‍♂	mannelijke elf|magisch
+🧞	geest in de fles|aladin|djinn|fantasie|geest|lamp|mythe|sprookje|wens
+🧞‍♀	vrouwelijke geest in de fles|djinn
+🧞‍♂	mannelijke geest in de fles|djinn
+🧟	zombie|eng|halloween|horror|levende doden|lopende dode|monster|ondode
+🧟‍♀	vrouwelijke zombie|lopende dode|ondode
+🧟‍♂	mannelijke zombie|lopende dode|ondode
+🧠	brein|hersenen|intelligent|slim
+🧡	oranje hart|oranje
+🧢	pet|baseballcap|hoofddeksel
+🧣	sjaal|koud|nek
+🧤	handschoenen|hand
+🧥	jas|blazer|brr|jack|koud|warm aankleden
+🧦	sokken|kousen
+🧧	rode envelop|cadeau|geld|geluk|geschenk|hóngbāo|lai see|rode enveloppe|voorspoed
+🧨	rotje|boem|dynamiet|explosief|licht|ontploffing|vonk|vuur|vuurwerk
+🧩	puzzelstukje|aanwijzing|gekoppeld|legpuzzel|passen|passend|puzzel|schakel|stukje
+🧪	reageerbuis|chemicus|experiment|lab|laboratorium|scheikunde|scheikundige|wetenschap
+🧫	petrischaal|bacterie|bacteriën|biologe|biologie|bioloog|cultuur|kweek|lab|laboratorium
+🧬	dna|biologe|bioloog|evolutie|gen|genetica|genetisch|leven
+🧭	kompas|magnetisch|navigatie|oriëntatielopen|oriënteringslopen|richting
+🧮	abacus|berekenen|optellen|rekenen|rekenmachine|tellen|telraam
+🧯	brandblusapparaat|blusapparaat|blussen|blusser|brandblusser|doven|vuur
+🧰	gereedschapskist|doos|gereedschap|kist|monteur|rode kist
+🧱	baksteen|bakstenen|cement|gemetseld|klei|metselen|mortel|muur|steen
+🧲	magneet|aantrekking|aantrekkingskracht|hoefijzer|magnetisch|positief negatief|uvormig
+🧳	bagage|inpakken|koffer|reis|reizen|rolkoffer|trolley
+🧴	lotionfles|crème|huidcrème|hydraterende lotion|lotion|lotion flacon|moisturizer|shampoo|zonnebrandcrème|zonnebrandolie
+🧵	garen|draad|klos|naaien|naald
+🧶	wol|bal|bol|breien|draad|haken
+🧷	veiligheidsspeld|luier|luierspeld|punk|speld
+🧸	teddybeer|beer|beertje|knuffel|knuffelbeer|knuffelbeest|pluche|speelgoed|speeltje|teddy beer
+🧹	bezem|bezemsteel|heks|schoonmaken|vegen
+🧺	mand|boeren|landbouw|oogsten|picknick|wasgoed|wasmand
+🧻	rol papier|closetrol|keukenrol|papieren handdoek|toiletpapier|toiletrol|wc-papier|wc-rol
+🧼	zeep|baden|inzepen|schoon|schoonmaken|schuim|stuk zeep|wassen|zeepbakje|zeephouder
+🧽	spons|absorberen|absorberend|baden|poreus|schoonmaken|schrobben
+🧾	kassabon|administratie|bewijs|boekhouden|boekhouding|bonnetje|factuur|kwitantie|rekening
+🧿	nazar-amulet|amulet|bedel|blauw|boze oog|kraal|nazar|nazar|talisman
+🩰	balletschoenen|ballerina|ballet|dans|dansen|pirouette|schoenen|spitzen
+🩱	badpak|badpak uit één stuk|strand|zomer|zwembad|zwemgerief|zwemmen|zwempak
+🩲	slip|onderbroek|ondergoed|sporten|strand|zwembroek|zwemgerief|zwemkleding|zwemmen
+🩳	korte broek|badpak|broek|ondergoed|pak|zwem
+🩴	teenslipper|sandaal|sandalen|schoen|slipper|strand|strandslipper|zōri
+🩵	lichtblauw hart|blauwgroen|groenblauw|hart|lichtblauw
+🩶	grijs hart|grijs|hart|leigrijs|zilver
+🩷	roze hart|hart|leuk|liefde|roze|schattig
+🩸	bloeddruppel|bloed|bloeden|donatie|druppel|medicijnen|menstruatie|verwonding
+🩹	pleister|bloed|pijn|snee|verband|wond|ziekenhuis
+🩺	stethoscoop|arts|dokter|geneeskunde|hart|medicijnen|ziekenhuis
+🩻	röntgenfoto|borstkas|botten|dokter|medisch|ribben|skelet|ziek|ziekenhuis
+🩼	kruk|gewond|handicap|lopen|mobiliteitshulp|stok|wandelstok
+🪀	jojo|fluctueren|kinderen|op en neer|speelgoed|spelen
+🪁	vlieger|buiten|opstijgen|spelen|vliegen|zweven
+🪂	parachute|activiteit|deltavliegen|hanggliden|parachutespringen|parasailen|skydiven
+🪃	boemerang|australië|buiten|reactie|spel|terugslag
+🪄	toverstok|goochelaar|goochelen|heks|magie|magiër|tovenaar|toveren|tovertruc
+🪅	piñata|cinco de mayo|feest|mexicaans|mexico|snoep|snoepgoed|vieren|viering
+🪆	matroesjka|baboesjka|baboesjka’s|genest|pop|poppetjes|rusland|rusland|russisch
+🪇	sambaballen|instrument|muziek|percussie|ratelen|schudden
+🪈	fluit|blokfluit|dwarsfluit|houtblazer|muziek|pijperfluit
+🪉	harp|cupido|instrument|liefde|muziek|orkestra
+🪊	trombone|droevig|instrument|jazz|koper|muziek|schuiven
+🪎	schatkist|buit|edelsteen|geld|goud|juwelen|kostbaarheden|prijs|rijkdom|zilver
+🪏	schop|gat|graven|schep|spade
+🪐	planeet met ringen|heelal|planeet|ringen|ruimte|saturnus|zonnestelsel|zwaarmoedig
+🪑	hoge stoel|meubels|meubelstuk|stoel|zetel|zitten
+🪒	scheermes|baard|badkamer|mesjes|scheren|scherp|voorwerp
+🪓	bijl|gereedschap|hakken|hout|houthakker|splijten
+🪔	diya-lamp|diya|lamp|licht|olie|vlam
+🪕	banjo|besnaard|instrument|muziek|snaarinstrument|spelen
+🪖	legerhelm|helm|krijger|leger|militair|oorlog|soldaat|vechter|voorwerp
+🪗	accordeon|bandoneon|concertina|instrument|muziek|trek|trekzak
+🪘	hoge trom|beat|conga|hoog|instrument|ritme|trom
+🪙	munt|dollar|euro|geld|goud|metaal|rijk|schat|zilver
+🪚	houtzaag|afzagen|gereedschap|hout|timmeren|timmerman|voorwerp|zaag|zagen
+🪛	schroevendraaier|gereedschap|klussen|repareren|schroef
+🪜	ladder|klimmen|omhoog|omlaag|sport|trede|voorwerp
+🪝	haak|aanbeveling|bocht|hengel|kronkel|vangen|verstrikken|vissen
+🪞	spiegel|make-up|opmaken|reflectie|reflector|speculum|spiegelbeeld|spiegels|voorwerp|weerspiegeling
+🪟	raam|doorzichtig|frisse lucht|kijken|kozijn|opening|raamkozijn|uitzicht|venster|voorwerp
+🪠	ontstopper|kracht|loodgieter|poep|wc|zuiger|zuigkracht
+🪡	naald|borduren|draad|hechten|hechtingen|hobby|kleding|kleermaken|naaien|speld
+🪢	knoop|boot|geknoopt|hobby|knopen|kronkel|padvinder|streng|touw|zeilen
+🪣	emmer|aker|dweil|dweilen|poetsen|putemmer|schoonmaken|vat|voorwerp|water
+🪤	muizenval|aas|kaas|lokken|strik|valstrik|vangen
+🪥	tandenborstel|badkamer|borstel|hygiëne|poetsen|tanden|tandheelkunde|toiletartikelen
+🪦	grafsteen|begraafplaats|begrafenis|dood|graf|grafzerk|kerkhof|overleden|voorwerp
+🪧	plakkaat|bord|demonstratie|mars|poster|protest|protesteren|slogan|voorwerp
+🪨	rots|betrouwbaar|graniet|rotsblok|steen|sterk|zwaar
+🪩	spiegelbal|dans|dansen|disco|discobal|feest|glitter
+🪪	legitimatiebewijs|beveiliging|id|id-kaart|identificatie|identiteitskaart|overheid|vergunning
+🪫	batterij bijna leeg|accu|batterij|electronisch|lege batterij|weinig batterijlading
+🪬	hamsa|amulet|bescherming|fatima|geluk|hand|handpalm|maria|mirjam|oog
+🪭	opvouwbare waaier|afkoelen|dansen|fladderen|heet|verlegen|waaier
+🪮	haarkam|afro|haar|kam|kroes
+🪯	khanda|religie|sikh
+🪰	vlieg|dier|insect|made|ongedierte|rottend|ziekte
+🪱	worm|dier|parasiet|regenworm|ringworm
+🪲	kever|beestje|dier|insect
+🪳	kakkerlak|bakkerstor|dier|insect|plaag
+🪴	potplant|decor|groeien|huis|plant|pot|verzorgen
+🪵	hout|balk|bijl|boomstam|hakken|open haard|stam|timmerhout|vuur|zagen
+🪶	veer|licht|verenkleed|vlucht|vogel
+🪷	lotus|bloem|boeddhisme|hindoeïsme|puurheid|rust|schoonheid|sereen|vrede
+🪸	koraal|klimaat|oceaan|rif|verandering|zee
+🪹	leeg nest|leeg|nest|nestelen|tak|thuis
+🪺	nest met eieren|ei|eieren|nest|nestelen|tak|vogel
+🪻	hyacint|bloem|lavendel|leeuwenbek|lupine|vlinderbloemige
+🪼	kwal|aquarium|au|beet|branden|dier|gelei|leven|oceaan|ongewerveld|plankton|stekel|tentakels|zee
+🪽	vleugel|engelachtig|luchtvaart|mythologie|vliegen|vogel
+🪾	boom zonder bladeren|boom|boomstam|dood|droogte|hout|kaal|leeg|takken|winter|zonder bladeren
+🪿	gans|gevogelte|onnozel|snateren|vogel
+🫀	hart|anatomisch|cardiologie|echt|hartslag|orgaan|polsslag|rood
+🫁	longen|adem|ademhaling|inademen|lichaam|lucht|orgaan|uitademen|zuurstof
+🫂	personen in een omhelzing|bedankt|dag|hallo|knuffel|knuffelen|liefde|omhelzing|persoon|vriendschap
+🫃	zwangere man|buik|man|opgeblazen|te veel eten|vol|zwanger
+🫄	zwanger persoon|baby|buik|opgeblazen|persoon|vol|zwanger
+🫅	persoon met kroon|edele|heerser|iemand van koninklijken bloede|keizer|koning|koninklijk|persoon|regaal
+🫆	vingerafdruk|forensisch|identiteit|veiligheid
+🫈	harig wezen|bigfoot|cryptide|harig|reus|sasquatch|wildeman|woud|yeti
+🫍	orka|oceaan|walvis|zee
+🫎	eland|dier|gewei|zoogdier
+🫏	ezel|dier|grauwtje|koppig|muildier|pakezel|zoogdier
+🫐	bosbessen|bes|bessen|blauw|blauwbessen|bosbes|fruit|voedsel
+🫑	paprika|capsicum|groente|peper|voedsel
+🫒	olijf|voedsel
+🫓	platbrood|arepa|brood|eten|gordita|lavash|naan|pita
+🫔	tamale|eten|mexicaans|pamonha|verpakt
+🫕	fondue|chocolade|eten|gesmolten|kaas|pot|ski
+🫖	theepot|drinken|eten|pot|thee|zettten
+🫗	vloeistof uitgieten|drinken|gieten|glas|leeg|morsen|oeps|ongelukje
+🫘	bonen|kidneyboon|klein|peulvrucht|voedsel
+🫙	pot|container|leeg|niets|saus|specerij|winkel
+🫚	gemberwortel|bier|gember|specerij|wortel
+🫛	erwtendop|bonen|dop|edamame|erwt|groente|peul|peulvrucht
+🫜	knol|biet|groente|raap|tuin|wortel
+🫟	gespat|druppel|geknoei|gemors|holi|inkt|verf|vlek|vloeistof
+🫠	smeltend gezicht|beschaamd|gezicht|haha|heet|lol|oplossen|sarcasme|sarcastisch|smelt|smelten|verdwijnen|vloeibaar|warm
+🫡	saluerend gezicht|bevel|ja|oké|saluut|smiley|troepen|zonnig
+🫢	gezicht met open ogen en hand voor mond|bang|geschokt|gezicht met open ogen en hand over de mond|ongeloof|ontzag|schaamte|smiley|verbazing|verrassing
+🫣	gezicht met glurend oog|geboeid|gluren|smiley|spieken|staren|stiekem|stiekem kijken
+🫤	gezicht met schuine mond|gefrustreerd|het zal wel|meh|onzeker|sceptisch|smiley|teleurgesteld
+🫥	gezicht in stippellijn|depressief|depri|gedeprimeerd|introvert|onzichtbaar|smiley|verbergen|verdwijnen
+🫦	mond die op lip bijt|angst|bezorgd|flirten|lippen|nerveus|ongemakkelijk|ongerust|sexy
+🫧	zeepbellen|bad|bubbel|bubbels|onderwater|schoon|wassen|zeep
+🫨	schuddend gezicht|aardbeving|gek|gezicht|omg|paniek|schok|schudden|trillen|verbijstering|verrassing|wauw|wow
+🫩	gezicht met wallen onder de ogen|moe|slaperig|uitgeput
+🫪	verwrongen gezicht|geschokt|kwetsbaar|onrust|opgeblazen|paniek|verrast
+🫯	vechtwolk|debat|onenigheid|ruzie|tumult|vechtpartij|woordenwisseling|worsteling
+🫰	hand met wijsvinger en duim gekruist|duur|geld|hand|hart|liefde|vingerknip|vingers
+🫱	hand naar rechts|hand|handdruk|naar rechts|rechts|reiken|schudden|vasthouden
+🫲	hand naar links|eens|hand|handdruk|links|naar links|uitgestoken hand
+🫳	handpalm omlaag|hand|laten vallen|oprapen|wegjagen|wegsturen
+🫴	handpalm omhoog|aanbieden|hand|kom|vangen|wenken
+🫵	wijsvinger die naar de kijker wijst|aanwijzen|hand|jij|vinger|wijzen
+🫶	handen in de vorm van een hart|<3|handen|hart|hou|jou
+🫷	hand die naar links duwt|duwen|high five|naar links|stoppen|wachten|weigeren
+🫸	hand die naar rechts duwt|duwen|high five|naar rechts|stoppen|wachten|weigeren

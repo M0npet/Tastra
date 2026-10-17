@@ -36,7 +36,7 @@ offline alternative is named where one exists).
 | Block offensive words | ✅ |
 | Personal dictionary with shortcuts | ✅ |
 | Learning, "Delete learned words" | ✅ |
-| Multilingual typing (several languages at once) | ✅ (en, de, ru, uk) |
+| Multilingual typing (several languages at once) | ✅ (any of the ten languages turned on) |
 | Smart Compose (inline sentence completion, US English) | ✅ 0.7.17 as a chip in the strip, from the user's own habits (all four languages); not inline in the app: an input method on KWin cannot draw into the field (a preedit would be typed text) |
 | Spell check underline in apps, "Add to dictionary" from it | 🚫 an input method on KWin cannot mark text in apps |
 | Grammar check | ☁️ |
@@ -73,7 +73,7 @@ offline alternative is named where one exists).
 | Show emoji switch key / language switch key | ✅ 0.7.14 (one or the other next to the comma, as on Gboard) |
 | Morse code layout | ✅ 0.7.17 (English, German, Russian, Ukrainian; character and word timeout; the strip shows what the code can still become); key repeat on hold ❌ |
 | Handwriting layout | ❌ no light offline recogniser chosen yet |
-| More languages | 🟡 4 of Gboard's hundreds; more need dictionaries + frequency lists |
+| More languages | 🟡 10 of Gboard's hundreds: en, de, ru, uk, and since 0.7.19 es, fr, it, pt, pl, nl (word lists, word pairs, emoji names, offensive-word lists, Gboard's layouts and accents; Hunspell for autocorrect); voice commands in en/de/ru/uk only |
 
 ## Panels
 

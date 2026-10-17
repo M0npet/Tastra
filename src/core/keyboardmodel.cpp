@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 
 #include "keyboardmodel.h"
+#include "languages.h"
 
 #include <QHash>
 
@@ -20,11 +21,21 @@ struct LayoutDefinition
     const char *row3;
 };
 
-constexpr std::array<LayoutDefinition, 4> layouts = {{
+// The first four, then (0.7.19) Gboard's default layouts of Spanish (with
+// its ñ key), French (AZERTY with the apostrophe key, as AOSP LatinIME),
+// Italian, Portuguese, Polish and Dutch. Only the languages the user turns
+// on take part (the first four are on until a choice is made).
+constexpr std::array<LayoutDefinition, 10> layouts = {{
     {"en", "English", "qwertyuiop", "asdfghjkl", "zxcvbnm"},
     {"de", "Deutsch", "qwertzuiopü", "asdfghjklöä", "yxcvbnm"},
     {"uk", "Українська", "йцукенгшщзхї", "фівапролджє", "ячсмитьбю"},
     {"ru", "Русский", "йцукенгшщзхъ", "фывапролджэ", "ячсмитьбю"},
+    {"es", "Español", "qwertyuiop", "asdfghjklñ", "zxcvbnm"},
+    {"fr", "Français", "azertyuiop", "qsdfghjklm", "wxcvbn'"},
+    {"it", "Italiano", "qwertyuiop", "asdfghjkl", "zxcvbnm"},
+    {"pt", "Português", "qwertyuiop", "asdfghjkl", "zxcvbnm"},
+    {"pl", "Polski", "qwertyuiop", "asdfghjkl", "zxcvbnm"},
+    {"nl", "Nederlands", "qwertyuiop", "asdfghjkl", "zxcvbnm"},
 }};
 
 // Gboard "Select a layout" per language: the letter rows of the other
@@ -39,12 +50,13 @@ struct VariantDefinition
     const char *row3;
 };
 
-constexpr std::array<VariantDefinition, 5> variants = {{
+constexpr std::array<VariantDefinition, 6> variants = {{
     {"en", "qwertz", "QWERTZ", "qwertzuiop", "asdfghjkl", "yxcvbnm"},
     {"en", "azerty", "AZERTY", "azertyuiop", "qsdfghjklm", "wxcvbn"},
     {"en", "dvorak", "Dvorak", "',.pyfgcrl", "aoeuidhtns", "qjkxbmwvz"},
     {"en", "colemak", "Colemak", "qwfpgjluy", "arstdhneio", "zxcvbkm"},
     {"de", "qwerty", "QWERTY", "qwertyuiopü", "asdfghjklöä", "zxcvbnm"},
+    {"fr", "qwerty", "QWERTY", "qwertyuiop", "asdfghjkl", "zxcvbnm'"},
 }};
 
 // The first layout of each language and its name.
@@ -52,6 +64,7 @@ QString defaultVariant(const QString &code)
 {
     if (code == QStringLiteral("de")) return QStringLiteral("qwertz");
     if (code == QStringLiteral("ru") || code == QStringLiteral("uk")) return QStringLiteral("jcuken");
+    if (code == QStringLiteral("fr")) return QStringLiteral("azerty");
     return QStringLiteral("qwerty");
 }
 
@@ -59,6 +72,7 @@ QString defaultVariantLabel(const QString &code)
 {
     if (code == QStringLiteral("de")) return QStringLiteral("QWERTZ");
     if (code == QStringLiteral("ru") || code == QStringLiteral("uk")) return QString::fromUtf8("ЙЦУКЕН");
+    if (code == QStringLiteral("fr")) return QStringLiteral("AZERTY");
     return QStringLiteral("QWERTY");
 }
 
@@ -204,6 +218,7 @@ QString currencyFor(const QString &language)
     if (language == QStringLiteral("de")) return QStringLiteral("€");
     if (language == QStringLiteral("ru")) return QStringLiteral("₽");
     if (language == QStringLiteral("uk")) return QStringLiteral("₴");
+    if (const LanguageInfo *info = languageInfo(language)) return QString::fromUtf8(info->currency);
     return QStringLiteral("$");
 }
 
@@ -241,6 +256,7 @@ QStringList KeyboardModel::alternatesForKey(const QString &text) const
             {QStringLiteral("0"), QStringLiteral("°∅")}, {QStringLiteral("1"), QStringLiteral("¹½⅓¼")},
             {QStringLiteral("2"), QStringLiteral("²⅔")}, {QStringLiteral("3"), QStringLiteral("³¾")}};
         static const QString currencies = QStringLiteral("$€₴₽£¥¢");
+        if (text == QStringLiteral("zł")) return chars(currencies);
         if (currencies.contains(text) && text.size() == 1) {
             QStringList others;
             for (const QChar ch : currencies) if (QString(ch) != text) others.append(QString(ch));
@@ -287,6 +303,12 @@ QStringList KeyboardModel::alternatesForKey(const QString &text) const
         for (const QChar ch : accents.value(lower)) {
             result.append(uppercase() ? QString(ch).toUpper() : QString(ch));
         }
+    } else if (languageInfo(languageCode()) && lower.size() == 1) {
+        // Gboard's accented letters of the language (AOSP LatinIME more keys).
+        for (const QChar ch : languageAccents(languageCode(), lower.front())) {
+            const QString letter = uppercase() ? QString(ch).toUpper() : QString(ch);
+            if (!result.contains(letter)) result.append(letter);
+        }
     }
     return result;
 }
@@ -308,6 +330,12 @@ QString KeyboardModel::alternateForKey(const QString &text) const
     }
     if (code == QStringLiteral("ru") && lower == QStringLiteral("е")) {
         return uppercase() ? QStringLiteral("Ё") : QStringLiteral("ё");
+    }
+    // Polish: the letter with its ogonek, acute or stroke on a long press, as
+    // on Gboard (ą ć ę ł ń ó ś ż).
+    if (code == QStringLiteral("pl") && lower.size() == 1) {
+        const QString accents = languageAccents(code, lower.front());
+        if (!accents.isEmpty()) return uppercase() ? QString(accents.front()).toUpper() : QString(accents.front());
     }
 
     return {};

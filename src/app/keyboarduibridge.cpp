@@ -251,7 +251,11 @@ QStringList KeyboardUiBridge::allLanguageLabels() const { return m_model.languag
 
 bool KeyboardUiBridge::isLanguageEnabled(const QString &code) const
 {
-    return m_enabledLanguages.isEmpty() ? m_model.languageCodes().contains(code) : m_enabledLanguages.contains(code);
+    // Until a choice is made: the four languages of the first versions (the
+    // ones added later are turned on in Settings → Languages).
+    static const QStringList first = {QStringLiteral("en"), QStringLiteral("de"), QStringLiteral("uk"), QStringLiteral("ru")};
+    return m_enabledLanguages.isEmpty() ? first.contains(code) && m_model.languageCodes().contains(code)
+                                        : m_enabledLanguages.contains(code);
 }
 
 QStringList KeyboardUiBridge::languageCodes() const
@@ -2236,13 +2240,12 @@ void KeyboardUiBridge::resetCompositionFromClient()
 
 void KeyboardUiBridge::setPreferredLanguage(const QString &language)
 {
-    const QString lowered = language.toLower();
-    QString code;
-    if (lowered.startsWith(QStringLiteral("de"))) code = QStringLiteral("de");
-    else if (lowered.startsWith(QStringLiteral("uk"))) code = QStringLiteral("uk");
-    else if (lowered.startsWith(QStringLiteral("ru"))) code = QStringLiteral("ru");
-    else if (lowered.startsWith(QStringLiteral("en"))) code = QStringLiteral("en");
-    if (!code.isEmpty() && code != m_model.languageCode()) setLanguage(code);
+    // "de-DE", "pt_BR": the keyboard language of that code, if turned on.
+    const QString code = language.toLower().left(2);
+    if (code.size() == 2 && m_model.languageCodes().contains(code) && isLanguageEnabled(code)
+        && code != m_model.languageCode()) {
+        setLanguage(code);
+    }
 }
 
 void KeyboardUiBridge::persistLanguage() const

@@ -594,6 +594,90 @@ private Q_SLOTS:
         QVERIFY(words.indexOf(QStringLiteral("як")) < 30);
     }
 
+    void languagesAddedLaterCorrectWithTheirOwnWords()
+    {
+        // 0.7.19 languages, with the bundled lists only (no Hunspell here):
+        // accents and elisions are nearly free edits, no English word is
+        // offered, and the word pairs predict.
+        LocalLexicon::setDictionarySearchPaths({QStringLiteral(TASTRA_TEST_DATA "/empty")});
+        LocalLexicon::setFrequencySearchPaths({QStringLiteral(":/tastra/frequency")});
+        LocalLexicon::setBlocklistSearchPaths({QStringLiteral(":/tastra/blocklist")});
+        LocalLexicon::setUserDictionaryFile(QStringLiteral(TASTRA_TEST_DATA "/empty/none.txt"));
+        LocalLexicon::setBigramSearchPaths({QStringLiteral(":/tastra/bigrams")});
+        const struct { const char *language, *typed, *expected; } corrections[] = {
+            {"es", "cancion", "canción"}, {"es", "tambien", "también"}, {"es", "senor", "señor"},
+            {"fr", "cest", "c'est"}, {"fr", "jai", "j'ai"}, {"fr", "tres", "très"}, {"fr", "deja", "déjà"},
+            {"it", "perche", "perché"}, {"it", "citta", "città"},
+            {"pt", "nao", "não"}, {"pt", "voce", "você"},
+            {"pl", "dzien", "dzień"}, {"pl", "prosze", "proszę"},
+            {"nl", "cafe", "café"},
+        };
+        QStringList failures;
+        for (const auto &c : corrections) {
+            LocalLexicon lexicon;
+            lexicon.setLanguage(QString::fromUtf8(c.language));
+            QVERIFY(lexicon.waitForDictionary(10000));
+            const QStringList got = lexicon.suggestions(QString::fromUtf8(c.typed), {}, 3);
+            if (!got.contains(QString::fromUtf8(c.expected)))
+                failures << QString::fromUtf8(c.language) + QLatin1Char(':') + QString::fromUtf8(c.typed) + QLatin1String("->") + got.join('|');
+        }
+        QVERIFY2(failures.isEmpty(), qPrintable(failures.join(QStringLiteral(", "))));
+        const struct { const char *language, *typed; } keep[] = {
+            {"es", "hola"}, {"es", "esta"}, {"fr", "est"}, {"it", "ciao"}, {"pt", "obrigado"}, {"pl", "jest"}, {"nl", "zon"},
+        };
+        for (const auto &k : keep) {
+            LocalLexicon lexicon;
+            lexicon.setLanguage(QString::fromUtf8(k.language));
+            QVERIFY(lexicon.waitForDictionary(10000));
+            QVERIFY2(lexicon.bestCorrection(QString::fromUtf8(k.typed)).isEmpty(), k.typed);
+        }
+        LocalLexicon spanish;
+        spanish.setLanguage(QStringLiteral("es"));
+        QVERIFY(spanish.waitForDictionary(10000));
+        QVERIFY(spanish.suggestions(QStringLiteral("graci"), {}, 3).contains(QStringLiteral("gracias")));
+        QVERIFY(!spanish.suggestions(QStringLiteral("th"), {}, 3).contains(QStringLiteral("the")));   // no English
+        LocalLexicon french;
+        french.setLanguage(QStringLiteral("fr"));
+        QVERIFY(french.waitForDictionary(10000));
+        QVERIFY2(french.suggestions(QStringLiteral("aujour"), {}, 3).contains(QStringLiteral("aujourd'hui")),
+                 qPrintable(french.suggestions(QStringLiteral("aujour"), {}, 3).join(',')));
+        QVERIFY2(french.nextWords(QStringLiteral("je"), 3).size() == 3, qPrintable(french.nextWords(QStringLiteral("je"), 3).join(',')));
+        LocalLexicon::setBigramSearchPaths({QStringLiteral(TASTRA_TEST_DATA "/empty")});
+    }
+
+    void languagesAddedLaterAutocorrectWithHunspell()
+    {
+        // With the language's Hunspell dictionary (as on the device), Space
+        // corrects the accents and elisions. Needs the dictionaries, e.g. the
+        // LibreOffice ones in TASTRA_HUNSPELL_DIR; skipped without.
+        const QString dir = qEnvironmentVariable("TASTRA_HUNSPELL_DIR");
+        if (dir.isEmpty()) QSKIP("TASTRA_HUNSPELL_DIR not set");
+        LocalLexicon::setDictionarySearchPaths({dir});
+        LocalLexicon::setFrequencySearchPaths({QStringLiteral(":/tastra/frequency")});
+        LocalLexicon::setBlocklistSearchPaths({QStringLiteral(":/tastra/blocklist")});
+        LocalLexicon::setUserDictionaryFile(QStringLiteral(TASTRA_TEST_DATA "/empty/none.txt"));
+        const struct { const char *language, *typed, *expected; } cases[] = {
+            {"es", "cancion", "canción"}, {"es", "tambien", "también"}, {"es", "graicas", "gracias"},
+            {"es", "esta", ""}, {"es", "hola", ""},
+            {"it", "perche", "perché"}, {"it", "citta", "città"}, {"it", "grazei", "grazie"}, {"it", "ciao", ""},
+            {"pt", "nao", "não"}, {"pt", "voce", "você"}, {"pt", "obrigdo", "obrigado"}, {"pt", "esta", ""},
+            {"pl", "dzien", "dzień"}, {"pl", "prosze", "proszę"}, {"pl", "dziekuje", "dziękuję"}, {"pl", "jest", ""},
+            {"nl", "dnak", "dank"}, {"nl", "ideeen", "ideeën"}, {"nl", "hallo", ""},
+        };
+        QStringList failures;
+        for (const auto &c : cases) {
+            LocalLexicon lexicon;
+            lexicon.setLanguage(QString::fromUtf8(c.language));
+            QVERIFY(lexicon.waitForDictionary(20000));
+            if (!lexicon.hasSystemDictionary()) QSKIP(qPrintable(QStringLiteral("no Hunspell for ") + QString::fromUtf8(c.language)));
+            const QString got = lexicon.bestCorrection(QString::fromUtf8(c.typed));
+            if (got != QString::fromUtf8(c.expected))
+                failures << QString::fromUtf8(c.language) + QLatin1Char(':') + QString::fromUtf8(c.typed) + QLatin1String("->") + got;
+        }
+        LocalLexicon::setDictionarySearchPaths({QStringLiteral(TASTRA_TEST_DATA "/empty")});
+        QVERIFY2(failures.isEmpty(), qPrintable(failures.join(QStringLiteral(", "))));
+    }
+
     void bundledWordPairsPredictTheNextWord()
     {
         // Gboard ships a language model: "I" is followed by "have" and "am"

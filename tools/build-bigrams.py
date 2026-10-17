@@ -16,7 +16,8 @@ corpora whose text is under a licence compatible with the GPL-3.0 are used
   uk  UA-GEC, corrected texts (essays, posts, translations)       CC BY 4.0
       UD Ukrainian ParlaMint (Verkhovna Rada transcripts)          CC BY-SA 4.0
   all Common Voice sentences (sentence collector and contributors' CC0
-      own sets: everyday sentences, public-domain prose)
+      own sets: everyday sentences, public-domain prose); for es, fr,
+      it, pt, pl and nl (0.7.19) the only source
 
 The test parts of the corpora are left out (they are for measuring). A pair
 counts when both words are in the bundled frequency list of the language,
@@ -28,7 +29,7 @@ fewer than twice are dropped.
     git clone --depth 1 https://github.com/grammarly/ua-gec
     git clone --depth 1 --filter=blob:none --sparse https://github.com/common-voice/common-voice cv
     git -C cv sparse-checkout set server/data/en server/data/de server/data/ru server/data/uk
-    python3 tools/build-bigrams.py CORPORA_DIR data
+    python3 tools/build-bigrams.py CORPORA_DIR data [LANGUAGE ...]
 """
 import collections
 import glob
@@ -41,23 +42,37 @@ SOURCES = {
     'de': [('ud', 'UD_German-GSD'), ('cv', 'de')],
     'ru': [('ud', 'UD_Russian-Taiga'), ('ud', 'UD_Russian-GSD'), ('cv', 'ru')],
     'uk': [('uagec', 'ua-gec'), ('ud', 'UD_Ukrainian-ParlaMint'), ('cv', 'uk')],
+    'es': [('cv', 'es')],
+    'fr': [('cv', 'fr')],
+    'it': [('cv', 'it')],
+    'pt': [('cv', 'pt')],
+    'pl': [('cv', 'pl')],
+    'nl': [('cv', 'nl')],
 }
 CREDITS = {
     'en': 'UD English EWT and ESLSpok (CC BY-SA 4.0) and Common Voice sentences (CC0)',
     'de': 'UD German GSD (CC BY-SA 4.0) and Common Voice sentences (CC0)',
     'ru': 'UD Russian Taiga and GSD (CC BY-SA 4.0) and Common Voice sentences (CC0)',
     'uk': 'UA-GEC by Grammarly (CC BY 4.0), UD Ukrainian ParlaMint (CC BY-SA 4.0) and Common Voice sentences (CC0)',
+    'es': 'Common Voice sentences (CC0)',
+    'fr': 'Common Voice sentences (CC0)',
+    'it': 'Common Voice sentences (CC0)',
+    'pt': 'Common Voice sentences (CC0)',
+    'pl': 'Common Voice sentences (CC0)',
+    'nl': 'Common Voice sentences (CC0)',
 }
 # Common Voice files left out: Wikipedia sentences (encyclopaedic, and they
 # would outweigh everything else), word lists, and the German Europarl and
 # Ukrainian ukrlib.com.ua sentences (parliament speeches and older prose:
 # measured, they made suggestions for people's own writing worse while
 # multiplying the pairs). Every tenth line is kept back for measuring.
-CV_SKIP = ('wiki', 'singleword', 'countries-and-cities', 'german-cities', 'europarl', 'ukrlib')
+CV_SKIP = ('wiki', 'singleword', 'countries-and-cities', 'german-cities', 'europarl', 'ukrlib',
+           'selected-europarl', 'addresses')
 MIN_COUNT = 2
 # Words of one letter (as the keyboard's lexicon knows them); other single
 # letters are initials and abbreviations cut at their dots ("z. B.").
-ONE_LETTER_WORDS = {'en': 'ai', 'de': '', 'ru': 'авикосуя', 'uk': 'авзійоуяє'}
+ONE_LETTER_WORDS = {'en': 'ai', 'de': '', 'ru': 'авикосуя', 'uk': 'авзійоуяє',
+                    'es': 'aeouy', 'fr': 'aày', 'it': 'aeèio', 'pt': 'aeoàé', 'pl': 'aiouwz', 'nl': 'u'}
 
 APOSTROPHES = str.maketrans({'’': "'", 'ʼ': "'", '‘': "'", '`': "'"})
 # Letters with inner apostrophes or hyphens ("don't", "кто-то", "м'ясо").
@@ -124,7 +139,10 @@ def count_pairs(texts, known, pairs, capitals, one_letter):
 
 def main():
     corpora, data = sys.argv[1], sys.argv[2]
+    chosen = sys.argv[3:] or list(SOURCES)
     for language, sources in SOURCES.items():
+        if language not in chosen:
+            continue
         with open(os.path.join(data, 'frequency', language + '.txt'), encoding='utf-8') as f:
             known = {line.strip() for line in f if line.strip()}
         pairs, capitals = collections.Counter(), collections.Counter()

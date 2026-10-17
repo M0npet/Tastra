@@ -22,6 +22,7 @@ GPL-3.0-or-later.
 | ru | UD Russian GSD (https://github.com/UniversalDependencies/UD_Russian-GSD, 0f34b73) | Ryan McDonald, Vitaly Nikolaev, Olga Lyashevskaya | CC BY-SA 4.0 |
 | uk | UA-GEC 2.0, corrected texts, first annotator, train part (https://github.com/grammarly/ua-gec, 4757f72) | Oleksiy Syvokon, Olena Nahorna, Pavlo Kuchmiichuk, Nastasiia Osidach (Grammarly) | CC BY 4.0 |
 | uk | UD Ukrainian ParlaMint (https://github.com/UniversalDependencies/UD_Ukrainian-ParlaMint, 7d3fcb7) | Maria Shvedova, Arsenii Lukashevskyi | CC BY-SA 4.0 |
+| es, fr, it, pt, pl, nl | Common Voice sentences only (0.7.19), as below, also without the address sets and the Polish Europarl selection | Mozilla Common Voice contributors | CC0 1.0 |
 | all | Common Voice sentences, `server/data/<lang>` (https://github.com/common-voice/common-voice, 43b7944): the sentence collector and contributors' own sets; not the Wikipedia sentences, word lists, German Europarl or Ukrainian ukrlib.com.ua sets; every tenth line left out | Mozilla Common Voice contributors | CC0 1.0 |
 
 Corpora that were considered and not used because of their licence: UD

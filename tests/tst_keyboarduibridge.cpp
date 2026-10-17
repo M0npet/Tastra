@@ -1188,7 +1188,17 @@ private Q_SLOTS:
         Tastra::KeyboardModel model;
         {
             Tastra::KeyboardUiBridge bridge(controller, model);
-            QCOMPARE(bridge.languageCodes(), bridge.allLanguageCodes());          // all on by default
+            // The first four are on until a choice is made; the later ones are turned on.
+            QCOMPARE(bridge.languageCodes(), (QStringList{QStringLiteral("en"), QStringLiteral("de"),
+                                                          QStringLiteral("uk"), QStringLiteral("ru")}));
+            QCOMPARE(bridge.allLanguageCodes().size(), 10);
+            QVERIFY(!bridge.isLanguageEnabled(QStringLiteral("es")));
+            bridge.setPreferredLanguage(QStringLiteral("es-ES"));                // not on: no switch
+            QCOMPARE(bridge.languageCode(), QStringLiteral("en"));
+            bridge.setLanguageEnabled(QStringLiteral("es"), true);
+            bridge.setPreferredLanguage(QStringLiteral("es-ES"));
+            QCOMPARE(bridge.languageCode(), QStringLiteral("es"));
+            bridge.setLanguageEnabled(QStringLiteral("es"), false);
             bridge.setLanguage(QStringLiteral("ru"));
             bridge.setLanguageEnabled(QStringLiteral("en"), false);
             bridge.setLanguageEnabled(QStringLiteral("de"), false);

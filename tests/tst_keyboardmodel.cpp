@@ -167,8 +167,50 @@ private Q_SLOTS:
         QCOMPARE(model.languageCode(), QStringLiteral("ru"));
         QCOMPARE(model.languageLabel(), QStringLiteral("Русский"));
 
-        model.nextLanguage();
-        QCOMPARE(model.languageCode(), QStringLiteral("en"));
+        // The model knows all languages; the bridge skips those turned off.
+        for (const char *code : {"es", "fr", "it", "pt", "pl", "nl", "en"}) {
+            model.nextLanguage();
+            QCOMPARE(model.languageCode(), QString::fromLatin1(code));
+        }
+    }
+
+    void languagesAddedInTheirGboardLayouts()
+    {
+        // 0.7.19: Spanish with ñ, French AZERTY with the apostrophe key,
+        // Italian, Portuguese, Polish, Dutch QWERTY; their accented letters
+        // on a long press (AOSP LatinIME more keys), their currency.
+        Tastra::KeyboardModel model;
+        model.setLanguage(QStringLiteral("es"));
+        QCOMPARE(model.languageLabel(), QString::fromUtf8("Español"));
+        QCOMPARE(model.row2().join(QString()), QString::fromUtf8("asdfghjklñ"));
+        QVERIFY(model.alternatesForKey(QStringLiteral("a")).contains(QString::fromUtf8("á")));
+        QVERIFY(model.alternatesForKey(QStringLiteral("u")).contains(QString::fromUtf8("ü")));
+        model.setLanguage(QStringLiteral("fr"));
+        QCOMPARE(model.row1().join(QString()), QStringLiteral("azertyuiop"));
+        QCOMPARE(model.row3().join(QString()), QStringLiteral("wxcvbn'"));
+        QCOMPARE(Tastra::KeyboardModel::layoutVariantLabel(QStringLiteral("fr"), model.layoutVariant(QStringLiteral("fr"))),
+                 QStringLiteral("AZERTY"));
+        QVERIFY(model.alternatesForKey(QStringLiteral("c")).contains(QString::fromUtf8("ç")));
+        QVERIFY(model.alternatesForKey(QStringLiteral("e")).contains(QString::fromUtf8("é")));
+        model.setLanguage(QStringLiteral("pl"));
+        QCOMPARE(model.alternateForKey(QStringLiteral("a")), QString::fromUtf8("ą"));
+        QCOMPARE(model.alternateForKey(QStringLiteral("l")), QString::fromUtf8("ł"));
+        QVERIFY(model.alternatesForKey(QStringLiteral("z")).contains(QString::fromUtf8("ź")));
+        model.toggleSymbols();
+        QVERIFY(model.symbolRows().at(1).contains(QString::fromUtf8("zł")));
+        model.toggleSymbols();
+        model.setLanguage(QStringLiteral("pt"));
+        QVERIFY(model.alternatesForKey(QStringLiteral("a")).contains(QString::fromUtf8("ã")));
+        model.setLanguage(QStringLiteral("it"));
+        QVERIFY(model.alternatesForKey(QStringLiteral("e")).contains(QString::fromUtf8("è")));
+        model.toggleSymbols();
+        QVERIFY(model.symbolRows().at(1).contains(QString::fromUtf8("€")));
+        model.toggleSymbols();
+        model.setLanguage(QStringLiteral("nl"));
+        QVERIFY(model.alternatesForKey(QStringLiteral("e")).contains(QString::fromUtf8("ë")));
+        // English keeps its own list (no change).
+        model.setLanguage(QStringLiteral("en"));
+        QVERIFY(model.alternatesForKey(QStringLiteral("n")).contains(QString::fromUtf8("ñ")));
     }
 
     void exposesExpectedRowsForEachLanguage()
@@ -450,6 +492,12 @@ private Q_SLOTS:
                 QStringLiteral("de"),
                 QStringLiteral("uk"),
                 QStringLiteral("ru"),
+                QStringLiteral("es"),
+                QStringLiteral("fr"),
+                QStringLiteral("it"),
+                QStringLiteral("pt"),
+                QStringLiteral("pl"),
+                QStringLiteral("nl"),
             })
         );
 
@@ -460,6 +508,12 @@ private Q_SLOTS:
                 QStringLiteral("Deutsch"),
                 QStringLiteral("Українська"),
                 QStringLiteral("Русский"),
+                QString::fromUtf8("Español"),
+                QString::fromUtf8("Français"),
+                QStringLiteral("Italiano"),
+                QString::fromUtf8("Português"),
+                QStringLiteral("Polski"),
+                QStringLiteral("Nederlands"),
             })
         );
     }
