@@ -4,6 +4,15 @@ Version numbers were reset on 2026-10-05: the project is about half-way to a
 finished keyboard, so the builds that were numbered 0.5.0–1.4.0 are now the
 internal builds 0.4.1–0.4.13, and the current state is 0.5.0.
 
+## 0.7.16
+- Settings → Toolbar: choose which features sit on the toolbar (clipboard,
+  emoji, text editing, resize, one-handed mode, settings) and move them up;
+  settings always stays, the choice is kept.
+- A one-handed button for the toolbar (off until chosen).
+- Six gradient themes (sunset, ocean, dusk, berry, forest, night) behind
+  translucent keys, as Gboard's "Gradients"; a gradient and a photo replace
+  each other.
+
 ## 0.7.15
 Gboard's look and size:
 - Themes: ten colours (blue, teal, green, yellow, orange, red, pink, purple,

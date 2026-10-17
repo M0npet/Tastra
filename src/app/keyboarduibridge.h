@@ -41,6 +41,9 @@ class KeyboardUiBridge final : public QObject
     Q_PROPERTY(QString activePanel READ activePanel NOTIFY toolbarStateChanged)
     Q_PROPERTY(QStringList toolbarActionIds READ toolbarActionIds NOTIFY toolbarStateChanged)
     Q_PROPERTY(QVariantList toolbarActions READ toolbarActions NOTIFY toolbarStateChanged)
+    // Gboard: which features sit on the toolbar, in which order (settings
+    // always stays: it is the way back to this choice).
+    Q_PROPERTY(QStringList toolbarChoices READ toolbarChoices NOTIFY toolbarStateChanged)
     Q_PROPERTY(QStringList languageCodes READ languageCodes NOTIFY keyboardStateChanged)
     Q_PROPERTY(QStringList languageLabels READ languageLabels NOTIFY keyboardStateChanged)
     // Gboard symbol pages ("?123" / "=\<").
@@ -80,6 +83,10 @@ class KeyboardUiBridge final : public QObject
     Q_PROPERTY(QString themeImage READ themeImage WRITE setThemeImage NOTIFY uiPreferencesChanged)
     Q_PROPERTY(int themeImageDim READ themeImageDim NOTIFY uiPreferencesChanged)
     Q_PROPERTY(QString picturesFolder READ picturesFolder CONSTANT)
+    // Gboard "Gradients": a gradient behind translucent keys, by name ("" =
+    // none). A gradient and a photo exclude each other.
+    Q_PROPERTY(QString themeGradient READ themeGradient WRITE setThemeGradient NOTIFY uiPreferencesChanged)
+    Q_PROPERTY(QStringList themeGradients READ themeGradients CONSTANT)
     Q_PROPERTY(QString effectiveTheme READ effectiveTheme NOTIFY uiPreferencesChanged)
     Q_PROPERTY(QString version READ version CONSTANT)
     // Interface language: "system" (Plasma's language if Tastra has it,
@@ -210,10 +217,20 @@ public:
     Q_INVOKABLE void setShowLanguageKey(bool show);
     // Gboard: long-press the comma for the one-handed keyboard.
     Q_INVOKABLE void toggleOneHanded();
+    // Every feature that can sit on the toolbar: the shown ones in their
+    // order first, then the others.
+    QStringList toolbarChoices() const;
+    Q_INVOKABLE bool isToolbarItemShown(const QString &id) const { return m_toolbarOrder.contains(id); }
+    Q_INVOKABLE void setToolbarItemShown(const QString &id, bool shown);
+    Q_INVOKABLE void moveToolbarItem(const QString &id, int delta);
     QString themeColor() const { return m_themeColor; }
     QStringList themeColors() const;
     Q_INVOKABLE void setThemeColor(const QString &color);
     QString themeImage() const { return m_themeImage; }
+    QString themeGradient() const { return m_themeGradient; }
+    // Each gradient as "name:#top:#bottom".
+    QStringList themeGradients() const;
+    Q_INVOKABLE void setThemeGradient(const QString &name);
     // A local picture (file URL or path); anything else is refused.
     Q_INVOKABLE void setThemeImage(const QString &image);
     int themeImageDim() const { return m_themeImageDim; }
@@ -463,12 +480,15 @@ private:
     EmojiCatalog m_emojiCatalog;
     ToolbarRegistry m_toolbarRegistry;
     ToolbarModel m_toolbarModel;
+    QStringList m_toolbarOrder;
+    void persistToolbar();
     PanelManager m_panelManager;
 
     bool m_amoled = false;
     QString m_theme = QStringLiteral("system");
     QString m_themeColor;
     QString m_themeImage;
+    QString m_themeGradient;
     int m_themeImageDim = 0;
     QString m_picturesFolderOverride;
     bool m_emojiSuggestions = true;

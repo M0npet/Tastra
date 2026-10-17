@@ -251,6 +251,43 @@ private Q_SLOTS:
         QVERIFY(bridge.canSelect());
     }
 
+    void theToolbarIsChosenAndOrdered()
+    {
+        // Gboard: choose the toolbar's features and their order; settings
+        // always stays; the choice is kept.
+        FakeBackend backend;
+        Tastra::KeyboardController controller(backend);
+        Tastra::KeyboardModel model;
+        Tastra::KeyboardUiBridge bridge(controller, model);
+        const QStringList defaults{QStringLiteral("clipboard"), QStringLiteral("emoji"), QStringLiteral("text-editing"),
+                                   QStringLiteral("resize"), QStringLiteral("settings")};
+        QCOMPARE(bridge.toolbarActionIds(), defaults);
+        QCOMPARE(bridge.toolbarChoices(), defaults + QStringList{QStringLiteral("one-handed")});
+        bridge.setToolbarItemShown(QStringLiteral("one-handed"), true);
+        bridge.setToolbarItemShown(QStringLiteral("clipboard"), false);
+        bridge.setToolbarItemShown(QStringLiteral("settings"), false);           // stays
+        bridge.moveToolbarItem(QStringLiteral("one-handed"), -10);
+        const QStringList chosen{QStringLiteral("one-handed"), QStringLiteral("emoji"), QStringLiteral("text-editing"),
+                                 QStringLiteral("resize"), QStringLiteral("settings")};
+        QCOMPARE(bridge.toolbarActionIds(), chosen);
+        QCOMPARE(bridge.toolbarActions().first().toMap().value(QStringLiteral("id")).toString(), QStringLiteral("one-handed"));
+        {
+            Tastra::KeyboardModel again;
+            Tastra::KeyboardUiBridge restarted(controller, again);
+            QCOMPARE(restarted.toolbarActionIds(), chosen);
+        }
+        QCOMPARE(bridge.layoutMode(), QStringLiteral("full"));
+        bridge.activateToolbarAction(QStringLiteral("one-handed"));
+        QCOMPARE(bridge.layoutMode(), QStringLiteral("right"));
+        bridge.activateToolbarAction(QStringLiteral("one-handed"));
+        QCOMPARE(bridge.layoutMode(), QStringLiteral("full"));
+        // A stored list from another version: unknown ids go, settings comes back.
+        QSettings().setValue(QStringLiteral("toolbarItems"), QStringList{QStringLiteral("gif"), QStringLiteral("emoji")});
+        Tastra::KeyboardModel other;
+        Tastra::KeyboardUiBridge older(controller, other);
+        QCOMPARE(older.toolbarActionIds(), (QStringList{QStringLiteral("emoji"), QStringLiteral("settings")}));
+    }
+
     void voiceCommandsActInsteadOfBeingTyped()
     {
         // Gboard voice typing: "send", "clear all", "undo", "pizza emoji"

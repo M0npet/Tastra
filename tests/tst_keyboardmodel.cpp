@@ -293,13 +293,14 @@ private Q_SLOTS:
         );
 
         const auto all = registry.actions();
-        QCOMPARE(all.size(), 6);
+        QCOMPARE(all.size(), 7);
         QCOMPARE(all.at(0).id, QStringLiteral("language"));
         QCOMPARE(all.at(1).id, QStringLiteral("clipboard"));
         QCOMPARE(all.at(2).id, QStringLiteral("emoji"));
         QCOMPARE(all.at(3).id, QStringLiteral("text-editing"));
         QCOMPARE(all.at(4).id, QStringLiteral("resize"));
-        QCOMPARE(all.at(5).id, QStringLiteral("settings"));
+        QCOMPARE(all.at(5).id, QStringLiteral("one-handed"));
+        QCOMPARE(all.at(6).id, QStringLiteral("settings"));
     }
 
     void disabledToolbarActionCannotActivate()

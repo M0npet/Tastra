@@ -35,7 +35,15 @@ Rectangle {
     // photo sits behind translucent keys.
     readonly property bool tinted: keyboardBridge.themeColor !== ""
     readonly property color themeTint: tinted ? keyboardBridge.themeColor : "#000000"
-    readonly property bool photoTheme: keyboardBridge.themeImage !== ""
+    // A photo or a gradient: the keys are translucent over it.
+    readonly property bool photoTheme: keyboardBridge.themeImage !== "" || keyboardBridge.themeGradient !== ""
+    readonly property var gradientStops: {
+        for (const entry of keyboardBridge.themeGradients) {
+            const parts = entry.split(":")
+            if (parts[0] === keyboardBridge.themeGradient) return [parts[1], parts[2]]
+        }
+        return []
+    }
     function tintOf(base, amount) {
         return tinted ? Qt.tint(base, Qt.rgba(themeTint.r, themeTint.g, themeTint.b, amount)) : base
     }
@@ -82,12 +90,23 @@ Rectangle {
             + (emojiRowShown ? keyHeight + keyGap : 0)
     color: backgroundColor
 
+    Rectangle {
+        // Gboard "Gradients".
+        objectName: "themeGradient"
+        anchors.fill: parent
+        visible: root.gradientStops.length === 2
+        gradient: Gradient {
+            GradientStop { position: 0.0; color: root.gradientStops.length === 2 ? root.gradientStops[0] : "transparent" }
+            GradientStop { position: 1.0; color: root.gradientStops.length === 2 ? root.gradientStops[1] : "transparent" }
+        }
+    }
+
     Image {
         // Gboard "custom" theme: the photo fills the keyboard, cut to fit.
         id: themePhoto
         objectName: "themePhoto"
         anchors.fill: parent
-        visible: root.photoTheme && status === Image.Ready
+        visible: keyboardBridge.themeImage !== "" && status === Image.Ready
         source: keyboardBridge.themeImage
         fillMode: Image.PreserveAspectCrop
         asynchronous: true
@@ -111,6 +130,7 @@ Rectangle {
         if (id === "text-editing") return "↔"
         if (id === "settings") return "⚙"
         if (id === "resize") return "⇕"
+        if (id === "one-handed") return "✋"
         return "•"
     }
 

@@ -925,6 +925,25 @@ private Q_SLOTS:
         QCOMPARE(root->property("keyColor").value<QColor>().alphaF(), 1.0);
         bridge.setThemeColor(QString());
         QTRY_COMPARE(root->property("backgroundColor").value<QColor>(), plain);
+
+        // Gboard "Gradients": behind translucent keys; a gradient and a photo
+        // exclude each other.
+        bridge.setThemeGradient(QStringLiteral("rainbow"));                    // not one of them
+        QCOMPARE(bridge.themeGradient(), QString());
+        bridge.setThemeGradient(QStringLiteral("ocean"));
+        QTRY_VERIFY(findNamed(root, QStringLiteral("themeGradient")));
+        QVERIFY(root->property("keyColor").value<QColor>().alphaF() < 0.9);
+        QImage again(64, 64, QImage::Format_RGB32);
+        again.fill(Qt::darkGreen);
+        QVERIFY(again.save(pictures.filePath(QStringLiteral("hill.png"))));
+        bridge.setThemeImage(pictures.filePath(QStringLiteral("hill.png")));
+        QCOMPARE(bridge.themeGradient(), QString());
+        QTRY_VERIFY(!findNamed(root, QStringLiteral("themeGradient")));
+        bridge.setThemeGradient(QStringLiteral("dusk"));
+        QCOMPARE(bridge.themeImage(), QString());
+        QCOMPARE(QSettings().value(QStringLiteral("themeGradient")).toString(), QStringLiteral("dusk"));
+        bridge.setThemeGradient(QString());
+        QTRY_VERIFY(!findNamed(root, QStringLiteral("themeGradient")));
     }
 
     void resizingByDraggingTheTopBar()
@@ -978,6 +997,50 @@ private Q_SLOTS:
         bridge.setKeyScale(3.0);
         QCOMPARE(bridge.keyScale(), 1.4);                                       // bounded
         bridge.setKeyScale(1.0);
+    }
+
+    void toolbarFeaturesAreChosenInSettings()
+    {
+        // Settings -> Toolbar: switch "One-handed mode" on, move it up; the
+        // toolbar shows ✋ first, and it switches the one-handed keyboard.
+        FakeBackend backend;
+        Tastra::KeyboardController controller(backend);
+        Tastra::KeyboardModel model;
+        Tastra::KeyboardUiBridge bridge(controller, model);
+        QQuickView view;
+        view.rootContext()->setContextProperty(QStringLiteral("keyboardBridge"), &bridge);
+        view.setSource(QUrl::fromLocalFile(QStringLiteral(TASTRA_MAIN_QML)));
+        view.show();
+        QVERIFY(QTest::qWaitForWindowExposed(&view));
+        auto centre = [&](QQuickItem *item) { return item->mapToScene(QPointF(item->width() / 2, item->height() / 2)).toPoint(); };
+        auto scrollTo = [&](QQuickItem *item) {
+            QQuickItem *flick = item->parentItem();
+            while (flick && !flick->property("contentY").isValid()) flick = flick->parentItem();
+            QVERIFY(flick);
+            const QPointF inContent = item->mapToItem(flick->property("contentItem").value<QQuickItem *>(), QPointF(0, 0));
+            flick->setProperty("contentY", qMax(0.0, inContent.y() - 20));
+            QTest::qWait(80);
+        };
+        bridge.activateToolbarAction(QStringLiteral("settings"));
+        QTRY_VERIFY(findNamed(view.rootObject(), QStringLiteral("toolbarShown_one-handed")));
+        QQuickItem *shown = findNamed(view.rootObject(), QStringLiteral("toolbarShown_one-handed"));
+        scrollTo(shown);
+        QTest::mouseClick(&view, Qt::LeftButton, {}, centre(shown));
+        QTRY_VERIFY(bridge.isToolbarItemShown(QStringLiteral("one-handed")));
+        for (int i = 0; i < 5; ++i) {
+            QQuickItem *up = findNamed(view.rootObject(), QStringLiteral("toolbarUp_one-handed"));
+            scrollTo(up);
+            if (!up->isEnabled()) break;
+            QTest::mouseClick(&view, Qt::LeftButton, {}, centre(up));
+            QTest::qWait(30);
+        }
+        QCOMPARE(bridge.toolbarActionIds().first(), QStringLiteral("one-handed"));
+        bridge.closePanel();
+        QTRY_VERIFY(findText(view.rootObject(), QStringLiteral("✋")));
+        QQuickItem *hand = findText(view.rootObject(), QStringLiteral("✋"))->parentItem();
+        QTest::qWait(50);
+        QTest::mouseClick(&view, Qt::LeftButton, {}, centre(hand));
+        QTRY_COMPARE(bridge.layoutMode(), QStringLiteral("right"));
     }
 
     void touchPointInsideTheKeyReachesCorrection()

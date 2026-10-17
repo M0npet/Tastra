@@ -96,6 +96,15 @@ public:
         resize.visible = true;
         registry.registerAction(resize);
 
+        // Gboard "One-handed mode" (off the toolbar until chosen in settings).
+        ToolbarAction oneHanded;
+        oneHanded.id = QStringLiteral("one-handed");
+        oneHanded.label = QStringLiteral("One-handed mode");
+        oneHanded.iconName = QStringLiteral("one-handed");
+        oneHanded.kind = ToolbarActionKind::Command;
+        oneHanded.visible = false;
+        registry.registerAction(oneHanded);
+
         ToolbarAction settings;
         settings.id = QStringLiteral("settings");
         settings.label = QStringLiteral("Settings");

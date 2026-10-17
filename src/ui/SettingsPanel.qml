@@ -163,6 +163,63 @@ Flickable {
         }
 
         Text {
+            objectName: "settingsSection_Toolbar"
+            width: parent.width
+            topPadding: 14
+            text: qsTr("Toolbar")
+            color: root.accentColor
+            font.pixelSize: root.portrait ? 15 : 13
+            font.weight: Font.DemiBold
+            font.capitalization: Font.AllUppercase
+        }
+
+        Repeater {
+            // Gboard: choose the features on the toolbar and their order.
+            model: keyboardBridge.toolbarChoices
+            delegate: Row {
+                required property string modelData
+                required property int index
+                readonly property bool shown: (keyboardBridge.toolbarActionIds, keyboardBridge.isToolbarItemShown(modelData))
+                width: parent ? parent.width : 0
+                spacing: 12
+                function title(id) {
+                    if (id === "clipboard") return qsTr("Clipboard")
+                    if (id === "emoji") return qsTr("Emoji")
+                    if (id === "text-editing") return qsTr("Text editing")
+                    if (id === "resize") return qsTr("Resize")
+                    if (id === "one-handed") return qsTr("One-handed mode")
+                    if (id === "settings") return qsTr("Settings")
+                    return id
+                }
+                Text {
+                    width: parent.width - toolbarUp.width - toolbarShown.width - parent.spacing * 2
+                    height: toolbarShown.height
+                    verticalAlignment: Text.AlignVCenter
+                    text: parent.title(modelData)
+                    color: root.textColor
+                    opacity: parent.shown ? 1 : 0.6
+                    font.pixelSize: root.portrait ? 17 : 15
+                }
+                PanelButton {
+                    id: toolbarUp
+                    objectName: "toolbarUp_" + modelData
+                    width: root.portrait ? 62 : 54
+                    label: "↑"
+                    enabled: parent.shown && index > 0
+                    onTriggered: keyboardBridge.moveToolbarItem(modelData, -1)
+                }
+                PanelButton {
+                    id: toolbarShown
+                    objectName: "toolbarShown_" + modelData
+                    width: root.portrait ? 100 : 90
+                    enabled: modelData !== "settings"
+                    label: parent.shown ? qsTr("On") : qsTr("Off")
+                    onTriggered: keyboardBridge.setToolbarItemShown(modelData, !parent.shown)
+                }
+            }
+        }
+
+        Text {
             objectName: "settingsSection_Theme"
             width: parent.width
             topPadding: 14
@@ -201,6 +258,38 @@ Flickable {
                     border.color: keyboardBridge.themeColor === modelData ? root.textColor : root.borderColor
                     Text { anchors.centerIn: parent; visible: parent.modelData === ""; text: "A"; color: root.textColor; font.pixelSize: 15 }
                     MouseArea { anchors.fill: parent; onClicked: keyboardBridge.setThemeColor(parent.modelData) }
+                }
+            }
+        }
+
+        Text {
+            width: parent.width
+            topPadding: 6
+            text: qsTr("Gradients")
+            color: root.textColor
+            font.pixelSize: root.portrait ? 17 : 15
+        }
+
+        Flow {
+            width: parent.width
+            spacing: 10
+            Repeater {
+                model: keyboardBridge.themeGradients
+                delegate: Rectangle {
+                    required property string modelData
+                    readonly property var parts: modelData.split(":")
+                    objectName: "themeGradient_" + parts[0]
+                    width: root.portrait ? 74 : 64; height: root.portrait ? 46 : 40; radius: 10
+                    border.width: keyboardBridge.themeGradient === parts[0] ? 3 : 0
+                    border.color: root.textColor
+                    gradient: Gradient {
+                        GradientStop { position: 0.0; color: parts[1] }
+                        GradientStop { position: 1.0; color: parts[2] }
+                    }
+                    MouseArea {
+                        anchors.fill: parent
+                        onClicked: keyboardBridge.setThemeGradient(keyboardBridge.themeGradient === parent.parts[0] ? "" : parent.parts[0])
+                    }
                 }
             }
         }

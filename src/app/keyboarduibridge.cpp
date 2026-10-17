@@ -83,6 +83,10 @@ KeyboardUiBridge::KeyboardUiBridge(
         const QString image = settings.value(QStringLiteral("themeImage")).toString();
         if (QFileInfo(QUrl(image).toLocalFile()).isReadable()) m_themeImage = image;   // a deleted photo: plain theme
         m_themeImageDim = qBound(0, settings.value(QStringLiteral("themeImageDim"), 0).toInt(), 60);
+        const QString gradient = settings.value(QStringLiteral("themeGradient")).toString();
+        for (const QString &entry : themeGradients()) {
+            if (entry.section(QLatin1Char(':'), 0, 0) == gradient && m_themeImage.isEmpty()) m_themeGradient = gradient;
+        }
     }
 #if QT_VERSION >= QT_VERSION_CHECK(6, 5, 0)
     if (qobject_cast<QGuiApplication *>(QCoreApplication::instance())) {
@@ -106,6 +110,20 @@ KeyboardUiBridge::KeyboardUiBridge(
     m_emojiRow = settings.value(QStringLiteral("emojiRow"), false).toBool();
     m_symbolHints = settings.value(QStringLiteral("symbolHints"), true).toBool();
     m_numberRow = settings.value(QStringLiteral("numberRow"), false).toBool();
+    {
+        // The toolbar as chosen; unknown ids from other versions are dropped,
+        // settings is always there.
+        m_toolbarOrder = m_toolbarModel.visibleActionIds();
+        if (settings.contains(QStringLiteral("toolbarItems"))) {
+            QStringList stored;
+            for (const QString &id : settings.value(QStringLiteral("toolbarItems")).toStringList()) {
+                const auto *action = m_toolbarRegistry.actionById(id);
+                if (action && id != QStringLiteral("language") && !stored.contains(id)) stored.append(id);
+            }
+            if (!stored.contains(QStringLiteral("settings"))) stored.append(QStringLiteral("settings"));
+            m_toolbarOrder = stored;
+        }
+    }
     m_showEmojiKey = settings.value(QStringLiteral("showEmojiKey"), false).toBool();
     m_showLanguageKey = settings.value(QStringLiteral("showLanguageKey"), true).toBool();
     m_blockOffensive = settings.value(QStringLiteral("blockOffensive"), true).toBool();
@@ -164,7 +182,42 @@ QStringList KeyboardUiBridge::row1() const { return m_model.row1(); }
 QStringList KeyboardUiBridge::row2() const { return m_model.row2(); }
 QStringList KeyboardUiBridge::row3() const { return m_model.row3(); }
 QString KeyboardUiBridge::activePanel() const { return panelIdName(m_panelManager.activePanel()); }
-QStringList KeyboardUiBridge::toolbarActionIds() const { return m_toolbarModel.visibleActionIds(); }
+QStringList KeyboardUiBridge::toolbarActionIds() const { return m_toolbarOrder; }
+
+QStringList KeyboardUiBridge::toolbarChoices() const
+{
+    QStringList choices = m_toolbarOrder;
+    for (const auto &action : m_toolbarRegistry.actions()) {
+        if (action.id != QStringLiteral("language") && !choices.contains(action.id)) choices.append(action.id);
+    }
+    return choices;
+}
+
+void KeyboardUiBridge::setToolbarItemShown(const QString &id, bool shown)
+{
+    if (!m_toolbarRegistry.actionById(id) || id == QStringLiteral("language")) return;
+    if (id == QStringLiteral("settings") && !shown) return;
+    if (shown == m_toolbarOrder.contains(id)) return;
+    if (shown) m_toolbarOrder.insert(qMax(0, m_toolbarOrder.indexOf(QStringLiteral("settings"))), id);
+    else m_toolbarOrder.removeAll(id);
+    persistToolbar();
+}
+
+void KeyboardUiBridge::moveToolbarItem(const QString &id, int delta)
+{
+    const qsizetype at = m_toolbarOrder.indexOf(id);
+    if (at < 0) return;
+    const qsizetype to = qBound<qsizetype>(0, at + delta, m_toolbarOrder.size() - 1);
+    if (to == at) return;
+    m_toolbarOrder.move(at, to);
+    persistToolbar();
+}
+
+void KeyboardUiBridge::persistToolbar()
+{
+    persistPreference(QStringLiteral("toolbarItems"), m_toolbarOrder);
+    Q_EMIT toolbarStateChanged();
+}
 QStringList KeyboardUiBridge::allLanguageCodes() const { return m_model.languageCodes(); }
 int KeyboardUiBridge::symbolPage() const { return m_model.symbolPage(); }
 QStringList KeyboardUiBridge::symbolRow1() const { return m_model.symbolRows().value(0); }
@@ -777,7 +830,10 @@ void KeyboardUiBridge::forgetSuggestion(const QString &word)
 QVariantList KeyboardUiBridge::toolbarActions() const
 {
     QVariantList result;
-    for (const auto &action : m_toolbarModel.visibleActions()) {
+    for (const QString &id : m_toolbarOrder) {
+        const ToolbarAction *found = m_toolbarRegistry.actionById(id);
+        if (!found) continue;
+        const ToolbarAction &action = *found;
         QVariantMap item;
         item.insert(QStringLiteral("id"), action.id);
         item.insert(QStringLiteral("label"), action.label);
@@ -873,6 +929,27 @@ void KeyboardUiBridge::setThemeColor(const QString &color)
     Q_EMIT uiPreferencesChanged();
 }
 
+QStringList KeyboardUiBridge::themeGradients() const
+{
+    return {QStringLiteral("sunset:#ff7e5f:#feb47b"), QStringLiteral("ocean:#2193b0:#6dd5ed"),
+            QStringLiteral("dusk:#2c3e50:#4ca1af"), QStringLiteral("berry:#8e2de2:#4a00e0"),
+            QStringLiteral("forest:#134e5e:#71b280"), QStringLiteral("night:#0f2027:#2c5364")};
+}
+
+void KeyboardUiBridge::setThemeGradient(const QString &name)
+{
+    bool known = name.isEmpty();
+    for (const QString &entry : themeGradients()) known = known || entry.section(QLatin1Char(':'), 0, 0) == name;
+    if (!known || m_themeGradient == name) return;
+    m_themeGradient = name;
+    persistPreference(QStringLiteral("themeGradient"), name);
+    if (!name.isEmpty() && !m_themeImage.isEmpty()) {
+        m_themeImage.clear();                         // one background at a time
+        persistPreference(QStringLiteral("themeImage"), QString());
+    }
+    Q_EMIT uiPreferencesChanged();
+}
+
 void KeyboardUiBridge::setThemeImage(const QString &image)
 {
     QString url;
@@ -887,6 +964,10 @@ void KeyboardUiBridge::setThemeImage(const QString &image)
     if (m_themeImage == url) return;
     m_themeImage = url;
     persistPreference(QStringLiteral("themeImage"), url);
+    if (!url.isEmpty() && !m_themeGradient.isEmpty()) {
+        m_themeGradient.clear();                      // one background at a time
+        persistPreference(QStringLiteral("themeGradient"), QString());
+    }
     Q_EMIT uiPreferencesChanged();
 }
 
@@ -1231,6 +1312,11 @@ void KeyboardUiBridge::activateToolbarAction(const QString &id)
 {
     cancelInlineFields();
     setSelectMode(false);
+    if (id == QStringLiteral("one-handed")) {
+        closePanel();
+        toggleOneHanded();
+        return;
+    }
     if (m_toolbarModel.activate(id, m_panelManager)) {
         if (id == QStringLiteral("clipboard")) Q_EMIT clipboardChanged();
         Q_EMIT toolbarStateChanged();

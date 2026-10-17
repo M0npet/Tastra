@@ -1909,3 +1909,14 @@ valid word (2000 frequent, ~700 rare) is changed: 0 throughout.
   stays (it ends a recording).
 - Checks: 23/23, ASan + UBSan 23/23.
 
+## 2026-10-17 — 0.7.16 toolbar choice, gradients
+
+- Found uncommitted in the workspace (written 2026-10-09, not released):
+  toolbar choice and order (Gboard lets one pick the toolbar's features),
+  a one-handed toolbar item and gradient themes, with tests. Reviewed,
+  rendered (settings section, ocean gradient, one-handed toolbar), full
+  suite 23/23 and ASan + UBSan 23/23, released as is.
+- Toolbar: the order is kept as "toolbarItems"; ids a later or earlier
+  version does not know are dropped; settings is always there (it is the way
+  back to the choice). Gradients and a photo exclude each other.
+

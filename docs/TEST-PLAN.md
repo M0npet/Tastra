@@ -108,4 +108,5 @@ keyboard. On any problem send `~/.local/state/tastra/trace.log`.
 73. Settings → Letter layout (English): QWERTY → QWERTZ → AZERTY → Dvorak → Colemak; the keys change at once, glide and correction still work, the choice stays after a restart; German offers QWERTZ and QWERTY.
 74. Settings → Theme → Colour: each colour tints the keyboard (light and dark); the "A" circle goes back to the plain theme. Put a photo into ~/Pictures, open Settings again: Background photo shows it; tap it: the photo is behind the keys, the strip shows it too; Photo brightness darkens it; None removes it.
 75. Toolbar ⇕: a frame covers the keys; drag the bar up: the keyboard grows under the finger, down: it shrinks; Reset: back to normal; ✓: typing again. Settings → Key size shows the new value.
+76. Settings → Toolbar: switch One-handed mode On and move it to the top with ↑: the toolbar shows ✋ first and it switches the one-handed keyboard; Clipboard Off: its button goes; Settings cannot be switched off; after a restart the toolbar stays as chosen. Settings → Theme → Gradients: each gradient is behind the keys; choosing a photo removes the gradient and the other way round.
 
