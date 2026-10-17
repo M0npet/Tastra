@@ -205,6 +205,58 @@ private Q_SLOTS:
         QCOMPARE(s.client.badDeletes, 0);
     }
 
+    // Gboard Smart Compose as a chip: a habit of the user's typed three
+    // times, then offered while typing and after a Space; in the middle of
+    // the text no second space is left before what follows.
+    void aPhraseFromTheStripFitsIn_data()
+    {
+        QTest::addColumn<int>("echo");
+        QTest::addColumn<bool>("composition");
+        for (int echo : {int(TextInputClient::Echo::Current), int(TextInputClient::Echo::Lagging)}) {
+            const char *mode = echo == int(TextInputClient::Echo::Current) ? "gtk" : "firefox";
+            QTest::addRow("%s composing", mode) << echo << true;
+            QTest::addRow("%s plain", mode) << echo << false;
+        }
+    }
+    void aPhraseFromTheStripFitsIn()
+    {
+        QFETCH(int, echo);
+        QFETCH(bool, composition);
+        Session s{static_cast<TextInputClient::Echo>(echo)};
+        s.engine.clearLearning();
+        s.engine.setCompositionEnabled(composition);
+        s.engine.setAutoCapitalizationEnabled(false);
+        s.engine.setAutocorrectEnabled(false);
+        for (int i = 0; i < 3; ++i) {
+            s.type(QStringLiteral("see you soon"));
+            s.act([&] { s.engine.typeText(QStringLiteral(".")); });
+            s.act([&] { s.engine.space(); });
+        }
+        s.type(QStringLiteral("se"));
+        QCOMPARE(s.engine.phraseSuggestion(), QStringLiteral("see you soon"));
+        s.act([&] { s.engine.chooseSuggestion(s.engine.phraseSuggestion()); });
+        s.client.tapAtEnd();
+        QCOMPARE(s.client.visible(), QStringLiteral("see you soon. see you soon. see you soon. see you soon "));
+        QCOMPARE(s.client.badDeletes, 0);
+
+        s.client.setText(QStringLiteral("I will ."));
+        s.client.placeCursor(7);
+        s.type(QStringLiteral("see "));
+        QCOMPARE(s.engine.phraseSuggestion(), QStringLiteral("you soon"));
+        s.act([&] { s.engine.chooseSuggestion(s.engine.phraseSuggestion()); });
+        s.client.tapAtEnd();
+        QCOMPARE(s.client.visible(), QStringLiteral("I will see you soon."));
+        QCOMPARE(s.client.badDeletes, 0);
+
+        s.client.setText(QStringLiteral("I will ."));
+        s.client.placeCursor(7);
+        s.type(QStringLiteral("se"));
+        s.act([&] { s.engine.chooseSuggestion(s.engine.phraseSuggestion()); });
+        s.client.tapAtEnd();
+        QCOMPARE(s.client.visible(), QStringLiteral("I will see you soon."));
+        QCOMPARE(s.client.badDeletes, 0);
+    }
+
     // The same for a glide in the middle of the text: a space before it
     // (after "I"), none after it (" dogs" follows); Backspace right after
     // the glide erases exactly the glided word.
@@ -401,6 +453,91 @@ private Q_SLOTS:
             }
         }
     }
+    // Whole words from a small vocabulary, so habits form, and the phrase
+    // chip taken whenever there is one: the field always shows what the
+    // user meant, on both client models.
+    void randomPhrasesOnRealClients_data() { echoModes_data(); }
+    void randomPhrasesOnRealClients()
+    {
+        QFETCH(int, echo);
+        int phrasesChosen = 0;
+        for (quint32 seed = 1; seed <= 30; ++seed) {
+            QRandomGenerator rng(seed * 7919u + quint32(echo));
+            Session s{static_cast<TextInputClient::Echo>(echo)};
+            s.engine.clearLearning();
+            s.engine.setAutocorrectEnabled(false);
+            s.engine.setAutoCapitalizationEnabled(false);
+            s.engine.setDoubleSpacePeriodEnabled(false);
+            const QStringList words = {QStringLiteral("see"), QStringLiteral("you"), QStringLiteral("soon"),
+                                       QStringLiteral("go"), QStringLiteral("home")};
+            QString expected, log;
+            bool held = false, afterWord = false;     // held: a space Enter drops
+            for (int step = 0; step < 150; ++step) {
+                const int op = rng.bounded(100);
+                const QString phrase = s.engine.phraseSuggestion();
+                if (op < 30 && !phrase.isEmpty()) {
+                    // While typing the phrase replaces the typed letters.
+                    if (!s.engine.currentWord().isEmpty()) expected.chop(s.engine.currentWord().size());
+                    s.engine.chooseSuggestion(phrase);
+                    log += QStringLiteral("[") + phrase + QStringLiteral("]");
+                    expected += phrase + QLatin1Char(' ');
+                    held = afterWord = true;
+                    ++phrasesChosen;
+                } else if (op < 80) {
+                    // A word; mostly the habitual order, so habits form.
+                    const int at = rng.bounded(100) < 80 ? step % 3 : rng.bounded(words.size());
+                    const QString word = words.at(at);
+                    const int letters = 1 + rng.bounded(word.size());
+                    for (int i = 0; i < letters; ++i) {
+                        s.engine.typeLetter(QString(word.at(i)));
+                        s.client.deliver();
+                        s.now += 40 + rng.bounded(200);
+                    }
+                    log += word.left(letters);
+                    expected += word.left(letters);
+                    held = afterWord = false;
+                    if (letters < word.size() && !s.engine.phraseSuggestion().isEmpty()) continue;   // take it next
+                    for (int i = letters; i < word.size(); ++i) {
+                        s.engine.typeLetter(QString(word.at(i)));
+                        s.client.deliver();
+                        s.now += 40 + rng.bounded(200);
+                    }
+                    expected += word.mid(letters);
+                    log += word.mid(letters) + QStringLiteral("␣");
+                    s.engine.space();
+                    expected += QLatin1Char(' ');
+                    held = afterWord = true;
+                } else if (op < 90 && (afterWord || !s.engine.currentWord().isEmpty())) {
+                    // A word, its space, then "." (the space moves after it).
+                    if (!s.engine.currentWord().isEmpty()) {
+                        s.engine.space();
+                        expected += QLatin1Char(' ');
+                    }
+                    log += QStringLiteral(".");
+                    s.client.deliver();
+                    s.now += 120;
+                    s.engine.typeText(QStringLiteral("."));
+                    expected.chop(1);
+                    expected += QStringLiteral(". ");
+                    held = true;
+                    afterWord = false;
+                } else {
+                    s.engine.enter();
+                    log += QStringLiteral("⏎");
+                    if (held) expected.chop(1);
+                    expected += QLatin1Char('\n');
+                    held = afterWord = false;
+                }
+                s.client.deliver();
+                s.now += 40 + rng.bounded(300);
+                if (s.client.visible() != expected) qWarning() << "seed" << seed << log.right(60) << s.client.visible().right(30) << expected.right(30);
+                QCOMPARE(s.client.visible(), expected);
+                QCOMPARE(s.client.badDeletes, 0);
+            }
+        }
+        QVERIFY2(phrasesChosen > 50, qPrintable(QString::number(phrasesChosen)));
+    }
+
     // At the start of an empty paragraph the first letter is committed (rich
     // editors break a composition there); a suggestion that changes it
     // replaces it too instead of typing after it ("ythe").

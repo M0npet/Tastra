@@ -1208,6 +1208,59 @@ bool TypingEngine::currentWordKnown() const { return m_currentWordKnown; }
 
 void TypingEngine::refreshSuggestions()
 {
+    refreshWordSuggestions();
+    refreshPhraseSuggestion();
+}
+
+void TypingEngine::refreshPhraseSuggestion()
+{
+    m_phraseSuggestion.clear();
+    if (m_sensitiveContext || !m_suggestionsEnabled || !m_phraseSuggestions || glideAlternativesShown()) return;
+    if (!m_layoutSuggestionWord.isEmpty() || !m_recorrectionOriginal.isEmpty()) return;
+    if (!m_currentWord.isEmpty()) {
+        // Not inside a word: the phrase would be glued to its rest.
+        if (!m_composing && !m_wordAfterCursor.isEmpty()) return;
+        const bool allCaps = m_currentWord.size() >= 2 && m_currentWord.toUpper() == m_currentWord
+            && m_currentWord.toLower() != m_currentWord;
+        for (const QString &candidate : std::as_const(m_suggestions)) {
+            if (candidate.isEmpty() || !candidate.front().isLetter() || candidate.contains(QLatin1Char(' '))) continue;
+            if (!m_committedHead.isEmpty() && !candidate.startsWith(m_committedHead, Qt::CaseInsensitive)) continue;
+            QStringList rest = m_lexicon.phraseAfter(candidate, 3);
+            if (rest.isEmpty()) continue;
+            QString continuation = rest.join(QLatin1Char(' '));
+            if (allCaps) continuation = continuation.toUpper();
+            m_phraseSuggestion = candidate + QLatin1Char(' ') + continuation;
+            return;
+        }
+        return;
+    }
+    // After a Space: only a habit of two words or more (one word is what
+    // the next-word suggestions already show), and not across a sentence.
+    if (!m_nextWordSuggestions || m_sentenceStart) return;
+    const QString context = contextWord();
+    if (context.isEmpty()) return;
+    const QStringList rest = m_lexicon.phraseAfter(context, 3);
+    if (rest.size() >= 2) m_phraseSuggestion = rest.join(QLatin1Char(' '));
+}
+
+void TypingEngine::forgetPhrase(const QString &phrase)
+{
+    QStringList words = phrase.split(QLatin1Char(' '), Qt::SkipEmptyParts);
+    // After a Space the phrase starts with the word that follows the context.
+    if (m_currentWord.isEmpty() && !contextWord().isEmpty()) words.prepend(contextWord());
+    for (qsizetype i = 1; i < words.size(); ++i) m_lexicon.forgetPair(words.at(i - 1), words.at(i));
+    refreshSuggestions();
+}
+
+void TypingEngine::setPhraseSuggestionsEnabled(bool enabled)
+{
+    if (m_phraseSuggestions == enabled) return;
+    m_phraseSuggestions = enabled;
+    refreshSuggestions();
+}
+
+void TypingEngine::refreshWordSuggestions()
+{
     if (m_currentWord.isEmpty() && m_pendingWord.isEmpty()) m_committedHead.clear();
     // Touch offsets follow the word: shorter after Backspace, empty for a new one.
     if (m_touchOffsets.size() > m_currentWord.size()) m_touchOffsets.resize(m_currentWord.size());

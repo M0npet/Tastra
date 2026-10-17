@@ -70,6 +70,11 @@ class KeyboardUiBridge final : public QObject
     // "text", "email", "url", "number" or "phone" — drives Gboard-like layouts.
     Q_PROPERTY(QString inputPurpose READ inputPurpose NOTIFY inputContextChanged)
     Q_PROPERTY(QStringList suggestions READ suggestions NOTIFY suggestionsChanged)
+    // The chip of the strip that completes a phrase (Gboard Smart Compose),
+    // and the length of its first word, shown as on any chip; the habitual
+    // words after it are dimmed, like Gboard's grey inline completion.
+    Q_PROPERTY(QString phraseSuggestion READ phraseSuggestion NOTIFY suggestionsChanged)
+    Q_PROPERTY(int phraseHeadLength READ phraseHeadLength NOTIFY suggestionsChanged)
     Q_PROPERTY(bool secureInput READ secureInput NOTIFY inputContextChanged)
 
     Q_PROPERTY(bool amoled READ amoled WRITE setAmoled NOTIFY uiPreferencesChanged)
@@ -123,6 +128,7 @@ class KeyboardUiBridge final : public QObject
     Q_PROPERTY(bool glideTrail READ glideTrail WRITE setGlideTrail NOTIFY uiPreferencesChanged)
     Q_PROPERTY(bool emojiSuggestionsEnabled READ emojiSuggestionsEnabled WRITE setEmojiSuggestionsEnabled NOTIFY typingPreferencesChanged)
     Q_PROPERTY(bool nextWordSuggestions READ nextWordSuggestions WRITE setNextWordSuggestions NOTIFY typingPreferencesChanged)
+    Q_PROPERTY(bool phraseSuggestions READ phraseSuggestions WRITE setPhraseSuggestions NOTIFY typingPreferencesChanged)
     Q_PROPERTY(bool blockOffensive READ blockOffensive WRITE setBlockOffensive NOTIFY typingPreferencesChanged)
     Q_PROPERTY(QString layoutMode READ layoutMode WRITE setLayoutMode NOTIFY uiPreferencesChanged)
     Q_PROPERTY(bool voiceBuilt READ voiceBuilt NOTIFY voiceChanged)
@@ -201,6 +207,9 @@ public:
     QString version() const;
     bool emojiSuggestionsEnabled() const;
     bool nextWordSuggestions() const;
+    bool phraseSuggestions() const;
+    QString phraseSuggestion() const;
+    int phraseHeadLength() const;
     bool keySound() const;
     bool canPlayKeySound() const;
     bool glideTrail() const;
@@ -390,6 +399,7 @@ public:
     void setQmlEngine(QQmlEngine *engine);
     Q_INVOKABLE void setEmojiSuggestionsEnabled(bool enabled);
     Q_INVOKABLE void setNextWordSuggestions(bool enabled);
+    Q_INVOKABLE void setPhraseSuggestions(bool enabled);
     // Gboard clipboard: pinned items stay (and are the only ones on disk).
     Q_INVOKABLE bool isClipboardPinned(const QString &text) const;
     Q_INVOKABLE void toggleClipboardPin(const QString &text);
@@ -493,6 +503,7 @@ private:
     QString m_picturesFolderOverride;
     bool m_emojiSuggestions = true;
     bool m_nextWordSuggestions = true;
+    bool m_phraseSuggestions = true;
     bool m_emojiSearchActive = false;
     QString m_emojiSearchText;
     QString m_wordEntryStep;

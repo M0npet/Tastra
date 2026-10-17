@@ -639,6 +639,39 @@ private Q_SLOTS:
         QTRY_VERIFY(bridge.userWords().isEmpty());
     }
 
+    void aPhraseChipIsDimmedAfterItsFirstWordAndTypesTheWholePhrase()
+    {
+        FakeBackend backend;
+        Tastra::KeyboardController controller(backend);
+        Tastra::KeyboardModel model;
+        Tastra::KeyboardUiBridge bridge(controller, model);
+        bridge.clearLearnedWords();
+        bridge.setAutoCapitalizationEnabled(false);
+        bridge.setAutocorrectEnabled(false);
+        QQuickView view;
+        view.rootContext()->setContextProperty(QStringLiteral("keyboardBridge"), &bridge);
+        view.setSource(QUrl::fromLocalFile(QStringLiteral(TASTRA_MAIN_QML)));
+        view.show();
+        QVERIFY(QTest::qWaitForWindowExposed(&view));
+        for (const QChar ch : QStringLiteral("see you soon. see you soon. see you soon. se")) {
+            if (ch == QLatin1Char(' ')) bridge.space();
+            else if (ch.isLetter()) bridge.tapLetter(QString(ch));
+            else bridge.tapText(QString(ch));
+        }
+        QTRY_VERIFY(findNamed(view.rootObject(), QStringLiteral("phraseChip")));
+        QQuickItem *chip = findNamed(view.rootObject(), QStringLiteral("phraseChip"));
+        const QString markup = chip->property("text").toString();
+        QVERIFY2(markup.startsWith(QStringLiteral("see<font color=")) && markup.endsWith(QStringLiteral(" you soon</font>")),
+                 qPrintable(markup));
+        QVERIFY(chip->isVisible());
+        QTest::qWait(100);
+        if (qEnvironmentVariableIsSet("TASTRA_SCREENSHOT")) view.grabWindow().save(qEnvironmentVariable("TASTRA_SCREENSHOT"));
+        backend.commits.clear();
+        QTest::mouseClick(&view, Qt::LeftButton, {}, chip->mapToScene(QPointF(chip->width() / 2, chip->height() / 2)).toPoint());
+        QTRY_COMPARE(backend.commits.join(QString()), QStringLiteral("see you soon "));
+        QTRY_VERIFY(!findNamed(view.rootObject(), QStringLiteral("phraseChip")));
+    }
+
     void topRowKeyPreviewStaysInsideThePanel()
     {
         // Live report: the preview of top-row keys was cut off — Wayland cannot

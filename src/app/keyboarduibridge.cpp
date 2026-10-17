@@ -98,6 +98,8 @@ KeyboardUiBridge::KeyboardUiBridge(
     m_emojiSuggestions = settings.value(QStringLiteral("emojiSuggestions"), true).toBool();
     m_nextWordSuggestions = settings.value(QStringLiteral("nextWordSuggestions"), true).toBool();
     m_typingEngine.setNextWordSuggestionsEnabled(m_nextWordSuggestions);
+    m_phraseSuggestions = settings.value(QStringLiteral("phraseSuggestions"), true).toBool();
+    m_typingEngine.setPhraseSuggestionsEnabled(m_phraseSuggestions);
     for (const QString &code : settings.value(QStringLiteral("enabledLanguages")).toStringList()) {
         if (m_model.languageCodes().contains(code)) m_enabledLanguages.append(code);
     }
@@ -617,11 +619,43 @@ QStringList KeyboardUiBridge::suggestions() const
             list.append(emoji);
         }
     }
+    // The phrase takes the last chip: never the typed word or the correction
+    // in the middle, which Space and a tap rely on.
+    const QString phrase = m_typingEngine.phraseSuggestion();
+    if (!phrase.isEmpty() && !list.contains(phrase)) {
+        if (list.size() >= 3) list.removeLast();
+        list.append(phrase);
+    }
     return list;
+}
+
+QString KeyboardUiBridge::phraseSuggestion() const
+{
+    // A shortcut expansion owns the strip (see suggestions()).
+    if (!m_shortcuts.value(m_typingEngine.currentWord().toLower()).isEmpty()) return {};
+    return m_typingEngine.phraseSuggestion();
+}
+
+int KeyboardUiBridge::phraseHeadLength() const
+{
+    const QString phrase = phraseSuggestion();
+    const qsizetype space = phrase.indexOf(QLatin1Char(' '));
+    return space < 0 ? int(phrase.size()) : int(space);
 }
 
 bool KeyboardUiBridge::emojiSuggestionsEnabled() const { return m_emojiSuggestions; }
 bool KeyboardUiBridge::nextWordSuggestions() const { return m_nextWordSuggestions; }
+bool KeyboardUiBridge::phraseSuggestions() const { return m_phraseSuggestions; }
+
+void KeyboardUiBridge::setPhraseSuggestions(bool enabled)
+{
+    if (m_phraseSuggestions == enabled) return;
+    m_phraseSuggestions = enabled;
+    m_typingEngine.setPhraseSuggestionsEnabled(enabled);
+    persistPreference(QStringLiteral("phraseSuggestions"), enabled);
+    Q_EMIT typingPreferencesChanged();
+    Q_EMIT suggestionsChanged();
+}
 
 void KeyboardUiBridge::setNextWordSuggestions(bool enabled)
 {
@@ -822,6 +856,12 @@ void KeyboardUiBridge::setBlockOffensive(bool enabled)
 
 void KeyboardUiBridge::forgetSuggestion(const QString &word)
 {
+    if (!word.isEmpty() && word == m_typingEngine.phraseSuggestion()) {
+        // A phrase: forget the habit, not its words.
+        m_typingEngine.forgetPhrase(word);
+        Q_EMIT suggestionsChanged();
+        return;
+    }
     m_typingEngine.forgetWord(word);
     Q_EMIT userWordsChanged();
     Q_EMIT suggestionsChanged();

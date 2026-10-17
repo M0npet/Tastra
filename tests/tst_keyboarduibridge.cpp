@@ -664,6 +664,50 @@ private Q_SLOTS:
         QVERIFY(!bridge.suggestions().contains(QStringLiteral("🍕")));
     }
 
+    void aPhraseHabitTakesTheLastChipAndCanBeForgotten()
+    {
+        FakeBackend backend;
+        Tastra::KeyboardController controller(backend);
+        Tastra::KeyboardModel model;
+        Tastra::KeyboardUiBridge bridge(controller, model);
+        bridge.clearLearnedWords();
+        bridge.setAutoCapitalizationEnabled(false);
+        bridge.setAutocorrectEnabled(false);
+        auto type = [&](const QString &text) {
+            for (const QChar ch : text) {
+                if (ch == QLatin1Char(' ')) bridge.space();
+                else if (ch.isLetter()) bridge.tapLetter(QString(ch));
+                else bridge.tapText(QString(ch));
+            }
+        };
+        type(QStringLiteral("see you soon. see you soon. see you soon. se"));
+        QCOMPARE(bridge.phraseSuggestion(), QStringLiteral("see you soon"));
+        QCOMPARE(bridge.phraseHeadLength(), 3);                    // "see", the rest dimmed
+        QCOMPARE(bridge.suggestions().last(), bridge.phraseSuggestion());
+        QVERIFY(bridge.suggestions().size() <= 3);
+        // Long-press: the habit goes, the words stay.
+        bridge.forgetSuggestion(bridge.phraseSuggestion());
+        QVERIFY(bridge.phraseSuggestion().isEmpty());
+        QVERIFY2(bridge.suggestions().contains(QStringLiteral("see")), qPrintable(bridge.suggestions().join(',')));
+
+        type(QStringLiteral("e you soon. see you soon. see you soon. see "));
+        QCOMPARE(bridge.phraseSuggestion(), QStringLiteral("you soon"));
+        QCOMPARE(bridge.phraseHeadLength(), 3);
+        backend.commits.clear();
+        bridge.selectSuggestion(bridge.phraseSuggestion());
+        QCOMPARE(backend.commits.join(QString()), QStringLiteral("you soon "));     // after "see "
+
+        // Settings -> Text correction -> Phrase suggestions, kept.
+        type(QStringLiteral(". see "));
+        QVERIFY(!bridge.phraseSuggestion().isEmpty());
+        bridge.setPhraseSuggestions(false);
+        QVERIFY(bridge.phraseSuggestion().isEmpty());
+        QVERIFY(!bridge.suggestions().contains(QStringLiteral("you soon")));
+        QCOMPARE(QSettings().value(QStringLiteral("phraseSuggestions")).toBool(), false);
+        Tastra::KeyboardUiBridge again(controller, model);
+        QVERIFY(!again.phraseSuggestions());
+    }
+
     void stripShowsTypedWordAndWhatSpaceWillInsert()
     {
         FakeBackend backend;

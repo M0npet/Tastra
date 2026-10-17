@@ -92,6 +92,9 @@ public:
     void setTouchOffsets(const QVector<QPointF> &offsets);
     // Gboard-style "remove suggestion": unlearn and never suggest it again.
     void forgetWord(const QString &word);
+    // Long-press on a phrase chip: `next` is no longer learned after `word`
+    // (both stay words of their own).
+    void forgetPair(const QString &word, const QString &next);
 
     void setLanguage(const QString &code);
     QString language() const;
@@ -105,6 +108,12 @@ public:
     // long unknown word cannot stall typing. Space uses bestCorrection().
     QString correctionPreview(const QString &word, const QString &previousWord = {}) const;
     QStringList nextWords(const QString &previousWord, int limit = 3) const;
+    // Gboard Smart Compose, as a chip in the strip: the words the user
+    // habitually types after `word` (typed at least three times, and at
+    // least 60 % of what followed that word), at most `maxWords`. Only the
+    // user's own pairs: on held-out text the bundled ones guessed the next
+    // word right in 30 % of offers (60-90 % only for a few pairs).
+    QStringList phraseAfter(const QString &word, int maxWords = 3) const;
     QString decodeGlide(const QStringList &trace, const QString &previousWord = {}) const;
     // Glide typing from the finger's path (root coordinates) and the key
     // centres of the current layout: SHARK2 / LatinIME-style comparison of the

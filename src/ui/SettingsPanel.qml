@@ -387,6 +387,13 @@ Flickable {
         }
 
         Row {
+            // Gboard "Smart Compose": the words you usually type next, as a chip.
+            width: parent.width; spacing: 12
+            Text { width: parent.width - phraseButton.width - parent.spacing; height: phraseButton.height; verticalAlignment: Text.AlignVCenter; text: qsTr("Phrase suggestions"); color: root.textColor; font.pixelSize: root.portrait ? 17 : 15; wrapMode: Text.WordWrap }
+            PanelButton { id: phraseButton; objectName: "phraseSuggestionsButton"; width: root.portrait ? 170 : 150; label: keyboardBridge.phraseSuggestions ? qsTr("On") : qsTr("Off"); onTriggered: keyboardBridge.setPhraseSuggestions(!keyboardBridge.phraseSuggestions) }
+        }
+
+        Row {
             width: parent.width; spacing: 12
             Text { width: parent.width - emojiSuggestButton.width - parent.spacing; height: emojiSuggestButton.height; verticalAlignment: Text.AlignVCenter; text: qsTr("Emoji suggestions"); color: root.textColor; font.pixelSize: root.portrait ? 17 : 15 }
             PanelButton { id: emojiSuggestButton; width: root.portrait ? 170 : 150; label: keyboardBridge.emojiSuggestionsEnabled ? qsTr("On") : qsTr("Off"); onTriggered: keyboardBridge.setEmojiSuggestionsEnabled(!keyboardBridge.emojiSuggestionsEnabled) }

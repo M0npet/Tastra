@@ -28,6 +28,10 @@ public:
     // Gboard "Next-word suggestions": predictions after a word (on by default).
     void setNextWordSuggestionsEnabled(bool enabled);
     bool nextWordSuggestionsEnabled() const { return m_nextWordSuggestions; }
+    // Gboard Smart Compose, as a chip in the strip: the words the user
+    // habitually types next (on by default).
+    void setPhraseSuggestionsEnabled(bool enabled);
+    bool phraseSuggestionsEnabled() const { return m_phraseSuggestions; }
     void setAutocorrectEnabled(bool enabled);
     void setLearningEnabled(bool enabled);
     void setAutoCapitalizationEnabled(bool enabled);
@@ -60,6 +64,13 @@ public:
     QString currentWord() const;
     QString previousWord() const;
     QStringList suggestions() const;
+    // The current word (or, after a Space, nothing) completed with the words
+    // the user habitually types next: "see you soon" while "se" is typed,
+    // "you soon" after "see ". Empty when there is no habit. Chosen with
+    // chooseSuggestion().
+    QString phraseSuggestion() const { return m_phraseSuggestion; }
+    // Long-press on the phrase chip: the pairs in it are forgotten.
+    void forgetPhrase(const QString &phrase);
 
     // touch: where the key was hit, relative to its centre in key sizes.
     void typeLetter(const QString &text, QPointF touch = {});
@@ -148,6 +159,8 @@ private:
     void prepareTextForGlidedWord();
     void replaceGlidedWord(const QString &word);
     void refreshSuggestions();
+    void refreshWordSuggestions();
+    void refreshPhraseSuggestion();
     bool replaceBeforeCursor(const QString &existing, const QString &replacement, bool allowUnconfirmed);
     void finalizeCurrentWord(bool updatePrevious = true);
     void observePunctuation(const QString &text);
@@ -191,6 +204,8 @@ private:
     QString m_wordBeforeGlide;
     bool m_suggestionsEnabled = true;
     bool m_nextWordSuggestions = true;
+    bool m_phraseSuggestions = true;
+    QString m_phraseSuggestion;
     bool m_autocorrectEnabled = true;
     bool m_learningEnabled = true;
     bool m_autoCapitalizationEnabled = true;

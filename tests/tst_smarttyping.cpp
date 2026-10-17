@@ -610,6 +610,101 @@ private Q_SLOTS:
         QVERIFY(!engine.suggestions().isEmpty());
     }
 
+    void thePhraseChipOffersTheUsersHabit()
+    {
+        // Gboard Smart Compose, as a chip: words the user habitually types
+        // after a word (at least three times, at least 60 % of what followed
+        // it) complete the current word, or follow a Space.
+        FakeBackend backend;
+        Tastra::KeyboardController controller(backend);
+        Tastra::TypingEngine engine(controller);
+        engine.setLanguage(QStringLiteral("en"));
+        engine.clearLearning();
+        composing(backend, engine);
+        engine.setAutoCapitalizationEnabled(false);
+        engine.setAutocorrectEnabled(false);
+        auto type = [&](const QString &words) {
+            for (const QString &word : words.split(QLatin1Char(' '))) {
+                for (const QChar ch : word) engine.typeLetter(QString(ch));
+                engine.space();
+            }
+        };
+        auto endSentence = [&] {
+            engine.typeText(QStringLiteral("."));
+            engine.space();
+        };
+        auto written = [&] { return backend.commits.join(QString()) + backend.preedit; };
+
+        type(QStringLiteral("see you soon"));
+        endSentence();
+        type(QStringLiteral("see you soon"));
+        endSentence();
+        type(QStringLiteral("see"));
+        QVERIFY2(engine.phraseSuggestion().isEmpty(), qPrintable(engine.phraseSuggestion()));   // twice is no habit
+        type(QStringLiteral("you soon"));
+        endSentence();
+
+        // While typing: the word completed and the habit after it.
+        engine.typeLetter(QStringLiteral("s"));
+        engine.typeLetter(QStringLiteral("e"));
+        QCOMPARE(engine.phraseSuggestion(), QStringLiteral("see you soon"));
+        backend.commits.clear();
+        engine.chooseSuggestion(engine.phraseSuggestion());
+        QCOMPARE(written(), QStringLiteral("see you soon "));
+        QCOMPARE(engine.previousWord(), QStringLiteral("soon"));
+        QVERIFY(engine.phraseSuggestion().isEmpty());              // nothing after "soon"
+        endSentence();
+
+        // After a Space: two words or more.
+        type(QStringLiteral("see"));
+        QCOMPARE(engine.phraseSuggestion(), QStringLiteral("you soon"));
+        backend.commits.clear();
+        engine.chooseSuggestion(engine.phraseSuggestion());
+        QCOMPARE(written(), QStringLiteral(" you soon "));
+        endSentence();
+        type(QStringLiteral("you"));
+        QVERIFY2(engine.phraseSuggestion().isEmpty(), qPrintable(engine.phraseSuggestion()));   // one word: the strip has it
+        endSentence();
+
+        // Not at the start of a sentence: "soon. See" is no habit of "soon".
+        type(QStringLiteral("see you"));
+        QVERIFY(engine.phraseSuggestion().isEmpty());
+        endSentence();
+
+        // Not in password fields, not when switched off.
+        engine.typeLetter(QStringLiteral("s"));
+        engine.typeLetter(QStringLiteral("e"));
+        QVERIFY(!engine.phraseSuggestion().isEmpty());
+        engine.setPhraseSuggestionsEnabled(false);
+        QVERIFY(engine.phraseSuggestion().isEmpty());
+        engine.setPhraseSuggestionsEnabled(true);
+        QVERIFY(!engine.phraseSuggestion().isEmpty());
+        engine.setSensitiveContext(true);
+        QVERIFY(engine.phraseSuggestion().isEmpty());
+        engine.setSensitiveContext(false);
+        engine.space();
+        endSentence();
+
+        // A habit of two different continuations is none.
+        for (int i = 0; i < 6; ++i) {
+            type(i % 2 ? QStringLiteral("call them later") : QStringLiteral("call you back"));
+            endSentence();
+        }
+        type(QStringLiteral("call"));
+        QVERIFY2(engine.phraseSuggestion().isEmpty(), qPrintable(engine.phraseSuggestion()));
+        endSentence();
+
+        // Long-press forgets the habit, not the words.
+        type(QStringLiteral("see"));
+        QCOMPARE(engine.phraseSuggestion(), QStringLiteral("you soon"));
+        engine.forgetPhrase(engine.phraseSuggestion());
+        QVERIFY(engine.phraseSuggestion().isEmpty());
+        engine.typeLetter(QStringLiteral("s"));
+        engine.typeLetter(QStringLiteral("o"));
+        QVERIFY(engine.phraseSuggestion().isEmpty());
+        QVERIFY2(engine.suggestions().contains(QStringLiteral("soon")), qPrintable(engine.suggestions().join(',')));
+    }
+
     void aNewSentenceHasNoPreviousWord()
     {
         // LatinIME: after a sentence ends the context is the beginning of a

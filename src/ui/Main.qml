@@ -48,6 +48,13 @@ Rectangle {
         return tinted ? Qt.tint(base, Qt.rgba(themeTint.r, themeTint.g, themeTint.b, amount)) : base
     }
     function overPhoto(c, alpha) { return photoTheme ? Qt.rgba(c.r, c.g, c.b, alpha) : c }
+    function escapeMarkup(text) {
+        return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
+    }
+    function phraseMarkup(phrase, headLength) {
+        return escapeMarkup(phrase.slice(0, headLength)) + "<font color=\"" + secondaryTextColor
+            + "\">" + escapeMarkup(phrase.slice(headLength)) + "</font>"
+    }
     readonly property color backgroundColor: tintOf(lightTheme ? "#e8eaed" : amoledTheme ? "#000000" : "#202124", amoledTheme ? 0 : 0.28)
     readonly property color panelColor: tintOf(lightTheme ? "#f1f3f4" : amoledTheme ? "#080808" : "#292a2d", amoledTheme ? 0.05 : 0.18)
     readonly property color keyColor: overPhoto(tintOf(lightTheme ? "#ffffff" : amoledTheme ? "#171717" : "#3c4043", lightTheme ? 0.06 : 0.2), 0.72)
@@ -794,9 +801,16 @@ Rectangle {
                             anchors.centerIn: parent
                             width: parent.width - 12
                             horizontalAlignment: Text.AlignHCenter
+                            // A phrase (Gboard Smart Compose): the words after its
+                            // first one are dimmed, like Gboard's grey completion.
+                            readonly property bool phrase: modelData.length > 0
+                                && modelData === keyboardBridge.phraseSuggestion
+                            objectName: phrase ? "phraseChip" : ""
+                            textFormat: phrase ? Text.StyledText : Text.PlainText
                             // Gboard: the typed word is quoted when Space would correct it; the
                             // correction itself is bold.
-                            text: (keyboardBridge.autocorrectSuggestion.length > 0 || keyboardBridge.typedWordUnknown)
+                            text: phrase ? root.phraseMarkup(modelData, keyboardBridge.phraseHeadLength)
+                                : (keyboardBridge.autocorrectSuggestion.length > 0 || keyboardBridge.typedWordUnknown)
                                 && modelData === keyboardBridge.currentWord
                                 ? "\u201C" + modelData + "\u201D" : modelData
                             elide: Text.ElideRight

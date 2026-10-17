@@ -1130,6 +1130,18 @@ void LocalLexicon::forgetWord(const QString &word)
     flushLearning();
 }
 
+void LocalLexicon::forgetPair(const QString &word, const QString &next)
+{
+    const QString w = normalize(word);
+    const QString n = normalize(next);
+    if (w.isEmpty() || n.isEmpty()) return;
+    adoptLoadedData();
+    if (m_bigramFrequency.remove(bigramKey(w, n)) == 0) return;
+    m_learnedFollowersValid = false;
+    ++m_unsavedLearning;
+    flushLearning();
+}
+
 int LocalLexicon::frequencyRank(const QString &word) const
 {
     if (!m_data) return 0;
@@ -1705,6 +1717,32 @@ QStringList LocalLexicon::nextWords(const QString &previousWord, int limit) cons
         if (!result.contains(form, Qt::CaseInsensitive)) result.append(form);
     }
     return result;
+}
+
+QStringList LocalLexicon::phraseAfter(const QString &word, int maxWords) const
+{
+    constexpr int HabitCount = 3;        // typed at least three times
+    constexpr double HabitShare = 0.6;   // and most of what followed the word
+    QStringList phrase;
+    QString current = normalize(word);
+    if (current.isEmpty() || maxWords <= 0) return phrase;
+    adoptLoadedData();
+    QSet<QString> seen{current};
+    while (phrase.size() < maxWords) {
+        int total = 0, top = 0;
+        QString next;
+        for (const QString &candidate : learnedFollowers(current)) {
+            const int n = m_bigramFrequency.value(bigramKey(current, candidate));
+            total += n;
+            if (n > top || (n == top && candidate < next)) { top = n; next = candidate; }
+        }
+        if (top < HabitCount || top < total * HabitShare || !suggestible(next) || seen.contains(next)) break;
+        seen.insert(next);
+        const QString capital = englishCapitalForm(next);
+        phrase.append(capital.isEmpty() ? dictionaryForm(next) : capital);
+        current = next;
+    }
+    return phrase;
 }
 
 const QStringList &LocalLexicon::learnedFollowers(const QString &previousWord) const
