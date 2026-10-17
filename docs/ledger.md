@@ -1920,3 +1920,32 @@ valid word (2000 frequent, ~700 rare) is changed: 0 throughout.
   version does not know are dropped; settings is always there (it is the way
   back to the choice). Gradients and a photo exclude each other.
 
+## 2026-10-17 — 0.7.17 phrase chip, Morse code
+
+- Phrase completion: measured first on held-out text with the bundled word
+  pairs: the predicted next word was right in about 30 % of the offers
+  (60–90 % only for a handful of pairs), too often wrong for a chip that
+  types several words. So only the user's own pairs count, and only a habit:
+  typed at least three times and at least 60 % of what followed the word.
+  While typing, the first strip candidate with a habit is completed; after a
+  Space only habits of two words or more (one word is the next-word chip).
+  Not inside a word, after a glide, across a sentence, with a wrong-layout
+  or re-correction offer, in password fields. Long-press removes the pairs
+  of the phrase, not its words.
+- Tested on the GTK and Firefox client models (at the end, before a period,
+  composing and not) and with 30 random sessions per model of whole words
+  from a small vocabulary with the chip taken whenever offered (>50 phrases
+  each).
+- Morse: Gboard Help "Write in Morse code" (read 2026-10-17) documents the
+  dot and dash keys, Character timeout ("Never": Space sends), Word timeout
+  (off by default) and normal correction; its default character timeout is
+  not documented, 0.8 s here. Tables: Wikipedia "Morse code" (ITU-R
+  M.1677-1 and the usual non-ITU marks), "Morse code for non-Latin
+  alphabets" (Russian, Ukrainian), DARC page by DK5KE for German (ä ö ü ch;
+  ß has no sign). Ukrainian ґ, Russian ъ and ё have no sign in those tables.
+- The Morse layout is a letter layout of each language, so the choice is
+  kept per language, the lexicon keeps the language's first rows, and the
+  symbol page and bottom row are unchanged. The bridge unit test has no
+  event loop (QTEST_APPLESS_MAIN), so the timeouts are tested in the QML
+  test.
+- Checks: 23/23, ASan + UBSan 23/23.

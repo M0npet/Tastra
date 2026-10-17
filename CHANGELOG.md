@@ -4,6 +4,20 @@ Version numbers were reset on 2026-10-05: the project is about half-way to a
 finished keyboard, so the builds that were numbered 0.5.0–1.4.0 are now the
 internal builds 0.4.1–0.4.13, and the current state is 0.5.0.
 
+## 0.7.17
+- Phrase suggestions (Gboard Smart Compose, as a chip in the strip): the
+  words you habitually type after a word (three times or more, and most of
+  the time) complete the word being typed ("se" → "see you soon") or follow
+  a Space ("see " → "you soon"). The words after the first are dimmed; a tap
+  types the whole phrase, a long-press forgets the habit. Only your own
+  habits: the bundled word pairs guessed right too rarely (about 30 %).
+  Settings → Text correction → Phrase suggestions.
+- Morse code (Gboard's Morse layout): Settings → Letter layout → Morse code,
+  for English, German, Russian and Ukrainian (Gboard: English only). A big
+  dot and dash key; a pause (0.8 s, adjustable, or Never) or Space types the
+  sign, an optional word pause adds the space; the strip shows what the
+  keyed dots and dashes type and what they can still become.
+
 ## 0.7.16
 - Settings → Toolbar: choose which features sit on the toolbar (clipboard,
   emoji, text editing, resize, one-handed mode, settings) and move them up;

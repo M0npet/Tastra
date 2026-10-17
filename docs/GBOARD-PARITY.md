@@ -14,7 +14,8 @@ Sources (read 2026-10-08): the Gboard Help Center articles
 [Writing tools](https://support.google.com/gboard/answer/16515540),
 [Handwriting](https://support.google.com/gboard/answer/9108773),
 [Morse code](https://support.google.com/gboard/answer/9011881),
-[Languages](https://support.google.com/gboard/answer/7068494); Android Police
+[Languages](https://support.google.com/gboard/answer/7068494) (Morse code
+re-read 2026-10-17); Android Police
 (Oct 2025) on Preferences; Androidsis (Sep 2025) on gestures; AlternativeTo
 (Aug 2023) on Resize; AOSP LatinIME for behaviour details.
 
@@ -36,7 +37,7 @@ offline alternative is named where one exists).
 | Personal dictionary with shortcuts | ✅ |
 | Learning, "Delete learned words" | ✅ |
 | Multilingual typing (several languages at once) | ✅ (en, de, ru, uk) |
-| Smart Compose (inline sentence completion, US English) | ❌ planned as phrase chips in the strip |
+| Smart Compose (inline sentence completion, US English) | ✅ 0.7.17 as a chip in the strip, from the user's own habits (all four languages); not inline in the app: an input method on KWin cannot draw into the field (a preedit would be typed text) |
 | Spell check underline in apps, "Add to dictionary" from it | 🚫 an input method on KWin cannot mark text in apps |
 | Grammar check | ☁️ |
 | Proofread "Fix it" (network) | ☁️ |
@@ -68,9 +69,9 @@ offline alternative is named where one exists).
 | Floating keyboard | 🚫 KWin places the panel |
 | Resize: drag the height, choose the width | ✅ 0.7.15: toolbar ⇕, drag the bar, Reset, ✓ (width: the one-handed and split layouts) |
 | Field types: number pad, phone, e-mail `@` `.com`, URL | ✅ |
-| Layout choice per language (QWERTY, QWERTZ, AZERTY, Dvorak, Colemak, PC) | ✅ 0.7.14 for English (QWERTY, QWERTZ, AZERTY, Dvorak, Colemak) and German (QWERTZ, QWERTY); PC layout ❌; Russian and Ukrainian have ЙЦУКЕН only |
+| Layout choice per language (QWERTY, QWERTZ, AZERTY, Dvorak, Colemak, PC) | ✅ 0.7.14 for English (QWERTY, QWERTZ, AZERTY, Dvorak, Colemak) and German (QWERTZ, QWERTY); PC layout ❌; Russian and Ukrainian have ЙЦУКЕН (and Morse) only |
 | Show emoji switch key / language switch key | ✅ 0.7.14 (one or the other next to the comma, as on Gboard) |
-| Morse code layout | ❌ |
+| Morse code layout | ✅ 0.7.17 (English, German, Russian, Ukrainian; character and word timeout; the strip shows what the code can still become); key repeat on hold ❌ |
 | Handwriting layout | ❌ no light offline recogniser chosen yet |
 | More languages | 🟡 4 of Gboard's hundreds; more need dictionaries + frequency lists |
 
@@ -114,13 +115,11 @@ Done: gesture delete with selection, smart paste of parts (0.7.13); voice
 commands, emoji / language switch key, comma menu, letter layouts (0.7.14).
 
 Colour and photo themes, resize (0.7.15). Toolbar choice and order,
-gradients (0.7.16).
+gradients (0.7.16). Phrase chip, Morse code (0.7.17).
 
-1. Phrase completion in the strip (Smart Compose-like).
-2. Clipboard images.
-3. Morse code.
-4. Voice: detailed edits ("change X to Y", "insert X after Y").
-5. Handwriting (find an offline recogniser first).
-6. More languages; more layouts (PC, Russian phonetic).
-7. Offline translation (Bergamot), if its size is acceptable.
-8. Haptic feedback, if the tablet has a vibration motor.
+1. Clipboard images.
+2. Voice: detailed edits ("change X to Y", "insert X after Y").
+3. Handwriting (find an offline recogniser first).
+4. More languages; more layouts (PC, Russian phonetic).
+5. Offline translation (Bergamot), if its size is acceptable.
+6. Haptic feedback, if the tablet has a vibration motor.
