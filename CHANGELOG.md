@@ -4,6 +4,19 @@ Version numbers were reset on 2026-10-05: the project is about half-way to a
 finished keyboard, so the builds that were numbered 0.5.0–1.4.0 are now the
 internal builds 0.4.1–0.4.13, and the current state is 0.5.0.
 
+## 0.7.19
+- Six more languages: Spanish, French, Italian, Portuguese, Polish and Dutch,
+  turned on in Settings → Languages (English, German, Ukrainian and Russian
+  stay on by default). Gboard's layouts (Spanish with ñ, French AZERTY with
+  an apostrophe key, or QWERTY), the accented letters on a long press, word
+  completion and next-word suggestions from bundled lists, emoji names and
+  the offensive-word filter. Autocorrect on Space needs the language's
+  Hunspell dictionary: `tastra-dictionaries` installs it for the languages
+  turned on. Morse code types the plain Latin letters there; voice commands
+  stay English, German, Russian and Ukrainian.
+- The strip also offers the accented form of what was typed when that is a
+  word ("tres" → "très", "esta" → "está", "fur" → "für").
+
 ## 0.7.18
 - Copied images and screenshots in the clipboard, as on Gboard: a chip with
   the picture in the strip right after copying, the pictures in the

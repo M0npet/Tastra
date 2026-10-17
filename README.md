@@ -6,7 +6,7 @@ Electron or browser engine), fully offline, light on memory. English, German,
 Ukrainian and Russian; Spanish, French, Italian, Portuguese, Polish and Dutch
 can be turned on in Settings → Languages. GPL-3.0-or-later (see `COPYING`).
 
-Status: **0.7.18, in development**. Version 1.0 means everything Gboard
+Status: **0.7.19, in development**. Version 1.0 means everything Gboard
 does, as far as it can be done offline on KWin; what is done and what is
 missing is listed in `docs/GBOARD-PARITY.md`. Checking on the device:
 `docs/TEST-PLAN.md` (a short first test in Russian: `docs/FIRST-TEST.ru.md`).

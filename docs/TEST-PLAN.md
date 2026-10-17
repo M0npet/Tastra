@@ -117,3 +117,6 @@ keyboard. On any problem send `~/.local/state/tastra/trace.log`.
 ## P. Clipboard images, voice edits (0.7.18)
 79. Take a screenshot with Spectacle and copy it (Ctrl+C), open a chat in Firefox (e.g. a web messenger that accepts pasted images) and the keyboard: the strip shows a chip with the picture; tap it: the image is pasted. Copy some text, open the clipboard panel: the screenshot is listed as a picture; tap it: pasted again. Long-press pins it; after a restart it is still there. In Kate (plain text) a tap pastes nothing, and nothing breaks.
 80. Voice input (if set up), in Kate: dictate `See you tomorrow at the station.`, then say `Change tomorrow to today`: `today`; `Insert main before station`; `Delete today`; `Capitalize station`. Say `Change Monday to Friday` (not in the text): it is typed as words. In Russian: `Замени станция на вокзал`. In a form, `Next`: the next field.
+
+## Q. More languages (0.7.19)
+81. Settings → Languages: turn on Español and Français; run `tastra-dictionaries`. Long-press the globe: both are listed. Spanish: the ñ key, `cancion` + Space → `canción`, `graci` offers `gracias`; long-press `a`: á à ä â. French: AZERTY with an apostrophe key, `cest` + Space → `c'est`, `tres` → `très`; Settings → Letter layout offers QWERTY. Turn them off again: the globe goes back to the four.

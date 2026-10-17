@@ -1976,3 +1976,32 @@ valid word (2000 frequent, ~700 rare) is changed: 0 throughout.
   (X up to five words), and "add"/"remove" are no command verbs. The edit
   retypes only what follows the first changed character.
 - Checks: 23/23, ASan + UBSan 23/23.
+
+## 2026-10-17 — 0.7.19 six more languages
+
+- Chosen: Spanish, French, Italian, Portuguese, Polish, Dutch (large
+  Gboard languages with Latin letters and open data). Handwriting stays open:
+  Zinnia (BSD) has no Latin or Cyrillic model, the one Latin/Cyrillic HTR
+  model found (gigapdf-ocr-handwriting) is PolyForm Noncommercial, and TrOCR
+  (MIT) is English-only and large. A PC layout was not added: its rows could
+  not be checked against the AOSP source from here.
+- Data per language (tools/import-language.py): FrequencyWords 50k; the
+  subtitle lists leave accents out ("tambien" was listed and blocked the
+  correction to "también"), so forms under 10 % of the accented word's
+  wordfreq frequency went (453 es, 473 fr, 668 it, 306 pt, 449 pl, 54 nl;
+  "esta"/"está" both stay). Subtitles quote English: words ten times more
+  common in English went unless the LibreOffice Hunspell dictionary knows
+  them (Spanish "has", "come", "date" stay). French elisions (c'est, j'ai)
+  from Common Voice counts. Word pairs from Common Voice only (UD treebank
+  licences were not checked for these languages; Spanish has few
+  non-Wikipedia sentences: 7.5k pairs).
+- Autocorrect needs Hunspell (design since 0.6: without a dictionary a
+  word cannot be known to be wrong). Checked with the LibreOffice
+  dictionaries in a test that runs when TASTRA_HUNSPELL_DIR is set:
+  cancion → canción, perche → perché, nao → não, prosze → proszę,
+  ideeen → ideeën, graicas → gracias; esta, ciao, jest stay. Without
+  Hunspell, the strip offers the accented word.
+- The six are off by default (the language key would otherwise cycle
+  through ten); a client's language hint switches only to languages that
+  are on.
+- Checks: 23/23, ASan + UBSan 23/23; the Hunspell test locally 20/20.

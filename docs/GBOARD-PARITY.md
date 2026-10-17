@@ -117,9 +117,11 @@ commands, emoji / language switch key, comma menu, letter layouts (0.7.14).
 
 Colour and photo themes, resize (0.7.15). Toolbar choice and order,
 gradients (0.7.16). Phrase chip, Morse code (0.7.17). Clipboard images,
-detailed voice edits (0.7.18).
+detailed voice edits (0.7.18). Six more languages (0.7.19).
 
-1. Handwriting (find an offline recogniser first).
+1. Handwriting: no usable offline recogniser yet (checked 2026-10-17: Zinnia
+   has no Latin/Cyrillic model; gigapdf-ocr-handwriting is non-commercial;
+   TrOCR is English-only and large).
 2. More languages; more layouts (PC, Russian phonetic).
 3. Offline translation (Bergamot), if its size is acceptable.
 4. Haptic feedback, if the tablet has a vibration motor.
