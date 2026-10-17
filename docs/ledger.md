@@ -1949,3 +1949,30 @@ valid word (2000 frequent, ~700 rare) is changed: 0 throughout.
   event loop (QTEST_APPLESS_MAIN), so the timeouts are tested in the QML
   test.
 - Checks: 23/23, ASan + UBSan 23/23.
+
+## 2026-10-17 — 0.7.18 clipboard images, voice edits
+
+- Clipboard images: with no text on the clipboard the data-control reader
+  takes the first of image/png, jpeg, webp, gif, bmp (24 MB at most, 8 s).
+  Gboard pastes an image into the app with commitContent; text-input-v3 has
+  no such request, so the image goes on the clipboard (data control) and
+  Ctrl+V is sent through fake input. Both go over the keyboard's own
+  Wayland connection in that order, so KWin sets the selection before the
+  key reaches the application. Without fake input (or in password fields)
+  images are shown but not pasted.
+- Privacy as for text: unpinned images only in memory (five at most, an
+  hour), a pinned one as a file named by its SHA-1 in the data folder,
+  removed when unpinned, deleted or cleared; a pin whose file is gone is
+  dropped. Thumbnails are decoded by an image provider at the size shown.
+- The keyboard's own image is written to the reader as the reader takes it
+  (the 0.5 s blocking text writer would cut a screenshot off); tested with
+  300 KB through the in-process compositor, where both ends share a thread.
+- Voice edits: Gboard Help "Use advanced voice typing features" (read
+  2026-10-17) lists Insert … before / at the end, Delete …, Change … to …,
+  Spell … as …, Capitalize …, Undo, Clear all (English US, Pixel 8) and
+  "Next" for the next field. Here the same in four languages, on the text
+  the keyboard knows before the cursor. Guards against dictation that
+  starts like a command: the words must be there, the phrases are short
+  (X up to five words), and "add"/"remove" are no command verbs. The edit
+  retypes only what follows the first changed character.
+- Checks: 23/23, ASan + UBSan 23/23.

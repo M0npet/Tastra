@@ -10,7 +10,7 @@ Sources (read 2026-10-08): the Gboard Help Center articles
 [Copy & paste sections of text](https://support.google.com/gboard/answer/10742542),
 [Theme, sound, vibration](https://support.google.com/gboard/answer/6102154),
 [Slide to type](https://support.google.com/gboard/answer/2811346),
-[Advanced voice typing](https://support.google.com/gboard/answer/11197787),
+[Advanced voice typing](https://support.google.com/gboard/answer/11197787) (re-read 2026-10-17),
 [Writing tools](https://support.google.com/gboard/answer/16515540),
 [Handwriting](https://support.google.com/gboard/answer/9108773),
 [Morse code](https://support.google.com/gboard/answer/9011881),
@@ -83,7 +83,7 @@ offline alternative is named where one exists).
 | GIFs, stickers, Bitmoji, Emoji Kitchen | ☁️ |
 | Clipboard history, pin, expiry, chip with the last copy | ✅ |
 | Smart paste of parts (e-mail, URL, phone, number, date from a copied text) | ✅ 0.7.13 (also times; postal addresses ❌, Gboard has them in some countries only) |
-| Images and screenshots in the clipboard | ❌ (possible: put the image on the clipboard and send Ctrl+V) |
+| Images and screenshots in the clipboard | ✅ 0.7.18: chip and panel with the pictures, pins; pasted by putting the image on the clipboard and sending Ctrl+V (KWin fake input), so only where the application accepts pasted images |
 | Text editing panel (arrows, select, select all, copy, cut, paste, undo, redo) | ✅ |
 | Toolbar: choose and arrange its buttons | ✅ 0.7.16 (Settings → Toolbar; also a one-handed button) |
 | Translate | ☁️ (an offline alternative exists: Firefox Translations / Bergamot models; large) |
@@ -95,7 +95,8 @@ offline alternative is named where one exists).
 | Gboard | Tastra |
 |---|---|
 | Voice typing | ✅ optional, offline (whisper.cpp) |
-| Voice commands: "delete last word", "clear", "clear all", "send", "new line", "undo", emoji by voice, spoken punctuation | ✅ 0.7.14 in en/de/ru/uk (offline, on the recognised text); "stop" is not needed: recording ends with the mic key; detailed edits ("change X to Y") ❌ |
+| Voice commands: "delete last word", "clear", "clear all", "send", "new line", "undo", emoji by voice, spoken punctuation | ✅ 0.7.14 in en/de/ru/uk (offline, on the recognised text); "stop" is not needed: recording ends with the mic key |
+| Detailed voice edits: "change X to Y", "delete X", "insert X before Y / at the end", "spell X as …", "capitalize X"; "next" (next field) | ✅ 0.7.18 in en/de/ru/uk (Gboard: English US, Pixel 8+), on the text before the cursor |
 | Auto punctuation | ✅ (whisper writes it) |
 | Rambler, sign-to-text, "Fix it" by voice | ☁️ |
 
@@ -115,11 +116,10 @@ Done: gesture delete with selection, smart paste of parts (0.7.13); voice
 commands, emoji / language switch key, comma menu, letter layouts (0.7.14).
 
 Colour and photo themes, resize (0.7.15). Toolbar choice and order,
-gradients (0.7.16). Phrase chip, Morse code (0.7.17).
+gradients (0.7.16). Phrase chip, Morse code (0.7.17). Clipboard images,
+detailed voice edits (0.7.18).
 
-1. Clipboard images.
-2. Voice: detailed edits ("change X to Y", "insert X after Y").
-3. Handwriting (find an offline recogniser first).
-4. More languages; more layouts (PC, Russian phonetic).
-5. Offline translation (Bergamot), if its size is acceptable.
-6. Haptic feedback, if the tablet has a vibration motor.
+1. Handwriting (find an offline recogniser first).
+2. More languages; more layouts (PC, Russian phonetic).
+3. Offline translation (Bergamot), if its size is acceptable.
+4. Haptic feedback, if the tablet has a vibration motor.

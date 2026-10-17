@@ -4,6 +4,19 @@ Version numbers were reset on 2026-10-05: the project is about half-way to a
 finished keyboard, so the builds that were numbered 0.5.0–1.4.0 are now the
 internal builds 0.4.1–0.4.13, and the current state is 0.5.0.
 
+## 0.7.18
+- Copied images and screenshots in the clipboard, as on Gboard: a chip with
+  the picture in the strip right after copying, the pictures in the
+  clipboard panel (long-press pins one, kept on disk; the others only in
+  memory, at most five, for an hour). A tap puts the image on the clipboard
+  and the application pastes it itself (Ctrl+V through KWin's fake input),
+  so it works where the application accepts pasted images.
+- Gboard's detailed voice edits, in English, German, Russian and Ukrainian
+  (Gboard: English only): "change X to Y", "delete X", "insert X before Y"
+  (or after Y, or at the end), "capitalize X", "spell X as K A T Y", and
+  "next" for the next field. They act on the last X before the cursor; if X
+  is not there, what was said is typed.
+
 ## 0.7.17
 - Phrase suggestions (Gboard Smart Compose, as a chip in the strip): the
   words you habitually type after a word (three times or more, and most of
