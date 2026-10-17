@@ -13,6 +13,7 @@
 #include "core/keyboardcontroller.h"
 #include "core/locallexicon.h"
 #include "core/typingengine.h"
+#include "core/voicecommands.h"
 #include "glidepaths.h"
 #include "textinputclient.h"
 
@@ -357,6 +358,37 @@ private Q_SLOTS:
         QCOMPARE(s.client.visible(), QStringLiteral("Hello world. Bye\n"));
         s.act([&] { s.engine.deleteKnownText(); });
         QCOMPARE(s.client.visible(), QString());
+        QCOMPARE(s.client.badDeletes, 0);
+    }
+
+    // Gboard's detailed voice edits on the modelled clients: only the part
+    // after the edit is retyped, nothing is left over or doubled.
+    void voiceEditsChangeTheTextBeforeTheCursor_data() { echoModes_data(); }
+    void voiceEditsChangeTheTextBeforeTheCursor()
+    {
+        QFETCH(int, echo);
+        Session s{static_cast<TextInputClient::Echo>(echo)};
+        auto edit = [&](const char *said) {
+            s.act([&] {
+                const auto edited = Tastra::applyVoiceEdit(s.engine.knownTextBeforeCursor(),
+                                                           Tastra::parseVoiceCommand(QString::fromUtf8(said)));
+                QVERIFY(edited);
+                s.engine.replaceKnownText(*edited);
+            });
+        };
+        s.act([&] { s.engine.insertDictation(QStringLiteral("See you tomorrow at the station.")); });
+        edit("Change tomorrow to today.");
+        QCOMPARE(s.client.visible(), QStringLiteral("See you today at the station. "));
+        edit("Insert main before station");
+        QCOMPARE(s.client.visible(), QStringLiteral("See you today at the main station. "));
+        edit("Delete today");
+        QCOMPARE(s.client.visible(), QStringLiteral("See you at the main station. "));
+        // Typing goes on after it (capitals come from the keyboard's Shift state, not here).
+        s.type(QStringLiteral("ok "));
+        QCOMPARE(s.client.visible(), QStringLiteral("See you at the main station. ok "));
+        s.act([&] { s.engine.insertDictation(QStringLiteral("bye now")); });
+        edit("Capitalize now.");
+        QCOMPARE(s.client.visible(), QStringLiteral("See you at the main station. ok bye Now "));
         QCOMPARE(s.client.badDeletes, 0);
     }
 

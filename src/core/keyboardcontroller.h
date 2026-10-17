@@ -23,6 +23,7 @@ public:
     void moveEnd();
     void moveUp();
     void moveDown();
+    void tab();
     void enter();
     bool deleteBeforeCursor(const QString &text);
     bool deleteAroundCursor(const QString &before, const QString &after);

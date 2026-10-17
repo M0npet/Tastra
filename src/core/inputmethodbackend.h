@@ -22,6 +22,8 @@ public:
     virtual void enter() = 0;
     virtual void moveUp() {}
     virtual void moveDown() {}
+    // The Tab key (the voice command "next": the next field).
+    virtual void tab() {}
 
     // Deletes `text`, which must be exactly the text before the cursor, via
     // the same channel as commitText(). Returns false when the backend or the

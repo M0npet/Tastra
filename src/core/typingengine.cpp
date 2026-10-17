@@ -262,6 +262,26 @@ void TypingEngine::deleteKnownText()
     afterVoiceDeletion();
 }
 
+QString TypingEngine::knownTextBeforeCursor()
+{
+    commitComposition();
+    if (m_currentWord.size()) finalizeCurrentWord();
+    return m_model;
+}
+
+void TypingEngine::replaceKnownText(const QString &edited)
+{
+    commitComposition();
+    qsizetype shared = 0;
+    while (shared < m_model.size() && shared < edited.size() && m_model.at(shared) == edited.at(shared)) ++shared;
+    const QString existing = m_model.mid(shared);
+    const QString replacement = edited.mid(shared);
+    if (existing.isEmpty() && replacement.isEmpty()) return;
+    if (existing.isEmpty()) commitLocal(replacement);
+    else replaceBeforeCursor(existing, replacement, true);
+    afterVoiceDeletion();
+}
+
 void TypingEngine::afterVoiceDeletion()
 {
     m_currentWord.clear();

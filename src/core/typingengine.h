@@ -95,6 +95,11 @@ public:
     void deleteLastSentence();
     void deleteKnownText();
     void insertLineBreak(const QString &breakText);
+    // Gboard's detailed voice edits: the text this keyboard knows before the
+    // cursor (after committing the composition), and that text replaced by
+    // `edited` (only the part after what they share is retyped).
+    QString knownTextBeforeCursor();
+    void replaceKnownText(const QString &edited);
     // Commits whatever is held in the preedit as-is (before cursor moves,
     // paste, language switch). resetComposition() instead drops it.
     void commitComposition();

@@ -43,6 +43,7 @@ public:
     void moveEnd() override;
     void moveUp() override;
     void moveDown() override;
+    void tab() override;
     void enter() override;
     bool deleteBeforeCursor(const QString &text) override;
     bool deleteAroundCursor(const QString &before, const QString &after) override;

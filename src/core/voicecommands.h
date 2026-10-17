@@ -4,6 +4,8 @@
 
 #include <QString>
 
+#include <optional>
+
 namespace Tastra
 {
 
@@ -21,12 +23,29 @@ struct VoiceCommand {
         NewLine,         // "new line" / "new paragraph": `argument` is the break
         Undo,            // "undo"
         Emoji,           // "smiley emoji": `argument` is what to look up
+        NextField,       // "next": the next field (Tab)
+        // Gboard's detailed edits (English there; all four languages here),
+        // on the text before the cursor; `argument` is the words to find.
+        ReplaceText,     // "change X to Y": `second` is Y
+        DeleteText,      // "delete X"
+        InsertBefore,    // "insert X before Y": `argument` X, `second` Y
+        InsertAfter,     // "insert X after Y"
+        InsertAtEnd,     // "insert X at the end"
+        Capitalize,      // "capitalize X"
+        Spell,           // "spell X as K A T Y": `second` the letters
     };
     Kind kind = None;
     QString argument;
+    QString second;
 };
 
 VoiceCommand parseVoiceCommand(const QString &utterance);
+
+// A detailed edit applied to the text before the cursor: the whole new text,
+// or nothing when the words it refers to are not there (then the utterance
+// was dictation after all). The last occurrence counts, as whole words,
+// whatever their case; a replacement takes the case of what it replaces.
+std::optional<QString> applyVoiceEdit(const QString &textBeforeCursor, const VoiceCommand &command);
 
 // The emoji people usually mean by a short spoken name ("heart" is ❤️, not
 // the first emoji with the keyword "heart"); empty for other names, which

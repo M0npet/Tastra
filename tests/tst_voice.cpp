@@ -84,6 +84,80 @@ private Q_SLOTS:
         QCOMPARE(kind("this is a long sentence about my favourite emoji"), VoiceCommand::None);
     }
 
+    void detailedEditsAreParsedAndApplied()
+    {
+        // Gboard's detailed edits (English only there): "change X to Y",
+        // "delete X", "insert X before Y" / "at the end", "capitalize X",
+        // "spell X as Y"; here also in German, Russian, Ukrainian.
+        auto parse = [](const char *said) { return parseVoiceCommand(QString::fromUtf8(said)); };
+        VoiceCommand c = parse("Change tomorrow to today.");
+        QCOMPARE(c.kind, VoiceCommand::ReplaceText);
+        QCOMPARE(c.argument, QStringLiteral("tomorrow"));
+        QCOMPARE(c.second, QStringLiteral("today"));
+        QCOMPARE(parse("Replace cat with dog").kind, VoiceCommand::ReplaceText);
+        c = parse("Замени «завтра» на «сегодня».");
+        QCOMPARE(c.kind, VoiceCommand::ReplaceText);
+        QCOMPARE(c.argument, QString::fromUtf8("завтра"));
+        QCOMPARE(c.second, QString::fromUtf8("сегодня"));
+        QCOMPARE(parse("Ersetze Hund durch Katze.").second, QStringLiteral("Katze"));
+        QCOMPARE(parse("Заміни кіт на пес").kind, VoiceCommand::ReplaceText);
+        c = parse("Delete really.");
+        QCOMPARE(c.kind, VoiceCommand::DeleteText);
+        QCOMPARE(c.argument, QStringLiteral("really"));
+        QCOMPARE(parse("Удали слово очень.").argument, QString::fromUtf8("очень"));
+        QCOMPARE(parse("Lösche wirklich").kind, VoiceCommand::DeleteText);
+        c = parse("Insert very before good.");
+        QCOMPARE(c.kind, VoiceCommand::InsertBefore);
+        QCOMPARE(c.argument, QStringLiteral("very"));
+        QCOMPARE(c.second, QStringLiteral("good"));
+        c = parse("Вставь очень после было.");
+        QCOMPARE(c.kind, VoiceCommand::InsertAfter);
+        QCOMPARE(parse("Füge sehr vor gut ein.").second, QStringLiteral("gut"));
+        c = parse("Insert see you soon at the end.");
+        QCOMPARE(c.kind, VoiceCommand::InsertAtEnd);
+        QCOMPARE(c.argument, QStringLiteral("see you soon"));
+        QCOMPARE(parse("Capitalize monday.").kind, VoiceCommand::Capitalize);
+        QCOMPARE(parse("Напиши москва с большой буквы.").argument, QString::fromUtf8("москва"));
+        QCOMPARE(parse("Schreibe berlin groß.").kind, VoiceCommand::Capitalize);
+        c = parse("Spell Katie as K A T Y.");
+        QCOMPARE(c.kind, VoiceCommand::Spell);
+        QCOMPARE(c.second, QStringLiteral("K A T Y"));
+        QCOMPARE(parse("Next.").kind, VoiceCommand::NextField);
+        QCOMPARE(parse("Следующее поле").kind, VoiceCommand::NextField);
+        // Commands that already were, and dictation.
+        QCOMPARE(parse("Delete last word.").kind, VoiceCommand::DeleteLastWord);
+        QCOMPARE(parse("Delete all.").kind, VoiceCommand::ClearAll);
+        QCOMPARE(parse("Add salt after boiling.").kind, VoiceCommand::None);
+        QCOMPARE(parse("Remove the lid before use.").kind, VoiceCommand::None);
+        QCOMPARE(parse("Change is the only constant in life and we have to accept it to grow.").kind,
+                 VoiceCommand::None);                                               // too long for a command
+
+        // Applied to the text before the cursor; the last occurrence, whole
+        // words, in the case of what is replaced.
+        auto apply = [](const char *text, const char *said) {
+            return applyVoiceEdit(QString::fromUtf8(text), parseVoiceCommand(QString::fromUtf8(said)));
+        };
+        QCOMPARE(apply("See you tomorrow. ", "Change tomorrow to today."), QStringLiteral("See you today. "));
+        QCOMPARE(apply("Tomorrow is fine, tomorrow ", "change tomorrow to today"), QStringLiteral("Tomorrow is fine, today "));
+        QCOMPARE(apply("Hello there. ", "Change hello to hi"), QStringLiteral("Hi there. "));
+        QCOMPARE(apply("CALL ME ", "change call to ring"), QStringLiteral("RING ME "));
+        QVERIFY(!apply("Hello there. ", "Change bye to hi"));                       // not there: dictation
+        QVERIFY(!apply("cats ", "Change cat to dog"));                              // whole words only
+        QCOMPARE(apply("It was really really good ", "Delete really."), QStringLiteral("It was really good "));
+        QCOMPARE(apply("Well hello there ", "delete well"), QStringLiteral("Hello there "));
+        QCOMPARE(apply("Hi world. ", "Delete world"), QStringLiteral("Hi. "));
+        QCOMPARE(apply("It was good. ", "Insert very before good."), QStringLiteral("It was very good. "));
+        QCOMPARE(apply("Hello there ", "insert oh before hello"), QStringLiteral("Oh hello there "));
+        QCOMPARE(apply("I think so ", "insert well before I"), QStringLiteral("Well I think so "));
+        QCOMPARE(apply("Было хорошо ", "Вставь очень после было"), QString::fromUtf8("Было очень хорошо "));
+        QCOMPARE(apply("Done", "Insert thanks at the end."), QStringLiteral("Done thanks"));
+        QCOMPARE(apply("see you on monday ", "Capitalize monday."), QStringLiteral("see you on Monday "));
+        QCOMPARE(apply("в москва ", "Напиши москва с большой буквы"), QString::fromUtf8("в Москва "));
+        QCOMPARE(apply("Hi Katie, ", "Spell Katie as K A T Y."), QStringLiteral("Hi Katy, "));
+        QCOMPARE(apply("Привет, мир ", "Замени мир на всех"), QString::fromUtf8("Привет, всех "));
+        QCOMPARE(apply("one  two three ", "change one two to four"), QStringLiteral("four three "));
+    }
+
     void shortEmojiNamesMeanTheUsualEmoji()
     {
         QCOMPARE(spokenEmojiAlias(QStringLiteral("Heart")), QString::fromUtf8("\u2764\uFE0F"));

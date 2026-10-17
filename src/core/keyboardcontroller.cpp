@@ -48,6 +48,7 @@ void KeyboardController::moveEnd()
 
 void KeyboardController::moveUp() { m_backend.moveUp(); }
 void KeyboardController::moveDown() { m_backend.moveDown(); }
+void KeyboardController::tab() { m_backend.tab(); }
 
 void KeyboardController::enter()
 {

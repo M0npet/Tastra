@@ -86,8 +86,10 @@ public:
     {
         ++enterCount;
     }
+    void tab() override { ++tabCount; }
 
     QStringList commits;
+    int tabCount = 0;
     int backspaceCount = 0;
     int deleteForwardCount = 0;
     int moveLeftCount = 0;
@@ -407,6 +409,21 @@ private Q_SLOTS:
         backend.commits.clear();
         bridge.handleRecognizedSpeech(QStringLiteral("Qwzx emoji."));               // no such emoji: typed
         QVERIFY(backend.commits.join(QString()).contains(QStringLiteral("Qwzx emoji.")));
+
+        // Gboard's detailed edits: on the words before the cursor; words that
+        // are not there make it dictation.
+        backend.commits.clear();
+        bridge.handleRecognizedSpeech(QStringLiteral("see you tomorrow"));
+        QCOMPARE(backend.commits.join(QString()), QStringLiteral("See you tomorrow "));
+        const int backspaces = backend.backspaceCount;
+        bridge.handleRecognizedSpeech(QStringLiteral("Change tomorrow to today."));
+        // Only what differs is retyped: "morrow " -> "day " (no surrounding text here: Backspace).
+        QCOMPARE(backend.backspaceCount, backspaces + 7);
+        QCOMPARE(backend.commits.last(), QStringLiteral("day "));
+        bridge.handleRecognizedSpeech(QStringLiteral("Change Monday to Friday."));
+        QCOMPARE(backend.commits.last(), QStringLiteral("Change Monday to Friday. "));   // typed
+        bridge.handleRecognizedSpeech(QStringLiteral("Next."));
+        QCOMPARE(backend.tabCount, 1);
 
         // Never in a password field: there it is all dictation, no commands.
         bridge.setContentType(0, 8);

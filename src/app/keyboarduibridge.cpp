@@ -1130,6 +1130,26 @@ void KeyboardUiBridge::handleRecognizedSpeech(const QString &text)
         }
         break;
     }
+    case VoiceCommand::NextField:
+        m_typingEngine.commitComposition();
+        m_controller.tab();
+        break;
+    case VoiceCommand::InsertAtEnd:
+        // The cursor is where dictation goes; "at the end" of the text before it.
+        m_typingEngine.insertDictation(command.argument);
+        break;
+    case VoiceCommand::ReplaceText:
+    case VoiceCommand::DeleteText:
+    case VoiceCommand::InsertBefore:
+    case VoiceCommand::InsertAfter:
+    case VoiceCommand::Capitalize:
+    case VoiceCommand::Spell: {
+        const std::optional<QString> edited = applyVoiceEdit(m_typingEngine.knownTextBeforeCursor(), command);
+        qCDebug(lcBridge) << "voice edit" << int(command.kind) << (edited ? "applied" : "not found: dictation");
+        if (edited) m_typingEngine.replaceKnownText(*edited);
+        else m_typingEngine.insertDictation(applySpokenPunctuation(text));     // the words are not there
+        break;
+    }
     case VoiceCommand::None:
         m_typingEngine.insertDictation(applySpokenPunctuation(text));
         break;
